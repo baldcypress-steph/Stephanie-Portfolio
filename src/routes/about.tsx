@@ -71,7 +71,7 @@ function About() {
             <img
               src={landscape1}
               alt="Landscape photography 1"
-              className="h-full w-full object-cover aspect-[4/3] sm:aspect-square transition-transform duration-[var(--duration-slow)] [transition-timing-function:var(--ease-out-soft)] hover:scale-105"
+              className="h-full w-full object-cover aspect-[4/3] sm:aspect-square transition-transform duration-[var(--duration-slow)] [transition-timing-function:var(--ease-out-soft)]"
             />
           </figure>
 
@@ -84,7 +84,7 @@ function About() {
             <img
               src={landscape2}
               alt="Landscape photography 2"
-              className="h-full w-full object-cover aspect-[4/3] sm:aspect-square transition-transform duration-[var(--duration-slow)] [transition-timing-function:var(--ease-out-soft)] hover:scale-105"
+              className="h-full w-full object-cover aspect-[4/3] sm:aspect-square transition-transform duration-[var(--duration-slow)] [transition-timing-function:var(--ease-out-soft)]"
             />
           </figure>
 
@@ -97,7 +97,7 @@ function About() {
             <img
               src={landscape3}
               alt="Landscape photography 3"
-              className="h-full w-full object-cover aspect-[4/3] sm:aspect-square transition-transform duration-[var(--duration-slow)] [transition-timing-function:var(--ease-out-soft)] hover:scale-105"
+              className="h-full w-full object-cover aspect-[4/3] sm:aspect-square transition-transform duration-[var(--duration-slow)] [transition-timing-function:var(--ease-out-soft)]"
             />
           </figure>
 
@@ -110,7 +110,7 @@ function About() {
             <img
               src={landscape4}
               alt="Landscape photography 4"
-              className="h-full w-full object-cover aspect-[4/3] sm:aspect-square transition-transform duration-[var(--duration-slow)] [transition-timing-function:var(--ease-out-soft)] hover:scale-105"
+              className="h-full w-full object-cover aspect-[4/3] sm:aspect-square transition-transform duration-[var(--duration-slow)] [transition-timing-function:var(--ease-out-soft)]"
             />
           </figure>
         </div>

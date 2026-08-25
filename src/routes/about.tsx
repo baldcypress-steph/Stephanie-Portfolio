@@ -38,7 +38,7 @@ function About() {
         <div className="pointer-events-none absolute left-[-10%] top-[-5%] -z-10 h-[35%] w-[35%] rounded-full bg-purple-50/50 blur-[140px]" />
         <div className="pointer-events-none absolute bottom-[10%] right-[-5%] -z-10 h-[30%] w-[30%] rounded-full bg-blue-50/50 blur-[140px]" />
 
-        <div className="max-w-[70ch]">
+        <div className="w-full">
           <h1 className="font-display text-4xl font-bold leading-[0.95] tracking-tight text-foreground sm:text-5xl">
             About me
           </h1>

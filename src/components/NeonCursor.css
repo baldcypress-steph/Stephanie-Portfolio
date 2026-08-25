@@ -1,0 +1,48 @@
+.neon-cursor-container {
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+}
+
+.cursor-main,
+.cursor-trail,
+.cursor-glow {
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.cursor-main {
+  width: 10px;
+  height: 10px;
+  margin-top: -5px;
+  margin-left: -5px;
+  background-color: #fff;
+  z-index: 100;
+  box-shadow: 0 0 10px #fff;
+}
+
+.cursor-trail {
+  width: 20px;
+  height: 20px;
+  margin-top: -10px;
+  margin-left: -10px;
+  background-color: rgba(255, 255, 255, 0.5);
+  z-index: 99;
+  filter: blur(2px);
+}
+
+.cursor-glow {
+  width: 40px;
+  height: 40px;
+  margin-top: -20px;
+  margin-left: -20px;
+  background-color: rgba(66, 27, 207, 0.4); /* #421bcf with 40% opacity */
+  z-index: 98;
+  filter: blur(8px);
+  mix-blend-mode: screen;
+}

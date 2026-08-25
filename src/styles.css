@@ -1,0 +1,227 @@
+@import "tailwindcss";
+@source "../src";
+@import "tw-animate-css";
+
+
+/* --- 1. Theme Tokens --- */
+@theme inline {
+  --font-display: "Syne", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+}
+
+/* --- 2. Root Variables (Light Mode) --- */
+:root {
+  --radius: 0.75rem;
+
+  --background: #fafafa;
+  --foreground: #333333;
+  --card: #ffffff;
+  --card-foreground: #333333;
+  --popover: #ffffff;
+  --popover-foreground: #333333;
+  --primary: #333333;
+  --primary-foreground: #fafafa;
+  --secondary: #f4f4f6;
+  --secondary-foreground: #333333;
+  --muted: #f1f1f4;
+  --muted-foreground: #838896;
+  --accent: #421bcf;
+  --accent-foreground: #ffffff;
+  --destructive: #d32f2f;
+  --destructive-foreground: #fafafa;
+  --border: #e2e4e9;
+  --input: #e2e4e9;
+  --ring: #421bcf;
+
+  /* Glass & Gradient Assets */
+  --glass-card: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(250, 250, 252, 0.5));
+  --shadow-card: 0 30px 60px rgba(0, 0, 0, 0.04);
+  --shadow-card-hover: 0 80px 120px rgba(0, 0, 0, 0.1);
+
+  /* Motion */
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  --duration-fast: 150ms;
+  --duration-base: 200ms;
+  --duration-slow: 300ms;
+}
+
+
+/* --- 3. Base Styles --- */
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .font-display {
+    font-family: var(--font-display);
+    font-optical-sizing: auto;
+  }
+
+  ::selection {
+    background-color: var(--color-accent);
+    color: var(--color-accent-foreground);
+  }
+}
+
+/* --- 4. Custom Utilities --- */
+@utility glass-card {
+  background: var(--glass-card);
+  backdrop-filter: blur(24px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: var(--shadow-card);
+}
+
+@utility glass-card-hover {
+  box-shadow: var(--shadow-card-hover);
+}
+
+@utility interactive {
+  transition-property: color, background-color, border-color, box-shadow, transform, opacity;
+  transition-duration: var(--duration-base);
+  transition-timing-function: var(--ease-out-soft);
+}
+
+@utility hover-lift {
+  &:hover {
+    transform: translateY(-0.125rem);
+    box-shadow: var(--shadow-card-hover);
+  }
+}
+
+@utility hover-card {
+  transition-property: color, background-color, border-color, box-shadow, transform, opacity;
+  transition-duration: var(--duration-slow);
+  transition-timing-function: var(--ease-out-soft);
+
+  &:hover {
+    transform: translateY(-0.25rem);
+    box-shadow: var(--shadow-card-hover);
+    border-color: var(--color-border);
+  }
+}
+
+@utility link-hover {
+  transition-property: color, background-color, border-color, box-shadow, transform, opacity;
+  transition-duration: var(--duration-base);
+  transition-timing-function: var(--ease-out-soft);
+
+  &:hover {
+    color: var(--accent);
+  }
+}
+
+@utility pastel-glow-blue {
+  background-color: #edf2ff;
+  filter: blur(140px);
+}
+
+@utility pastel-glow-slate {
+  background-color: rgba(226, 232, 240, 0.5);
+  filter: blur(120px);
+}
+
+@utility pastel-glow-purple {
+  background-color: rgba(243, 232, 255, 0.6);
+  filter: blur(100px);
+}
+
+@utility text-balance {
+  text-wrap: balance;
+}
+
+@utility btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: var(--radius);
+  background-color: var(--color-foreground);
+  color: var(--color-background);
+  padding: 0.625rem 1.25rem;
+  font-weight: 500;
+  transition-property: color, background-color, border-color, box-shadow, transform, opacity;
+  transition-duration: var(--duration-fast);
+  transition-timing-function: var(--ease-out-soft);
+
+  &:hover {
+    opacity: 0.92;
+    transform: translateY(-1px) scale(1.01);
+  }
+
+  &:active {
+    transform: translateY(0) scale(0.98);
+  }
+}
+
+@utility btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--color-border);
+  background-color: var(--color-card);
+  color: var(--color-foreground);
+  padding: 0.625rem 1.25rem;
+  font-weight: 500;
+  backdrop-filter: blur(8px);
+  transition-property: color, background-color, border-color, box-shadow, transform, opacity;
+  transition-duration: var(--duration-fast);
+  transition-timing-function: var(--ease-out-soft);
+
+  &:hover {
+    background-color: var(--color-muted);
+    border-color: color-mix(in srgb, var(--accent) 30%, transparent);
+    transform: translateY(-1px) scale(1.01);
+  }
+
+  &:active {
+    transform: translateY(0) scale(0.98);
+  }
+}
+
+/* --- 5. Reduced Motion --- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

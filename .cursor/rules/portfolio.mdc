@@ -1,0 +1,38 @@
+---
+description: Project conventions for the portfolio site
+alwaysApply: true
+---
+
+# Portfolio project rules
+
+## Stack
+React 19 + TypeScript, TanStack Router (file-based routes in `src/routes/`),
+Tailwind v4 (tokens in `src/styles.css`), Vite. No other router, no CSS-in-JS.
+
+## Read first
+- `docs/PRD.md` — what we're building and why
+- `docs/content-model.md` — JSON shapes, the source of truth for content
+- `docs/design-system.md` — tokens, type scale, layout rhythm
+
+## Hard rules
+1. **No hardcoded colors.** Use semantic tokens (`bg-background`, `text-accent`).
+   Never `text-white`, `bg-black`, `bg-[#...]`.
+2. **Content lives in JSON.** Never hardcode copy, links, or case study text in a
+   component. Add it to `src/content/*.json` and read it through `src/lib/content.ts`.
+3. **Routes:** one file per page under `src/routes/`. The string in
+   `createFileRoute("/path")` must match the filename (dots = slashes).
+   Never edit `src/routeTree.gen.ts`.
+4. **Every page defines `head()`** with a unique title, description, `og:title`,
+   and `og:description`.
+5. **Mobile-first.** Every new section must work at 360px wide.
+6. **Links:** use `<Link to="/work/$slug" params={{ slug }}>`, never
+   `<a href={\`/work/${slug}\`}>`.
+7. Components stay small and presentational; put shared bits in `src/components/`.
+
+## When adding a case study
+Add one object to `src/content/case-studies.json` following the schema in
+`docs/content-model.md`. Do not create a new route file — `/work/$slug` handles it.
+
+## Definition of done
+Typechecks, renders at 360/768/1280, no console errors, unique metadata,
+no hardcoded color or copy.

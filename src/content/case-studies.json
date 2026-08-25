@@ -1,0 +1,434 @@
+[
+  {
+    "slug": "InterSlice Agency",
+    "title": "Kwavoo: Crafting a better bartending experience",
+    "subtitle": "Developing the creative strategy, design system, and mobile app",
+    "year": "2026",
+    "role": "UI / UX Designer",
+    "timeline": "4 months",
+    "team": "1 Designer, 1 Project Manager",
+    "tools": ["Figma", "Cursor"],
+    "featured": true,
+    "comingSoon": true,
+    "cover": "case-1",
+    "overview": "Northwind's reporting tool was powerful and unloved. We rebuilt it around the three questions users actually asked, and cut time-to-first-insight from minutes to seconds.",
+    "context": "Northwind sells an operations platform to mid-market logistics companies. Reporting is the surface executives see, so it sells the product — but it was built as an internal query tool and never revisited. When I joined, reporting had the lowest satisfaction score of any surface and the highest support volume.",
+    "problem": "Users could build any report they wanted — which meant most built none. Support tickets were dominated by \"how do I see X?\", and 70% of sessions ended on the empty builder screen.",
+    "problemPoints": [
+      "70% of reporting sessions ended without a report being created",
+      "Median time to first insight was 4 minutes 20 seconds",
+      "Reporting generated 31% of all support tickets while being 9% of usage",
+      "Three separate export paths produced three differently formatted CSVs"
+    ],
+    "goals": [
+      "Get a useful answer on screen within ten seconds of opening reporting",
+      "Cut reporting support volume without removing power-user capability",
+      "Ship incrementally, with no migration cliff for existing saved reports"
+    ],
+    "research": {
+      "summary": "Twelve moderated sessions with existing customers, a 400-response in-product survey, and three weeks of session-replay review. We coded everything in Dovetail and shared a two-page findings memo — not a fifty-slide deck.",
+      "findings": [
+        {
+          "title": "Nobody wants a blank canvas",
+          "body": "Every participant hesitated at the empty builder. Nine of twelve asked some version of \"can you just show me the normal one?\" — they wanted a starting answer they could adjust, not a construction kit."
+        },
+        {
+          "title": "Five questions cover most of the work",
+          "body": "Across 2,400 saved reports, 81% were minor variations on five queries: on-time rate, cost per lane, exception volume, carrier scorecard and weekly throughput."
+        },
+        {
+          "title": "Trust breaks at the edges",
+          "body": "When numbers disagreed with a user's own spreadsheet — usually a timezone or rounding difference — they abandoned the whole tool rather than investigate. Explaining the number mattered as much as showing it."
+        },
+        {
+          "title": "Reports leave the product",
+          "body": "Almost every report ended up pasted into a slide or an email. Export was treated as an afterthought in the old design and it was the actual final step of the job."
+        }
+      ]
+    },
+    "process": [
+      {
+        "heading": "Watching people fail",
+        "body": "We ran twelve sessions with existing customers and recorded every moment of hesitation. Rather than asking what they wanted, we asked them to answer a question they'd genuinely had that week using the current tool. The failure points were consistent enough that we stopped recruiting after session ten.",
+        "bullets": [
+          "Sessions were 45 minutes, task-based, with no prototype shown",
+          "Two engineers observed live from session four onwards",
+          "Every hesitation over three seconds was timestamped and tagged"
+        ],
+        "image": "process-research",
+        "imageAlt": "Research wall of interview notes and tagged findings"
+      },
+      {
+        "heading": "Mapping the question, not the feature",
+        "body": "We rewrote the information architecture around user questions instead of data objects. \"Shipments\" and \"Carriers\" became \"On-time performance\" and \"Carrier scorecard\". This reframing did more for findability than any visual change that followed.",
+        "bullets": [
+          "Card sort with 18 customers to name the five default reports",
+          "Old navigation had 4 levels; the new one has 2",
+          "Every report got a one-line plain-language definition"
+        ],
+        "image": "process-wireframes",
+        "imageAlt": "Low fidelity wireframe sketches of the reporting layout"
+      },
+      {
+        "heading": "Answers, not builders",
+        "body": "We inverted the model. The tool now opens with the five reports that cover 80% of asks, each fully editable in place. Building from scratch is still there — one click away, for the 6% who use it. Filters became visible chips above the chart instead of a hidden side panel, so the state of the report is always readable.",
+        "bullets": [
+          "Default report loads with the user's own data, not a sample",
+          "Every edit is non-destructive; the original is one undo away",
+          "Custom builder reachable from any report via \"Start from this\""
+        ],
+        "image": "process-explorations",
+        "imageAlt": "High fidelity interface explorations for the reporting screen"
+      },
+      {
+        "heading": "Designing for real data",
+        "body": "Every prototype was wired to a production data snapshot behind a feature flag. That killed a dozen layouts that only worked with tidy numbers, and surfaced the loading, empty and error states early enough to design them properly rather than bolt them on.",
+        "bullets": [
+          "Six-week accounts, million-row accounts and brand-new accounts all tested",
+          "Skeleton states designed per chart type, not one generic spinner",
+          "Every metric gained a tooltip explaining its exact definition and timezone"
+        ],
+        "image": "process-system",
+        "imageAlt": "Design token swatches and chart specimens for the reporting system"
+      },
+      {
+        "heading": "Testing under time pressure",
+        "body": "We ran unmoderated tests where participants had two minutes to answer a real question, mimicking the pre-meeting scramble the analytics is actually used for. Variants that tested well in relaxed sessions fell apart here — which is why the final design puts the export button in the header rather than the overflow menu.",
+        "bullets": [
+          "Five variants, 60 participants, two-minute time limit",
+          "Success measured as correct answer, not task completion",
+          "Export moved from a menu to a persistent header action"
+        ],
+        "image": "process-testing",
+        "imageAlt": "Participant using the reporting prototype during a usability test"
+      },
+      {
+        "heading": "Shipping in slices",
+        "body": "We released behind a flag to 5% of accounts, then 25%, then everyone, over eleven weeks. Saved reports from the old builder were migrated automatically and kept working; the old interface stayed reachable for two release cycles so nobody was forced across mid-quarter.",
+        "bullets": [
+          "Zero-downtime migration of 2,400 saved reports",
+          "Opt-back-out available for two cycles, used by 4% of accounts",
+          "Weekly metric review with support ticket tagging as a leading signal"
+        ],
+        "image": "process-final",
+        "imageAlt": "Final reporting screens presented as a layered composition"
+      }
+    ],
+    "decisions": [
+      {
+        "title": "Defaults over configuration",
+        "body": "We chose five opinionated defaults instead of a smarter builder. It meant saying no to per-team custom homepages, which was the loudest request — but the data said configuration was the thing people were failing at, not the thing they wanted."
+      },
+      {
+        "title": "Explain every number",
+        "body": "Each metric carries its definition, timezone and refresh time inline. It adds visual weight, and it is the single change most cited in post-launch interviews as the reason people trusted the new tool."
+      },
+      {
+        "title": "Keep the power user path",
+        "body": "The custom builder survived, deliberately unimproved. It serves 6% of usage and rebuilding it would have doubled the project. Naming that trade-off early kept scope honest."
+      }
+    ],
+    "results": [
+      { "metric": "-64%", "label": "Time to first insight" },
+      { "metric": "3.1x", "label": "Weekly report creation" },
+      { "metric": "-41%", "label": "Reporting support tickets" }
+    ],
+    "outcome": "Shipped in phases over six months with no drop in retention during migration. Reporting went from the most-complained-about surface to the second most-used, and it now appears in the sales demo — which it never did before.",
+    "testimonial": {
+      "quote": "The first version of this tool made me feel stupid. The new one just answers the question and lets me get on with my morning.",
+      "author": "Operations lead, logistics customer (450 seats)"
+    },
+    "learnings": [
+      "Bring engineers into research in week two, not month four.",
+      "Prototype against production data or you are designing a fantasy.",
+      "A two-page findings memo gets read; a fifty-slide deck gets skimmed."
+    ],
+    "reflection": "I'd bring engineering into the research sessions sooner. The two engineers who watched sessions in month four became the strongest advocates for the redesign — that should have happened in week two. I'd also have defined the trust metric up front; we measured speed carefully and trust anecdotally, and trust turned out to be the thing that moved."
+  },
+  {
+    "slug": "Art Gallery of Ontario",
+    "title": "Designing Beyond the Gallery Walls",
+    "subtitle": "Mixed methods research project investigating and ultimately redesigning the Art Gallery of Ontario’s (AGO) digital and physical environments",
+    "year": "2025",
+    "role": "UX Researcher",
+    "timeline": "4 months",
+    "team": "1 designer",
+    "tools": ["Figma", "Maze", "Mixpanel"],
+    "featured": true,
+    "cover": "case-2",
+    "overview": "Cadence asked new users for everything up front. We deferred, defaulted, and removed — and a third of the people who used to drop off stayed.",
+    "context": "Cadence is a self-serve scheduling product for small teams. Growth came almost entirely from word-of-mouth signups, so the first five minutes were the entire sales process. The onboarding flow had been extended field by field over two years, each addition individually reasonable.",
+    "problem": "Signup asked for eleven fields before showing any product value. Analytics showed a cliff at step three, and qualitative feedback was blunt: people didn't yet trust the product enough to answer.",
+    "problemPoints": [
+      "Eleven required fields before the first product screen",
+      "48% drop-off concentrated on step three (team size and use case)",
+      "Median time from signup to first scheduled event: 19 minutes",
+      "Support saw repeated \"can I change this later?\" questions about setup choices"
+    ],
+    "goals": [
+      "Show real product value inside sixty seconds of signup",
+      "Collect what the business genuinely needs, later and in context",
+      "Make every setup decision visibly reversible"
+    ],
+    "research": {
+      "summary": "A funnel teardown in Mixpanel, twenty exit-intent survey responses, and eight remote sessions with people signing up for the first time on their own hardware.",
+      "findings": [
+        {
+          "title": "Questions read as commitment",
+          "body": "Asking for team size before showing anything felt like being sold to. Participants described the flow as \"a form before a favour\"."
+        },
+        {
+          "title": "Reversibility was invisible",
+          "body": "People stalled on choices they assumed were permanent. Six of eight asked out loud whether a selection could be changed later — it always could."
+        },
+        {
+          "title": "Empty states teach nothing",
+          "body": "Landing in an empty workspace after setup left people with no next action. The flow ended precisely where the confusion began."
+        },
+        {
+          "title": "Fake data must look fake",
+          "body": "Realistic sample data made people think their calendar had already been imported, which caused a worse panic than an empty screen."
+        }
+      ]
+    },
+    "process": [
+      {
+        "heading": "Auditing every question",
+        "body": "We listed each field and asked two questions: who needs this, and when do they need it? Six could be inferred from the email domain or first use, three could be deferred to the moment they mattered, and two genuinely had to be asked up front.",
+        "bullets": [
+          "11 fields reduced to 2 at signup",
+          "Each deferred field mapped to the exact screen it would appear on",
+          "Sales and billing signed off on the deferral list before design started"
+        ],
+        "image": "process-research",
+        "imageAlt": "Audit of onboarding form fields laid out as notes"
+      },
+      {
+        "heading": "Sketching the first sixty seconds",
+        "body": "We storyboarded the first minute frame by frame, treating it like a film rather than a funnel. That framing made the dead moments obvious — three of the five original steps were the product asking rather than giving.",
+        "bullets": [
+          "Storyboards drawn at 10-second intervals",
+          "Every frame had to answer: what did the user just gain?",
+          "Two entire steps deleted rather than redesigned"
+        ],
+        "image": "process-wireframes",
+        "imageAlt": "Wireframe storyboard of the first minute of onboarding"
+      },
+      {
+        "heading": "Value before setup",
+        "body": "The new flow drops users into a pre-populated sample workspace immediately, clearly labelled as an example. Configuration happens contextually — the calendar connection prompt appears the first time someone schedules something real, when the value of connecting is self-evident.",
+        "bullets": [
+          "Sample workspace loads in under a second, marked with a persistent banner",
+          "\"Clear sample data\" is a single, always-visible action",
+          "Calendar connection deferred to first real scheduling attempt"
+        ],
+        "image": "process-explorations",
+        "imageAlt": "Interface explorations of the sample workspace onboarding"
+      },
+      {
+        "heading": "Testing the seams",
+        "body": "Unmoderated tests on five variants showed the sample workspace only worked when it was obviously fake. Realistic dummy data confused people into thinking their import had already run; hand-drawn-feeling placeholder names and a striped banner fixed it entirely.",
+        "bullets": [
+          "5 variants tested with 40 participants via Maze",
+          "Misinterpretation rate fell from 45% to 4% with explicit sample labelling",
+          "Banner copy rewritten three times before it stopped being ignored"
+        ],
+        "image": "process-testing",
+        "imageAlt": "Participant testing the onboarding prototype on a laptop"
+      },
+      {
+        "heading": "Writing the microcopy",
+        "body": "Almost every remaining friction point turned out to be a wording problem. We rewrote thirty-one strings, replacing product vocabulary with the words people used in sessions, and added a reversibility note to every setup choice.",
+        "bullets": [
+          "31 strings rewritten; \"workspace\" survived, \"cadence\" as a noun did not",
+          "Every irreversible-looking choice gained a \"you can change this later\" line",
+          "Error messages rewritten to say what to do, not what failed"
+        ],
+        "image": "process-system",
+        "imageAlt": "Copy and component specimens for the onboarding flow"
+      },
+      {
+        "heading": "Rolling out with a real A/B test",
+        "body": "We ran the new flow against the old one for four weeks at a 50/50 split, with activation as the primary metric and day-7 retention as a guardrail. Both moved in the right direction, so we shipped to 100% and archived the old flow.",
+        "bullets": [
+          "4-week test, 11,000 signups per arm",
+          "Guardrail metrics defined before launch, not after",
+          "Pattern later reused for the mobile app's first-run experience"
+        ],
+        "image": "process-final",
+        "imageAlt": "Final onboarding screens presented as a layered composition"
+      }
+    ],
+    "decisions": [
+      {
+        "title": "Defer, don't delete, the business questions",
+        "body": "Marketing still needed team size and use case. Instead of dropping them, we moved them to a contextual prompt after activation, where the response rate turned out to be higher than at signup."
+      },
+      {
+        "title": "Make the sample data obviously synthetic",
+        "body": "Counterintuitive but decisive: the less real the sample looked, the better the flow performed. Plausible data actively harmed comprehension."
+      }
+    ],
+    "results": [
+      { "metric": "+34%", "label": "Signup-to-activation" },
+      { "metric": "11 → 2", "label": "Fields before value" },
+      { "metric": "+18%", "label": "Day-7 retention" }
+    ],
+    "outcome": "Rolled out to 100% of new signups after a four-week A/B test. Median time from signup to first scheduled event dropped from 19 minutes to 3, and the pattern was later reused for the mobile app's first-run experience.",
+    "testimonial": {
+      "quote": "We stopped arguing about which fields to add and started arguing about which ones to remove. That shift outlived the project.",
+      "author": "Head of Growth, Cadence"
+    },
+    "learnings": [
+      "Define the downstream metric before the test starts, not after it wins.",
+      "Copy is design; most of our friction was vocabulary, not layout.",
+      "Deferring a question often gets you a better answer than removing it."
+    ],
+    "reflection": "We optimised activation hard and only later checked whether those activated users converted. They did — but that was luck, not rigour. Now I define the downstream metric before the test starts, and I treat any activation win as provisional until the revenue cohort matures."
+  },
+  {
+    "slug": "meridian-design-system",
+    "title": "A design system small enough to actually maintain",
+    "subtitle": "Tokens, components and docs for a 12-person product team",
+    "year": "2024",
+    "role": "Design Systems Lead",
+    "timeline": "5 months, ongoing",
+    "team": "2 designers, 3 engineers",
+    "tools": ["Figma", "TypeScript", "Storybook", "Style Dictionary"],
+    "featured": true,
+    "cover": "case-3",
+    "overview": "Three products, three button components, zero agreement. We built a deliberately small system — 24 components — and made adoption the easiest path rather than the mandated one.",
+    "context": "Meridian runs three products built by three squads over five years. A brand refresh was scheduled, and the estimate for applying it by hand was six engineer-weeks per product. The system existed to make that refresh cheap, and everything else was a bonus.",
+    "problem": "Every surface had drifted. Designers copied old files, engineers copied old components, and a brand refresh would have meant touching 400+ files by hand.",
+    "problemPoints": [
+      "3 button implementations, 7 shades of the same grey, 4 modal patterns",
+      "400+ files containing hardcoded color values",
+      "No shared vocabulary between the Figma libraries and the codebase",
+      "Two previous system attempts abandoned after the initial component push"
+    ],
+    "goals": [
+      "Make a brand change a one-file change",
+      "Keep the library small enough that two people can maintain it part-time",
+      "Make the systemised path faster than the copy-paste path"
+    ],
+    "research": {
+      "summary": "A component inventory across all three codebases, interviews with every engineer and designer on the team, and a post-mortem on the two previous failed system attempts.",
+      "findings": [
+        {
+          "title": "Previous attempts died of scope",
+          "body": "Both earlier systems started with a component library aiming for completeness. Both stalled around 60 components with none of them adopted everywhere."
+        },
+        {
+          "title": "Adoption follows convenience",
+          "body": "Engineers used whatever was fastest to import. When the system component required more setup than copying a local one, it lost — every time."
+        },
+        {
+          "title": "Naming is the real interface",
+          "body": "Designers and engineers used different words for the same thing in every interview. Disagreements framed as component debates were nearly always vocabulary debates."
+        },
+        {
+          "title": "Docs must be where the work is",
+          "body": "Nobody visited the previous documentation site more than once. Guidance had to live in Storybook and in the Figma description field or it would not be read."
+        }
+      ]
+    },
+    "process": [
+      {
+        "heading": "Inventory before invention",
+        "body": "We catalogued every component, color and spacing value across the three products. Seeing 7 greys and 23 spacing values in one spreadsheet ended the debate about whether a system was needed faster than any presentation could have.",
+        "bullets": [
+          "312 components catalogued, deduplicated to 41 real patterns",
+          "23 spacing values reduced to an 8-step scale",
+          "Inventory shared as a live document, not a slide"
+        ],
+        "image": "process-research",
+        "imageAlt": "Component inventory notes and audit findings"
+      },
+      {
+        "heading": "Token layer first",
+        "body": "Before any component, we defined semantic tokens for color, type, spacing and radius, generated from a single source through Style Dictionary into CSS variables and Figma variables. Raw values were banned in code review from day one. That alone made the later refresh a one-file change.",
+        "bullets": [
+          "One token source, two outputs: CSS variables and Figma variables",
+          "Semantic naming only — surface, accent, muted; never blue-500",
+          "Lint rule blocking hardcoded hex values in the app codebases"
+        ],
+        "image": "process-system",
+        "imageAlt": "Design token swatches for the Meridian system"
+      },
+      {
+        "heading": "Only what's used twice",
+        "body": "A component entered the system when it appeared in two products. Everything else stayed local, with an explicit blessing to keep it there. The library stayed at 24 components instead of ballooning to 90, and the two of us could actually keep it healthy.",
+        "bullets": [
+          "24 components shipped; 17 proposals declined as single-product",
+          "Local components explicitly allowed, not treated as failures",
+          "Promotion path documented so anyone could nominate a pattern"
+        ],
+        "image": "process-wireframes",
+        "imageAlt": "Component structure sketches for the system"
+      },
+      {
+        "heading": "Building for the adopting engineer",
+        "body": "Every component shipped with types, a Storybook story, and a codemod where the API differed from what teams already used. We measured adoption weekly and treated a low-adoption component as our bug, not the team's.",
+        "bullets": [
+          "Codemods provided for the three highest-traffic replacements",
+          "Adoption tracked per component, reviewed every Friday",
+          "Two components redesigned after adoption stalled below 30%"
+        ],
+        "image": "process-explorations",
+        "imageAlt": "Component variants and states explored side by side"
+      },
+      {
+        "heading": "Docs where the work happens",
+        "body": "Usage guidance lives in Storybook next to the code and in the Figma description field next to the component. There is no separate documentation site, deliberately — the previous one had been visited 40 times in a year.",
+        "bullets": [
+          "Every component: when to use, when not to, and the nearest alternative",
+          "Accessibility notes and keyboard behaviour documented per component",
+          "Figma descriptions link directly to the matching Storybook story"
+        ],
+        "image": "process-testing",
+        "imageAlt": "Reviewing system documentation and components on a device"
+      },
+      {
+        "heading": "Proving it with the refresh",
+        "body": "The brand refresh that triggered the project shipped by changing token values and reviewing screenshots. What had been estimated at eighteen engineer-weeks took a single day, which retired the last of the internal scepticism.",
+        "bullets": [
+          "Full visual refresh applied by editing one token file",
+          "Visual regression suite caught four token misuses before release",
+          "All three products migrated within two quarters"
+        ],
+        "image": "process-final",
+        "imageAlt": "Refreshed product screens shown as a layered composition"
+      }
+    ],
+    "decisions": [
+      {
+        "title": "Small on purpose",
+        "body": "Capping the library at what two part-time maintainers could support meant declining useful components. It is the reason this system is still alive while the previous two are not."
+      },
+      {
+        "title": "Adoption over mandate",
+        "body": "No policy required using the system. We competed on convenience — better types, codemods, fewer props — and won the migrations we cared about."
+      },
+      {
+        "title": "Tokens before components",
+        "body": "Spending the first month on vocabulary felt slow to stakeholders. It is what turned an eighteen-week refresh into a one-day one."
+      }
+    ],
+    "results": [
+      { "metric": "24", "label": "Components, deliberately" },
+      { "metric": "-58%", "label": "UI bugs per release" },
+      { "metric": "1 day", "label": "Full brand refresh rollout" }
+    ],
+    "outcome": "All three products migrated within two quarters. The brand refresh that started this project shipped in a single day by changing token values, and the system is now maintained by the team rather than by a dedicated squad.",
+    "testimonial": {
+      "quote": "It's the first system here that didn't feel like homework. Using it was just faster than not using it.",
+      "author": "Staff Engineer, Meridian"
+    },
+    "learnings": [
+      "Naming takes longer than building — budget for it explicitly.",
+      "A small maintained system beats a complete abandoned one.",
+      "Track adoption per component and treat low numbers as your problem."
+    ],
+    "reflection": "Naming took longer than building. If I did it again I'd spend the first week purely on the token vocabulary with both design and engineering in the room, and I'd set up adoption tracking before shipping the first component rather than two months in."
+  }
+]

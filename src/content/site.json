@@ -1,0 +1,59 @@
+{
+  "name": "Stephanie Clark",
+  "role": "UX Researcher & Designer",
+  "tagline": "Hi, I'm Stephanie - a thoughtful, curious problem solver focused on finding imaginative solutions.",
+  "availability": "Open to Fall 2026 Internships",
+  "email": "stephanie.design.research@gmail.com",
+  "location": "Toronto, Canada",
+  "socials": [
+    { "label": "LinkedIn", "href": "https://www.linkedin.com/in/stephanie-c-toronto-" },
+    { "label": "Email", "href": "stephanie.design.research@gmail.com" }
+  ],
+  "capabilities": [
+    {
+      "title": "Cross-Sector Perspective",
+      "body": "My work beyond UX has taken me through government, non-profit and community spaces, where I've worked at the intersection of people, policy and service delivery. These experiences have shaped my ability to navigate complexity, consider multiple viewpoints and understand the systems that influence human experiene."
+    },
+    {
+      "title": "Intellectual Curiosity and Range",
+      "body": "My perspective is shaped as much by what I pursue outside of design as within it. Through literature, the natural world, and a lifelong commitment to learning, I’ve developed a broad frame of reference that helps me question assumptions, refame problems, and approach challenges with curiosity and depth."
+    }
+  ],
+  "about": {
+    "portraitAlt": "Portrait of Your Name at a desk in warm natural light",
+    "paragraphs": [
+      "As a third year Bachelor of Design (User Experience) student at Humber Polytechnic, I'm driven by my lifelong fascination with solving complex problems, which even led me to start a Fermi club in High School. My design approach involves rigorous research and creative, imaginative exploration - the ideation phase is where I thrive!",
+      "Beyond UX, I am a voracious reader, perpetually trying to cultivate the perfect balance between nonfiction, classic literature, and literary fiction (both English & translated), volunteering at the Humber Arboretum (I am an outdoor education, arboriculture and ornithology enthusiast), volunteering with FLAP, going to the gym, and working as a student assistant in the Humber Library (the intersection of library science and UX is so exciting to me!)."
+    ],
+    "experience": [
+      {
+        "role": "UI / UX Designer",
+        "company": "InterSlice Agency", "url": "https://interslice.agency",
+        "period": "2023 — Present",
+        "summary": "Lead designer for the analytics platform. Rebuilt the reporting experience and shipped the design system."
+      },
+      {
+        "role": "Product Designer",
+        "company": "Cadence Labs",
+        "period": "2020 — 2023",
+        "summary": "Owned onboarding and billing. Cut activation drop-off by a third across two redesigns."
+      },
+      {
+        "role": "Front-End Developer",
+        "company": "Studio Meridian",
+        "period": "2018 — 2020",
+        "summary": "Built marketing sites and product prototypes for early-stage clients."
+      }
+    ],
+    "skills": [
+      { "group": "Design", "items": ["Figma", "Prototyping", "User research", "Design systems", "Accessibility"] },
+      { "group": "Code", "items": ["TypeScript", "React", "Tailwind CSS", "Motion", "Vite"] },
+      { "group": "Ways of working", "items": ["Workshops", "Design critique", "Writing", "Pairing with engineers"] }
+    ],
+    "currently": [
+      "Learning: IBM SkillsBuild Certification",
+      "Reading: The Attention Merchants by Tim Wu, The Genius of Birds by Jennifer Ackerman, Days at the Morisaki Bookshop by Satoshi Yagisawa, Blob by Maggie Su",
+      "Building: a small tool for tracking reading notes"
+    ]
+  }
+}

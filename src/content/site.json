@@ -31,24 +31,11 @@
         "company": "InterSlice Agency", "url": "https://interslice.agency",
         "period": "May 2026 - Present",
         "summary": "Created a brand identity and creative strategy which I used to develop a scalable design system and component library for Kwavoo, a forthcoming bartending app"
-      },
-      {
-        "role": "Product Designer",
-        "company": "Cadence Labs",
-        "period": "2020 — 2023",
-        "summary": "Owned onboarding and billing. Cut activation drop-off by a third across two redesigns."
-      },
-      {
-        "role": "Front-End Developer",
-        "company": "Studio Meridian",
-        "period": "2018 — 2020",
-        "summary": "Built marketing sites and product prototypes for early-stage clients."
       }
     ],
     "skills": [
-      { "group": "Design", "items": ["Figma", "Prototyping", "User research", "Design systems", "Accessibility"] },
-      { "group": "Code", "items": ["TypeScript", "React", "Tailwind CSS", "Motion", "Vite"] },
-      { "group": "Ways of working", "items": ["Workshops", "Design critique", "Writing", "Pairing with engineers"] }
+      { "group": "Skills", "items": ["Qualitative & Quantitative Research Methods", "Usability Testing", "Accessibility Auditing (WCAG Compliance)", "Responsive Web & Mobile Design", "Interactive Prototyping", "Wireframing", "Design Systems", "Technical & Government Report Writing"] },
+      { "group": "Tools", "items": ["Adobe Creative Suite", "Alma", "Canva", "Claude Code", "Codex", "Cursor", "Figma", "Framer", "Tableau", "VS Code", "WordPress"] }
     ],
     "currently": [
       "Learning: IBM SkillsBuild Certification",

@@ -144,7 +144,7 @@ function About() {
           <h2 className="font-display text-2xl font-semibold tracking-tight text-foreground">
             Skills & tools
           </h2>
-          <div className="mt-8 grid gap-8 sm:grid-cols-3">
+          <div className="mt-8 grid gap-8 sm:grid-cols-2">
             {about.skills.map((group) => (
               <div key={group.group}>
                 <h3 className="text-xs uppercase tracking-[0.16em] text-muted-foreground">

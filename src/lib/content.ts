@@ -8,7 +8,7 @@ const DEFAULT_COVER =
 const covers: Record<string, string> = {
   "case-1": "/KwavooLogo.png",
   "case-2": "/AGO.png",
-  "case-3": "https://placehold.co/800x600/eeeeee/999999?text=Case+Study+3",
+  "case-3": "/diarystudy.png",
   "process-research": "https://placehold.co/800x600/eeeeee/999999?text=Process+Research",
   "process-wireframes": "https://placehold.co/800x600/eeeeee/999999?text=Process+Wireframes",
   "process-explorations": "https://placehold.co/800x600/eeeeee/999999?text=Process+Explorations",

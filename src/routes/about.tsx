@@ -58,7 +58,7 @@ function About() {
             <img
               src={portrait}
               alt={about.portraitAlt}
-              className="h-full w-full object-cover transition-transform duration-[var(--duration-slow)] [transition-timing-function:var(--ease-out-soft)] group-hover:scale-105"
+              className="h-full w-full object-cover transition-transform duration-[var(--duration-slow)] [transition-timing-function:var(--ease-out-soft)]"
             />
           </figure>
           

@@ -17,7 +17,7 @@ const covers: Record<string, string> = {
   "process-final": "https://placehold.co/800x600/eeeeee/999999?text=Process+Final",
 };
 
-export const portrait = "https://placehold.co/800x800/eeeeee/999999?text=Portrait";
+export const portrait = "/portrait.png";
 export const landscape1 = "/landscape1.JPG";
 export const landscape2 = "/landscape2.JPG";
 export const landscape3 = "/landscape3.JPG";

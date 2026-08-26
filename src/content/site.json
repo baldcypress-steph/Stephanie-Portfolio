@@ -20,7 +20,7 @@
     }
   ],
   "about": {
-    "portraitAlt": "Portrait of Your Name at a desk in warm natural light",
+    "portraitAlt": "Portrait of Stephanie Clark",
     "paragraphs": [
       "As a third year Bachelor of Design (User Experience) student at Humber Polytechnic, I'm driven by my lifelong fascination with solving complex problems, which even led me to start a Fermi club in High School. My design approach involves rigorous research and creative, imaginative exploration - the ideation phase is where I thrive!",
       "Beyond UX, I am a voracious reader, perpetually trying to cultivate the perfect balance between nonfiction, classic literature, and literary fiction (both English & translated), volunteering at the Humber Arboretum (I am an outdoor education, arboriculture and ornithology enthusiast), volunteering with FLAP, going to the gym, and working as a student assistant in the Humber Library (the intersection of library science and UX is so exciting to me!)."
@@ -29,8 +29,8 @@
       {
         "role": "UI / UX Designer",
         "company": "InterSlice Agency", "url": "https://interslice.agency",
-        "period": "2023 — Present",
-        "summary": "Lead designer for the analytics platform. Rebuilt the reporting experience and shipped the design system."
+        "period": "May 2026 - Present",
+        "summary": "Created a brand identity and creative strategy which I used to develop a scalable design system and component library for Kwavoo, a forthcoming bartending app"
       },
       {
         "role": "Product Designer",

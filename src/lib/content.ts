@@ -1,7 +1,8 @@
 import siteJson from "@/content/site.json";
 import caseStudiesJson from "@/content/case-studies.json";
+import agoCaseStudyJson from "@/content/ago-case-study.json";
 
-/** Cover key -> bundled image. Add new entries when you add new artwork. */
+/** Cover key -> image path. AGO image paths can also be supplied directly. */
 const DEFAULT_COVER =
   "https://placehold.co/800x600/eeeeee/999999?text=Case+Study+1";
 
@@ -52,6 +53,7 @@ export type ProcessBlock = {
   bullets?: string[];
   image: string | null;
   imageAlt?: string;
+  images?: { key: string; alt?: string }[];
 };
 
 export type Result = { metric: string; label: string };
@@ -86,7 +88,10 @@ export type CaseStudy = {
 };
 
 export const site = siteJson as Site;
-export const caseStudies = caseStudiesJson as CaseStudy[];
+export const caseStudies = [
+  ...caseStudiesJson.filter((study) => study.slug !== "Art Gallery of Ontario"),
+  agoCaseStudyJson,
+] as CaseStudy[];
 
 export const featuredCaseStudies = caseStudies.filter((c) => c.featured);
 
@@ -95,6 +100,7 @@ export function getCaseStudy(slug: string): CaseStudy | undefined {
 }
 
 export function getCoverImage(key: string): string {
+  if (key.startsWith("ago/")) return `/${key}`;
   return covers[key] ?? DEFAULT_COVER;
 }
 

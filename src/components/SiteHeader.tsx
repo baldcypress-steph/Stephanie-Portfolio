@@ -41,6 +41,7 @@ export function SiteHeader() {
           <SiteNavLink to="/about" className="whitespace-nowrap px-2 py-3 sm:px-3 sm:py-2">About</SiteNavLink>
           <a
   href={`mailto:${site.email}`}
+  aria-label="Start a conversation"
   className="btn-primary group ml-1 flex items-center justify-center whitespace-nowrap rounded-full p-2.5 text-[13px] min-[450px]:px-4 min-[450px]:py-2 sm:ml-0 sm:text-sm"
 >
   <span className="hidden min-[450px]:inline min-[450px]:mr-1">Start a conversation</span>

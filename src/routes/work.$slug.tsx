@@ -2,6 +2,9 @@ import { createFileRoute, notFound } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { TextLink } from "@/components/TextLink";
+import { marked } from "marked";
+import agoMarkdown from "@/content/ago-case-study.md?raw";
+import recalculatingDiaryStudyMarkdown from "@/content/recalculating-diary-study.md?raw";
 import {
   getCaseStudy,
   getCoverImage,
@@ -39,7 +42,7 @@ export const Route = createFileRoute("/work/$slug")({
 
 function CaseStudyNotFound() {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen overflow-x-clip bg-background">
       <SiteHeader />
       <main className="mx-auto w-full max-w-6xl px-5 py-24 sm:px-8">
         <h1 className="font-display text-3xl font-semibold tracking-tight text-foreground">Case study not found</h1>
@@ -65,8 +68,15 @@ function CaseStudyPage() {
   const { study } = Route.useLoaderData() as { study: CaseStudy };
   const next = getNextCaseStudy(study.slug);
 
+  if (study.slug === "ago") {
+    return <AgoCaseStudyPage study={study} />;
+  }
+  if (study.slug === "recalculating-diary-study") {
+    return <RecalculatingDiaryStudyPage study={study} />;
+  }
+
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen overflow-x-clip bg-background">
       <SiteHeader />
 
       <main>
@@ -187,7 +197,27 @@ function CaseStudyPage() {
                       ))}
                     </ul>
                   ) : null}
-                  {block.image ? (
+                  {block.images?.length ? (
+                    <div className="case-study-image-grid mt-6">
+                      {block.images.map((image) => (
+                        <figure key={image.key}>
+                          <img
+                            src={getCoverImage(image.key)}
+                            alt={image.alt ?? `${block.heading} — ${study.title}`}
+                            loading="lazy"
+                            width={1400}
+                            height={900}
+                            className="w-full rounded-xl border border-white/60 bg-muted object-cover shadow-card"
+                          />
+                          {image.alt ? (
+                            <figcaption className="mt-2 text-xs text-muted-foreground">
+                              {image.alt}
+                            </figcaption>
+                          ) : null}
+                        </figure>
+                      ))}
+                    </div>
+                  ) : block.image ? (
                     <figure className="mt-6">
                       <img
                         src={getCoverImage(block.image)}
@@ -293,5 +323,252 @@ function CaseStudyPage() {
 
       <SiteFooter />
     </div>
+  );
+}
+
+function AgoCaseStudyPage({ study }: { study: CaseStudy }) {
+  const markdownHtml = renderAgoMarkdown();
+
+  return (
+    <div className="min-h-screen bg-background">
+      <SiteHeader />
+      <main>
+        <header className="case-study-hero relative overflow-hidden border-b border-border/60">
+          <div className="pointer-events-none absolute left-[-8%] top-[-20%] h-[80%] w-[48%] rounded-full bg-blue-50/70 blur-[140px]" />
+          <div className="pointer-events-none absolute bottom-[-30%] right-[-5%] h-[80%] w-[42%] rounded-full bg-purple-50/70 blur-[130px]" />
+          <div className="relative mx-auto w-full max-w-6xl px-5 pb-14 pt-16 sm:px-8 sm:pb-20 sm:pt-24">
+            <TextLink to="/" muted className="text-sm">
+              ← All work
+            </TextLink>
+            <div className="mt-12 grid gap-10 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-end">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">
+                  Case study · {study.year}
+                </p>
+                <h1 className="mt-5 max-w-4xl font-display text-5xl font-semibold leading-[0.92] tracking-[-0.04em] text-foreground sm:text-7xl">
+                  {study.title}
+                </h1>
+                <p className="mt-7 max-w-[58ch] text-lg leading-relaxed text-muted-foreground sm:text-xl">
+                  {study.subtitle}
+                </p>
+              </div>
+              <dl className="grid grid-cols-2 gap-x-6 gap-y-5 border-t border-border/70 pt-5 text-sm lg:grid-cols-1 lg:border-l lg:border-t-0 lg:pl-6 lg:pt-0">
+                <Meta label="Role" value={study.role} />
+                <Meta label="Timeline" value={study.timeline} />
+                <Meta label="Methods" value="Competitive analysis, interviews, contextual inquiry, netnography" />
+              </dl>
+            </div>
+          </div>
+        </header>
+
+        <div className="mx-auto mt-10 w-full max-w-6xl px-5 sm:mt-14 sm:px-8">
+          <img
+            src={getCoverImage(study.cover)}
+            alt={`Placeholder cover artwork for ${study.title}`}
+            width={1200}
+            height={900}
+            className="case-study-cover aspect-[16/9] w-full rounded-[1.5rem] border border-white/70 object-cover shadow-card"
+          />
+        </div>
+
+        <article
+          className="case-study-markdown mx-auto w-full max-w-4xl px-5 py-16 sm:px-8 sm:py-24"
+          dangerouslySetInnerHTML={{ __html: markdownHtml }}
+        />
+      </main>
+      <SiteFooter />
+    </div>
+  );
+}
+
+function RecalculatingDiaryStudyPage({ study }: { study: CaseStudy }) {
+  const markdownHtml = renderRecalculatingDiaryStudyMarkdown();
+
+  return (
+    <div className="min-h-screen bg-background">
+      <SiteHeader />
+      <main>
+        <header className="case-study-hero relative overflow-hidden border-b border-border/60">
+          <div className="pointer-events-none absolute left-[-8%] top-[-20%] h-[80%] w-[48%] rounded-full bg-blue-50/70 blur-[140px]" />
+          <div className="pointer-events-none absolute bottom-[-30%] right-[-5%] h-[80%] w-[42%] rounded-full bg-purple-50/70 blur-[130px]" />
+          <div className="relative mx-auto w-full max-w-6xl px-5 pb-14 pt-16 sm:px-8 sm:pb-20 sm:pt-24">
+            <TextLink to="/" muted className="text-sm">
+              ← All work
+            </TextLink>
+            <div className="mt-12 grid gap-10 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-end">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">
+                  Case study · {study.year}
+                </p>
+                <h1 className="mt-5 max-w-4xl font-display text-5xl font-semibold leading-[0.92] tracking-[-0.04em] text-foreground sm:text-7xl">
+                  {study.title}
+                </h1>
+                <p className="mt-7 max-w-[58ch] text-lg leading-relaxed text-muted-foreground sm:text-xl">
+                  {study.subtitle}
+                </p>
+              </div>
+              <dl className="grid grid-cols-2 gap-x-6 gap-y-5 border-t border-border/70 pt-5 text-sm lg:grid-cols-1 lg:border-l lg:border-t-0 lg:pl-6 lg:pt-0">
+                <Meta label="Role" value={study.role} />
+                <Meta label="Timeline" value={study.timeline} />
+                <Meta label="Team" value={study.team} />
+              </dl>
+            </div>
+          </div>
+        </header>
+
+        <div className="mx-auto mt-10 w-full max-w-6xl px-5 sm:mt-14 sm:px-8">
+          <img
+            src={getCoverImage(study.cover)}
+            alt={`Cover artwork for ${study.title}`}
+            width={1200}
+            height={900}
+            className="case-study-cover aspect-[16/9] w-full rounded-[1.5rem] border border-white/70 object-cover shadow-card"
+          />
+        </div>
+
+        <article
+          className="case-study-markdown mx-auto w-full max-w-4xl px-5 py-16 sm:px-8 sm:py-24"
+          dangerouslySetInnerHTML={{ __html: markdownHtml }}
+        />
+      </main>
+      <SiteFooter />
+    </div>
+  );
+}
+
+function renderAgoMarkdown() {
+  const html = marked.parse(agoMarkdown) as string;
+  const withoutDuplicateIntro = html.replace(
+    /^<h[12]>[\s\S]*?<\/h[12]>\s*<p><em>[\s\S]*?<\/em><\/p>\s*<table>[\s\S]*?<\/table>\s*/,
+    "",
+  );
+
+  return withoutDuplicateIntro.replace(
+    /<p>(?:&#91;|\[)(.*?)(?:&#93;|\])<\/p>/g,
+    (_, note: string) => {
+      const imagePlaceholders: Record<
+        string,
+        Array<[filename: string, caption: string]>
+      > = {
+        "Image: affinity map or coding board.": [
+          ["interviews/I1_Coding.png", "Interview coding and affinity map"],
+        ],
+        "Image: observation notes or a photo of a ROM wayfinding touchpoint.": [
+          [
+            "contextualinquiry/CI1.png",
+            "Contextual inquiry observations across the AGO, ROM and Nielsen Park",
+          ],
+          [
+            "contextualinquiry/CI_Bertron.png",
+            "Museum information transfer and visitor cognition",
+          ],
+        ],
+        "Image: recommendation concepts.": [
+          [
+            "contextualinquiry/recommendations/CI_R1_mapping_Match_between_Mental_Conceptual_Model_Facilitates_Exhibit_Interpretation.png",
+            "Mapping and the match between mental and conceptual models",
+          ],
+          [
+            "contextualinquiry/recommendations/CI_R2_Redesign_Account.png",
+            "Account redesign recommendation informed by the inquiry",
+          ],
+        ],
+        "Image: interactive, reflective or surprising museum experience.": [
+          [
+            "contextualinquiry/4. Visitors want more information before and during their visit/display/ci4_1png.png",
+            "Reflect and Connect visitor prompt",
+          ],
+          [
+            "contextualinquiry/4. Visitors want more information before and during their visit/display/ci4_2.png",
+            "Reflective installation experience",
+          ],
+          [
+            "contextualinquiry/4. Visitors want more information before and during their visit/display/ci4_3.png",
+            "Interactive Decisions, Decisions exhibit",
+          ],
+          [
+            "contextualinquiry/4. Visitors want more information before and during their visit/display/ci4_4.png",
+            "Reflective visitor installation",
+          ],
+          [
+            "contextualinquiry/4. Visitors want more information before and during their visit/display/ci4_5.png",
+            "Participatory reflection prompt",
+          ],
+          [
+            "contextualinquiry/4. Visitors want more information before and during their visit/display/ci4_6.png",
+            "Interactive reflection station",
+          ],
+          [
+            "contextualinquiry/4. Visitors want more information before and during their visit/display/ci4_7.png",
+            "Visitor reflection materials",
+          ],
+          [
+            "contextualinquiry/4. Visitors want more information before and during their visit/display/ci4_8.png",
+            "Accessible digital interpretation",
+          ],
+        ],
+      };
+      const label = note.toLowerCase().includes("concept")
+        ? "Concept exploration"
+        : note.toLowerCase().includes("screenshot")
+          ? "Annotated comparison"
+          : "Research artifact";
+      if (label === "Annotated comparison") {
+        const competitiveAnalysisImages = [
+          ["CA1_Issues_W_Cart_Flow.png", "Issues in the AGO cart flow"],
+          ["CA2_Issue_W_Ticket_Types.png", "Issues with AGO ticket types"],
+          ["CA3_Issue_w_Form_Fields.png", "Issues with AGO form fields"],
+          ["CA3_b_FormField_Error.png", "Form field error feedback issue"],
+          ["CA4_Issues_W_Form_Fields_ErrorFeedback.png", "Missing form error feedback"],
+          ["CA5_Issue_w_Search.png", "Issues with AGO search"],
+          ["CA6_Issue_W_Account.png", "Issues with the AGO account experience"],
+        ];
+        return `<section class="case-study-placeholder case-study-image-gallery" aria-label="${label}"><div class="case-study-image-grid">${competitiveAnalysisImages
+          .map(
+            ([filename, alt]) =>
+              `<figure><img src="/ago/competitiveanalysis/${filename}" alt="${alt}" loading="lazy" /><figcaption>${alt}</figcaption></figure>`,
+          )
+          .join("")}</div></section>`;
+      }
+
+      const images = imagePlaceholders[note];
+      if (images) {
+        if (
+          note === "Image: interactive, reflective or surprising museum experience." ||
+          note === "Image: recommendation concepts."
+        ) {
+          return `<section class="case-study-placeholder case-study-image-gallery case-study-image-gallery--uncaptioned" aria-label="${label}"><div class="case-study-image-grid">${images
+            .map(
+              ([filename, caption]) =>
+                `<figure><img src="/ago/${filename}" alt="${caption}" loading="lazy" /></figure>`,
+            )
+            .join("")}</div></section>`;
+        }
+        if (note === "Image: affinity map or coding board.") {
+          return `<section class="case-study-placeholder case-study-image-gallery case-study-image-gallery--captioned" aria-label="${label}"><div class="case-study-image-grid">${images
+            .map(
+              ([filename, caption]) =>
+                `<figure><img src="/ago/${filename}" alt="${caption}" loading="lazy" /><figcaption>${caption}</figcaption></figure>`,
+            )
+            .join("")}</div></section>`;
+        }
+        return `<section class="case-study-placeholder case-study-image-gallery" aria-label="${label}"><div class="case-study-gallery-caption"><strong>${label}</strong><span>${note}</span></div><div class="case-study-image-grid">${images
+          .map(
+            ([filename, caption]) =>
+              `<figure><img src="/ago/${filename}" alt="${caption}" loading="lazy" /><figcaption>${caption}</figcaption></figure>`,
+          )
+          .join("")}</div></section>`;
+      }
+      return `<figure class="case-study-placeholder"><div class="case-study-placeholder-art" aria-hidden="true"><span></span><span></span><span></span></div><figcaption><strong>${label}</strong><span>${note}</span></figcaption></figure>`;
+    },
+  );
+}
+
+function renderRecalculatingDiaryStudyMarkdown() {
+  const html = marked.parse(recalculatingDiaryStudyMarkdown) as string;
+  const withTimelineClass = html.replace("<table>", '<table class="case-study-timeline">');
+  return withTimelineClass.replace(
+    /<p>(?:&#91;|\[)INSERT IMAGE OF REDESIGNED SCREENS(?:&#93;|\])<\/p>/i,
+    `<figure class="case-study-placeholder"><div class="case-study-placeholder-art" aria-hidden="true"><span></span><span></span><span></span></div><figcaption><strong>Redesigned screens</strong><span>Prototype screens based on the study recommendations.</span></figcaption></figure>`,
   );
 }

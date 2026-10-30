@@ -1,0 +1,168 @@
+{
+  "slug": "ago",
+  "title": "Designing Beyond the Gallery Walls",
+  "subtitle": "A mixed methods research project exploring the Art Gallery of Ontario's digital and physical visitor experience",
+  "year": "2025",
+  "role": "Sole UX researcher",
+  "timeline": "Sept – Dec 2025",
+  "team": "Academic project, advised by Prof. Jessika Tremblay",
+  "tools": ["Microsoft Teams", "Slack", "Teams channels"],
+  "featured": true,
+  "cover": "case-2",
+  "overview": "A mixed methods research project exploring how the AGO could connect planning, exploring, learning and reflecting across the digital and in-gallery visit.",
+  "context": "The AGO serves local visitors, tourists, educators, students and researchers. Over four months, I combined competitive analysis, five interviews, two contextual inquiries and netnography to understand what visitors needed before and during a museum visit.",
+  "problem": "I began by assuming the AGO needed a richer account with features like saved collections and personalization. Research changed the question: visitors first needed a clear reason to create an account, and then a better way to stay connected to the gallery experience.",
+  "problemPoints": [
+    "Visitors could not tell accounts, memberships and passes apart",
+    "The account was perceived as a checkout tool rather than a visitor benefit",
+    "Forms and checkout lacked clear feedback, progress and explanations",
+    "Visitors struggled to find and understand information while in the gallery",
+    "The AGO's digital tools were designed for individuals even though visits were usually social"
+  ],
+  "goals": [
+    "Compare the AGO experience with leading museum peers",
+    "Understand what would make visitors create and use an AGO account",
+    "Observe how people navigate, learn and use technology during a visit",
+    "Translate findings into a prioritized experience strategy"
+  ],
+  "research": {
+    "summary": "The project moved through three connected phases. Each phase changed the question I asked in the next one, turning an account-feature exercise into a broader investigation of the connected museum visit.",
+    "findings": [
+      {
+        "title": "The account needs a value proposition",
+        "body": "Participants expected personalized recommendations, event updates and exclusive content, but signed-in and signed-out experiences felt almost identical."
+      },
+      {
+        "title": "Privacy concerns are contextual",
+        "body": "Participants resisted unnecessary fields and unclear marketing permissions, but were willing to share information for a clear, exclusive benefit."
+      },
+      {
+        "title": "Information belongs in the gallery",
+        "body": "Visitors spent time matching objects to lists and searching on their phones. Information was more useful when it matched what was directly in front of them."
+      },
+      {
+        "title": "Museum visits are social",
+        "body": "Visits were usually family outings, trips with friends, travel or hosting guests, while the AGO's digital tools were designed around an individual visitor."
+      }
+    ]
+  },
+  "process": [
+    {
+      "heading": "Phase 1 — Competitive analysis",
+      "body": "I compared the AGO with the British Museum and The Met across accessibility, forms, checkout and accounts. The AGO lagged behind both peers in several foundational parts of the digital experience.",
+      "bullets": [
+        "The AGO had more accessibility issues than either peer",
+        "Form errors appeared only after submission and did not explain how to fix them",
+        "Checkout lacked a progress indicator and made ticket options difficult to understand",
+        "The account supported checkout only, and logged-in users could still be prompted to log in"
+      ],
+      "image": "process-research",
+      "imageAlt": "Annotated competitive analysis screenshots showing issues across the AGO digital experience",
+      "images": [
+        {
+          "key": "ago/competitiveanalysis/CA1_Issues_W_Cart_Flow.png",
+          "alt": "Competitive analysis of issues in the AGO cart flow"
+        },
+        {
+          "key": "ago/competitiveanalysis/CA2_Issue_W_Ticket_Types.png",
+          "alt": "Competitive analysis of unclear AGO ticket types"
+        },
+        {
+          "key": "ago/competitiveanalysis/CA3_Issue_w_Form_Fields.png",
+          "alt": "Competitive analysis of AGO form field issues"
+        },
+        {
+          "key": "ago/competitiveanalysis/CA3_b_FormField_Error.png",
+          "alt": "Competitive analysis of AGO form field error feedback"
+        },
+        {
+          "key": "ago/competitiveanalysis/CA4_Issues_W_Form_Fields_ErrorFeedback.png",
+          "alt": "Competitive analysis of missing form error feedback"
+        },
+        {
+          "key": "ago/competitiveanalysis/CA5_Issue_w_Search.png",
+          "alt": "Competitive analysis of issues with AGO search"
+        },
+        {
+          "key": "ago/competitiveanalysis/CA6_Issue_W_Account.png",
+          "alt": "Competitive analysis of issues with the AGO account experience"
+        }
+      ]
+    },
+    {
+      "heading": "Phase 2 — Semi-structured interviews",
+      "body": "I ran five 60-minute interviews on Microsoft Teams with AGO account holders, non-account visitors and visitors of other institutions. I coded transcripts and clustered themes around motivations, comparisons, account features and concerns about creating an account.",
+      "bullets": [
+        "Two students who held AGO accounts",
+        "Two tourism professionals who visited museums regularly",
+        "One former museum member who travelled to museums globally",
+        "Deliverables included a research report, two personas and before/during/after journey maps"
+      ],
+      "image": "process-wireframes",
+      "imageAlt": "Placeholder for an affinity map and interview synthesis"
+    },
+    {
+      "heading": "Phase 3 — Contextual inquiry",
+      "body": "When museum staff could not grant permission to recruit in the AGO lobby, I adapted the study rather than abandoning the in-person question. I recruited through friends and family, moved sessions to the Royal Ontario Museum and Nielsen Park Creative Centre, and added a Reddit netnography of AGO visitor discussions.",
+      "bullets": [
+        "Two contextual sessions, approximately 60 minutes each",
+        "Observation themes included navigation, information seeking, technology, accessibility and interactivity",
+        "The ROM provided a useful comparison through maps, multilingual materials, mobile tours and QR experiences"
+      ],
+      "image": "process-testing",
+      "imageAlt": "Placeholder for observation notes and a gallery wayfinding touchpoint"
+    },
+    {
+      "heading": "Connecting the findings",
+      "body": "I cross-referenced the three phases to separate isolated interface issues from recurring experience patterns. The synthesis revealed five opportunities: clarify the account offer, reduce privacy friction, bring useful information into the gallery, support social visits and fix the digital foundations first.",
+      "bullets": [
+        "Account, membership and pass benefits need one clear comparison",
+        "Sign-up should ask only for essential information and explain why it is needed",
+        "Object pages, maps, audio tours and multilingual content could connect online planning to in-gallery exploration",
+        "Shared itineraries, group booking and ticket sharing could support how people actually visit"
+      ],
+      "image": "process-explorations",
+      "imageAlt": "Placeholder for insight synthesis and opportunity mapping"
+    },
+    {
+      "heading": "Turning research into a strategy",
+      "body": "The final recommendations were ordered from foundational improvements to more ambitious experience changes. This kept the strategy grounded in changes that would help every visitor before proposing new account and in-gallery features.",
+      "bullets": [
+        "Fix the foundations: accessibility, form validation, checkout progress and the login bug",
+        "Clarify the offer with a page comparing accounts, memberships and passes",
+        "Give people a reason to create an account through perks, saved works, recommendations and reminders",
+        "Bring the account into the gallery through object pages, maps and tours",
+        "Design for groups with shared itineraries, group booking and ticket sharing"
+      ],
+      "image": "process-final",
+      "imageAlt": "Placeholder for recommended AGO account and in-gallery experience concepts"
+    }
+  ],
+  "decisions": [
+    {
+      "title": "Follow the evidence, not the initial brief",
+      "body": "The project began with a feature question about accounts. Interviews showed that adding features before clarifying the account's value would solve the wrong problem, so the final strategy starts with the offer and the foundations."
+    },
+    {
+      "title": "Adapt the method without losing the research question",
+      "body": "When AGO site access was not available, I moved the contextual sessions to comparable cultural spaces and added AGO-specific netnography. This preserved the question about visitor behaviour while making the study feasible."
+    },
+    {
+      "title": "Prioritize a connected visit",
+      "body": "The strongest opportunity was not a standalone account or a standalone gallery tool. It was a relationship between planning, exploring, learning and reflecting before, during and after a visit."
+    }
+  ],
+  "results": [
+    { "metric": "3", "label": "Research phases" },
+    { "metric": "5", "label": "Interviews completed" },
+    { "metric": "5", "label": "Experience opportunities" }
+  ],
+  "outcome": "The final report was presented on December 6, 2025. It reframed the AGO account from a transaction layer into a potential bridge between digital planning and the in-person museum visit.",
+  "learnings": [
+    "Let each research phase shape the next question instead of defending the original feature hypothesis.",
+    "Treat site access as part of the research plan, not an assumption.",
+    "Five interviews and two observation sessions can reveal patterns, but not represent every visitor.",
+    "The next step would be usability testing on a redesigned account and in-gallery experience."
+  ],
+  "reflection": "The interviews gave me rich qualitative data, including a lot about how people feel when they visit museums. Letting each phase shape the next stopped me from recommending features participants did not actually want. If I did the project again, I would arrange site access in advance, recruit more long-term account holders, include participants with accessibility needs and observe family and group visits. This project started out being about the AGO's account, but it ended up being about the whole visit."
+}

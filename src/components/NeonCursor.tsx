@@ -5,6 +5,7 @@ import { motion, useAnimation } from 'motion/react';
 import './NeonCursor.css';
 
 const NeonCursor = () => {
+  const [isMounted, setIsMounted] = useState(false);
   const [position, setPosition] = useState({
     x: 0,
     y: 0,
@@ -29,6 +30,7 @@ const NeonCursor = () => {
   }, []);
 
   useEffect(() => {
+    setIsMounted(true);
     window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('mouseleave', handleMouseLeave);
     
@@ -54,8 +56,7 @@ const NeonCursor = () => {
     }
   }, [position, trailControls, glowControls]);
 
-  // Don't render on the server
-  if (typeof window === 'undefined') return null;
+  if (!isMounted) return null;
 
   return (
     <div className="neon-cursor-container">

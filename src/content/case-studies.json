@@ -288,25 +288,25 @@
     "reflection": "We optimised activation hard and only later checked whether those activated users converted. They did — but that was luck, not rigour. Now I define the downstream metric before the test starts, and I treat any activation win as provisional until the revenue cohort matures."
   },
   {
-    "slug": "meridian-design-system",
+    "slug": "recalculating-diary-study",
     "title": "Recalculating: Diary Study on Navigation App Inflexibility",
-    "subtitle": "How interaction modes and external friction influence commuter satisfaction over time",
+    "subtitle": "A diary study exploring why commuters deviate from navigation apps and what more flexible tools could do",
     "year": "2026",
     "role": "UX Researcher",
-    "timeline": "2 months",
+    "timeline": "2.5 weeks",
     "team": "3 UX Researchers",
-    "tools": ["Figma", "TypeScript", "Storybook", "Style Dictionary"],
+    "tools": ["Google Forms", "FigJam", "Figma"],
     "featured": true,
-    "comingSoon": true,
+    "comingSoon": false,
     "cover": "case-3",
-    "overview": "Three products, three button components, zero agreement. We built a deliberately small system — 24 components — and made adoption the easiest path rather than the mandated one.",
-    "context": "Meridian runs three products built by three squads over five years. A brand refresh was scheduled, and the estimate for applying it by hand was six engineer-weeks per product. The system existed to make that refresh cheap, and everything else was a bonus.",
-    "problem": "Every surface had drifted. Designers copied old files, engineers copied old components, and a brand refresh would have meant touching 400+ files by hand.",
+    "overview": "A usage diary study exploring how commuters interact with navigation apps in real-world conditions, when they deviate from suggested routes, and how rigid tools could become more adaptable.",
+    "context": "Four participants completed eight diary entries over two weeks, documenting trips by car and TTC alongside pre- and post-study interviews.",
+    "problem": "Navigation apps prioritize the fastest route as if every trip is a simple point-to-point journey, but users make decisions based on local knowledge, weather, delays, expectations and the realities of getting around.",
     "problemPoints": [
-      "3 button implementations, 7 shades of the same grey, 4 modal patterns",
-      "400+ files containing hardcoded color values",
-      "No shared vocabulary between the Figma libraries and the codebase",
-      "Two previous system attempts abandoned after the initial component push"
+      "Apps do not adapt well when users modify a suggested route",
+      "Transit tools lack flexible waypoints for real multi-stop journeys",
+      "External conditions often shape satisfaction more than the app itself",
+      "Users move between Follow, Modify and Background interaction modes"
     ],
     "goals": [
       "Make a brand change a one-file change",

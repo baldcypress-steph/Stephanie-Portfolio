@@ -31,7 +31,7 @@ function About() {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen overflow-x-clip bg-background">
       <SiteHeader />
 
       <main className="relative mx-auto w-full max-w-6xl px-5 py-16 sm:px-8 sm:py-24">
@@ -67,6 +67,15 @@ function About() {
             className="relative overflow-hidden rounded-2xl border border-white/60 bg-gradient-to-br from-card to-secondary/50 shadow-sm col-span-1 sm:col-span-2 md:col-span-1 cursor-pointer" 
             style={{ backdropFilter: "blur(24px) saturate(140%)" }}
             onClick={() => setSelectedImage(landscape1)}
+            onKeyDown={(event) => {
+              if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+                setSelectedImage(landscape1);
+              }
+            }}
+            role="button"
+            tabIndex={0}
+            aria-label="Open landscape photography 1"
           >
             <img
               src={landscape1}
@@ -80,6 +89,15 @@ function About() {
             className="relative overflow-hidden rounded-2xl border border-white/60 bg-gradient-to-br from-card to-secondary/50 shadow-sm col-span-1 sm:col-span-2 md:col-span-1 cursor-pointer" 
             style={{ backdropFilter: "blur(24px) saturate(140%)" }}
             onClick={() => setSelectedImage(landscape2)}
+            onKeyDown={(event) => {
+              if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+                setSelectedImage(landscape2);
+              }
+            }}
+            role="button"
+            tabIndex={0}
+            aria-label="Open landscape photography 2"
           >
             <img
               src={landscape2}
@@ -93,6 +111,15 @@ function About() {
             className="relative overflow-hidden rounded-2xl border border-white/60 bg-gradient-to-br from-card to-secondary/50 shadow-sm col-span-1 sm:col-span-2 md:col-span-1 cursor-pointer" 
             style={{ backdropFilter: "blur(24px) saturate(140%)" }}
             onClick={() => setSelectedImage(landscape3)}
+            onKeyDown={(event) => {
+              if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+                setSelectedImage(landscape3);
+              }
+            }}
+            role="button"
+            tabIndex={0}
+            aria-label="Open landscape photography 3"
           >
             <img
               src={landscape3}
@@ -106,6 +133,15 @@ function About() {
             className="relative overflow-hidden rounded-2xl border border-white/60 bg-gradient-to-br from-card to-secondary/50 shadow-sm col-span-1 sm:col-span-2 md:col-span-1 cursor-pointer" 
             style={{ backdropFilter: "blur(24px) saturate(140%)" }}
             onClick={() => setSelectedImage(landscape4)}
+            onKeyDown={(event) => {
+              if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+                setSelectedImage(landscape4);
+              }
+            }}
+            role="button"
+            tabIndex={0}
+            aria-label="Open landscape photography 4"
           >
             <img
               src={landscape4}

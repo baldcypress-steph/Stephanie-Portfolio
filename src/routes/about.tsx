@@ -13,6 +13,52 @@ import { site, portrait, landscape1, landscape2, landscape3, landscape4 } from "
 
 const title = `About — ${site.name}`;
 const description = site.about.paragraphs[0]?.slice(0, 155) ?? site.tagline;
+const fermiDefinition =
+  "A Fermi problem is a question answered through estimation and logical assumptions when exact data is unavailable.";
+
+function FermiLink() {
+  const [isVisible, setIsVisible] = useState(false);
+
+  return (
+    <span
+      className={`fermi-term${isVisible ? " is-visible" : ""}`}
+      onMouseEnter={() => setIsVisible(true)}
+      onMouseLeave={() => setIsVisible(false)}
+    >
+      <a
+        href="https://sensesensibilityscience.berkeley.edu/topic/15"
+        target="_blank"
+        rel="noreferrer"
+        aria-describedby="fermi-definition"
+        onFocus={() => setIsVisible(true)}
+        onBlur={() => setIsVisible(false)}
+      >
+        Fermi
+      </a>
+      {isVisible ? (
+      <span id="fermi-definition" className="fermi-definition" role="tooltip">
+        {fermiDefinition}
+      </span>
+      ) : null}
+    </span>
+  );
+}
+
+function renderAboutParagraph(paragraph: string) {
+  const [before, after] = paragraph.split("Fermi");
+
+  if (after === undefined) {
+    return paragraph;
+  }
+
+  return (
+    <>
+      {before}
+      <FermiLink />
+      {after}
+    </>
+  );
+}
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -45,7 +91,7 @@ function About() {
           <div className="mt-8 space-y-5">
             {about.paragraphs.map((p, i) => (
               <p key={i} className="text-base leading-relaxed text-muted-foreground">
-                {p}
+                {renderAboutParagraph(p)}
               </p>
             ))}
           </div>

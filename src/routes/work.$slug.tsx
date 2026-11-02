@@ -566,9 +566,5 @@ function renderAgoMarkdown() {
 
 function renderRecalculatingDiaryStudyMarkdown() {
   const html = marked.parse(recalculatingDiaryStudyMarkdown) as string;
-  const withTimelineClass = html.replace("<table>", '<table class="case-study-timeline">');
-  return withTimelineClass.replace(
-    /<p>(?:&#91;|\[)INSERT IMAGE OF REDESIGNED SCREENS(?:&#93;|\])<\/p>/i,
-    `<figure class="case-study-placeholder"><div class="case-study-placeholder-art" aria-hidden="true"><span></span><span></span><span></span></div><figcaption><strong>Redesigned screens</strong><span>Prototype screens based on the study recommendations.</span></figcaption></figure>`,
-  );
+  return html.replace("<table>", '<table class="case-study-timeline">');
 }

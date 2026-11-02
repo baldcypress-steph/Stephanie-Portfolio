@@ -108,7 +108,7 @@ Four participants completed all 8 entries, giving 32 diary responses.
 
 Trips averaged 55 minutes (median 46, range 25–120). Across all 32 entries, participants said they opened the app mainly to **check arrival times (16 entries)** or **find the fastest route (11)**, far more than to check unfamiliar routes (3), confirm accuracy (2) or find a comfortable trip (1).
 
-## Sample diary study questions
+## Diary Study Elicitation Approach
 
 Each entry had two layers: a core set of questions repeated every time, so we could track change across trips, better understand their context of use, familiarity and local knowledge of the area, their deviation rate/deviation drivers and their satisfaction. We also had one rotating elicitation prompt designed to draw out a different kind of reflection each day.
 
@@ -117,6 +117,11 @@ Each entry had two layers: a core set of questions repeated every time, so we co
 ### What the numbers showed
 
 No participant's scores rose or fell steadily across the two weeks, so repeated use alone didn't shift satisfaction. Participants followed the app on most trips. Only **6 of 32 entries (about 1 in 5)** recorded a deviation, and all 6 came from P3, who deviated on 6 of her 8 trips. P1 described deviating often in his interview, but none of his diary trips captured it.
+
+<figure class="case-study-analysis-image">
+  <img src="/DiaryStudy/DiaryStudyAnalysis-display.png" alt="Diary study analysis board showing coded entries, themes, and quantitative findings" loading="lazy" decoding="async" />
+  <figcaption>Analysis board: coded diary entries, theme clusters, and quantitative findings.</figcaption>
+</figure>
 
 ### Hypotheses, tested
 
@@ -199,8 +204,6 @@ No participant's scores rose or fell steadily across the two weeks, so repeated 
 - The weather conditions being integrated through real-time data
 - The price of a trip being integrated into the app
 - The “Vibes” of the bus (Participant 3)
-
-&#91;INSERT IMAGE OF REDESIGNED SCREENS\]
 
 ### Further research
 

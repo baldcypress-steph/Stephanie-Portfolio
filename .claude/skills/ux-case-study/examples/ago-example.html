@@ -1,0 +1,1231 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>AGO Case Study Example</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Syne:wght@500;600;700&display=swap" rel="stylesheet" />
+<style>
+  /* ---------- Tokens: mirror src/styles.css ---------- */
+  :root {
+    --background: #fafafa; --foreground: #333333; --card: #ffffff;
+    --primary: #333333; --secondary: #f4f4f6; --muted: #f1f1f4; --muted-foreground: #838896;
+    --accent: #421bcf; --accent-foreground: #ffffff; --border: #e2e4e9;
+    --glass-card: linear-gradient(135deg, rgba(255,255,255,.9), rgba(250,250,252,.5));
+    --shadow-card: 0 30px 60px rgba(0,0,0,.04);
+    --shadow-card-hover: 0 80px 120px rgba(0,0,0,.1);
+    --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+    --font-display: "Syne", ui-sans-serif, system-ui, sans-serif;
+    --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+    --radius: .75rem;
+    /* review-layer only (not part of the design) */
+    --note: #b45309; --note-bg: #fffbeb; --note-border: #fcd34d;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { transition: none !important; animation: none !important; } }
+  body { margin: 0; background: var(--background); color: var(--foreground); font-family: var(--font-sans); line-height: 1.65; -webkit-font-smoothing: antialiased; overflow-x: clip; }
+  img { display: block; max-width: 100%; }
+  p, h1, h2, h3, h4, figure, blockquote, ol, ul { margin: 0; }
+  a { color: inherit; }
+
+  /* ---------- Layout ---------- */
+  .container { width: 100%; max-width: 72rem; margin: 0 auto; padding: 0 1.25rem; }
+  @media (min-width: 640px) { .container { padding: 0 2rem; } }
+  @media (min-width: 1180px) { .with-nav { padding-left: 12rem; } }
+  .read { max-width: 44rem; }
+
+  /* ---------- Type scale (design standard) ---------- */
+  .eyebrow { font-size: .75rem; font-weight: 600; text-transform: uppercase; letter-spacing: .16em; color: var(--accent); }
+  .eyebrow .sep { color: var(--muted-foreground); margin: 0 .35em; }
+  .eyebrow.muted { color: var(--muted-foreground); }
+  h1 { font-family: var(--font-display); font-weight: 600; font-size: 2.6rem; line-height: .95; letter-spacing: -.03em; max-width: 14ch; }
+  @media (min-width: 640px) { h1 { font-size: 4.25rem; } }
+  .subtitle { font-size: 1.125rem; color: var(--muted-foreground); max-width: 56ch; margin-top: 1.5rem; }
+  @media (min-width: 640px) { .subtitle { font-size: 1.25rem; } }
+  h2 { font-family: var(--font-display); font-weight: 600; font-size: 1.75rem; line-height: 1.1; letter-spacing: -.02em; margin-top: .6rem; }
+  @media (min-width: 640px) { h2 { font-size: 2.5rem; } }
+  h3 { font-family: var(--font-display); font-weight: 600; font-size: 1.3rem; line-height: 1.2; letter-spacing: -.01em; }
+  @media (min-width: 640px) { h3 { font-size: 1.6rem; } }
+  h4 { font-family: var(--font-display); font-weight: 600; font-size: 1.05rem; letter-spacing: -.01em; }
+  .lede { font-size: 1.125rem; color: var(--foreground); margin-top: 1rem; max-width: 60ch; }
+  .body { color: var(--muted-foreground); margin-top: .9rem; max-width: 62ch; }
+  .body strong { color: var(--foreground); font-weight: 600; }
+  .caption { font-size: .875rem; color: var(--muted-foreground); margin-top: .6rem; }
+
+  /* ---------- Side nav (desktop only) ---------- */
+  .sidenav { display: none; }
+  @media (min-width: 1180px) {
+    .sidenav { display: block; position: fixed; left: 2rem; top: 50%; transform: translateY(-50%); z-index: 30; width: 10rem; }
+    .sidenav a.back { font-size: .8rem; color: var(--muted-foreground); text-decoration: none; display: inline-block; margin-bottom: 1.25rem; }
+    .sidenav a.back:hover { color: var(--accent); }
+    .sidenav ol { list-style: none; padding: 0; display: grid; gap: .15rem; }
+    .sidenav li a { display: flex; gap: .6rem; align-items: baseline; padding: .3rem 0 .3rem .75rem; border-left: 2px solid var(--border); font-size: .8rem; color: var(--muted-foreground); text-decoration: none; transition: color 200ms var(--ease-out-soft), border-color 200ms var(--ease-out-soft); }
+    .sidenav li a .n { font-family: var(--font-display); font-weight: 600; font-size: .7rem; min-width: 1.1rem; }
+    .sidenav li a:hover { color: var(--foreground); }
+    .sidenav li a.active { color: var(--foreground); border-left-color: var(--accent); font-weight: 600; }
+    .sidenav li a.active .n { color: var(--accent); }
+    .sidenav .sub { padding-left: 1.25rem; }
+    .sidenav .sub a { font-size: .75rem; padding-top: .15rem; padding-bottom: .15rem; }
+  }
+
+  /* ---------- Hero ---------- */
+  .hero { position: relative; z-index: 2; padding: 4.5rem 0 2.5rem; background: var(--background); overflow: hidden; }
+  .hero .glow { position: absolute; border-radius: 9999px; pointer-events: none; }
+  .glow-blue { background: #edf2ff; filter: blur(140px); }
+  .glow-purple { background: rgba(243,232,255,.6); filter: blur(100px); }
+  .hero .inner { position: relative; }
+  .back-mobile { font-size: .875rem; color: var(--muted-foreground); text-decoration: none; }
+  @media (min-width: 1180px) { .back-mobile { display: none; } }
+  .meta { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 1.25rem 1.5rem; margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
+  @media (min-width: 900px) { .meta { grid-template-columns: 1fr 1fr 1.2fr 1.6fr; } }
+  .meta dt { font-size: .7rem; text-transform: uppercase; letter-spacing: .16em; color: var(--muted-foreground); }
+  .meta dd { margin: .3rem 0 0; font-size: .875rem; font-weight: 600; }
+
+  /* Pinned hero image: content scrolls up over it, and it fades away */
+  .hero-stage { position: relative; height: 92vh; margin-top: -1px; }
+  .hero-pin { position: sticky; top: 0; height: 92vh; display: grid; place-items: start center; padding-top: 1rem; z-index: 0; }
+  .hero-pin img { width: min(100% - 2.5rem, 68rem); max-height: 78vh; object-fit: cover; border-radius: 1.25rem; box-shadow: var(--shadow-card); border: 1px solid var(--border); transform-origin: 50% 0; will-change: transform, opacity; }
+  .sheet { position: relative; z-index: 2; background: var(--background); border-radius: 2rem 2rem 0 0; box-shadow: 0 -30px 60px rgba(0,0,0,.05); margin-top: -18vh; padding-top: 1px; }
+
+  /* ---------- Sections ---------- */
+  section.block { padding: 4.5rem 0; scroll-margin-top: 1rem; }
+  @media (min-width: 640px) { section.block { padding: 6.5rem 0; } }
+  .divider { border-top: 1px solid var(--border); }
+
+  /* glass card */
+  .glass { background: var(--glass-card); backdrop-filter: blur(24px) saturate(140%); -webkit-backdrop-filter: blur(24px) saturate(140%); border: 1px solid rgba(255,255,255,.6); box-shadow: var(--shadow-card); border-radius: 1rem; }
+
+  /* snapshot */
+  .snapshot { display: grid; gap: 1rem; margin-top: 2rem; }
+  @media (min-width: 860px) { .snapshot { grid-template-columns: repeat(3, minmax(0,1fr)); } }
+  .snap { padding: 1.75rem; }
+  .snap p.big { font-family: var(--font-display); font-size: 1.2rem; line-height: 1.3; letter-spacing: -.01em; margin-top: .75rem; font-weight: 500; }
+  .snap p.small { font-size: .9rem; color: var(--muted-foreground); margin-top: .75rem; }
+  .snap.insight { border-top: 3px solid var(--accent); }
+
+  .stats { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 1.5rem; margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border); }
+  @media (min-width: 860px) { .stats { grid-template-columns: repeat(4, minmax(0,1fr)); } }
+  .stat dt { font-family: var(--font-display); font-weight: 600; font-size: 2.25rem; color: var(--accent); line-height: 1; letter-spacing: -.02em; }
+  .stat dt small { font-size: 1rem; color: var(--muted-foreground); font-weight: 500; }
+  .stat dd { margin: .5rem 0 0; font-size: .875rem; color: var(--muted-foreground); max-width: 22ch; }
+
+  /* snapshot v2: story strip */
+  .story { display: grid; gap: 1rem; margin-top: 2.25rem; }
+  @media (min-width: 960px) { .story { grid-template-columns: 1fr auto 1fr auto 1fr; align-items: stretch; } }
+  .story .snap { display: flex; flex-direction: column; }
+  .story .snap .lbl { display: flex; align-items: center; gap: .6rem; }
+  .story .snap .lbl i { font-style: normal; width: 1.75rem; height: 1.75rem; border-radius: 9999px; display: grid; place-items: center; font-family: var(--font-display); font-weight: 600; font-size: .8rem; background: var(--muted); color: var(--muted-foreground); }
+  .story .snap.insight .lbl i { background: var(--accent); color: var(--accent-foreground); }
+  .story .snap p.big { font-size: 1.35rem; line-height: 1.25; margin-top: 1rem; }
+  .story .snap p.small { font-size: .925rem; line-height: 1.55; }
+  .story .snap .found { margin-top: auto; padding-top: 1.25rem; display: flex; flex-wrap: wrap; gap: .35rem; align-items: center; font-size: .7rem; letter-spacing: .14em; text-transform: uppercase; color: var(--muted-foreground); font-weight: 600; }
+  .story .snap .found .chip { letter-spacing: 0; text-transform: none; font-weight: 500; font-size: .72rem; padding: .2rem .55rem; }
+  .story .join { display: none; align-self: center; color: var(--accent); font-size: 1.25rem; }
+  @media (min-width: 960px) { .story .join { display: block; } }
+  .evidence { display: grid; gap: 1rem; margin-top: 1rem; }
+  @media (min-width: 860px) { .evidence { grid-template-columns: 1.1fr 1fr; } }
+  .evidence > div { padding: 1.4rem 1.5rem; }
+  .bars { display: grid; gap: .55rem; margin-top: .9rem; }
+  .bar { display: grid; grid-template-columns: 9.75rem 1fr 2rem; align-items: center; gap: .75rem; font-size: .85rem; }
+  .bar .track { height: .55rem; border-radius: 9999px; background: var(--muted); overflow: hidden; }
+  .bar .fill { height: 100%; border-radius: 9999px; background: var(--muted-foreground); opacity: .45; }
+  .bar.ago .fill { background: var(--accent); opacity: 1; }
+  .bar b { font-family: var(--font-display); text-align: right; }
+  .wcag { margin-top: 1.5rem; padding: 1.4rem 1.5rem; max-width: 40rem; }
+  .quote-mini p:not(.eyebrow) { font-family: var(--font-display); font-size: 1.15rem; line-height: 1.35; margin-top: .75rem; }
+  .quote-mini footer { margin-top: .6rem; font-size: .8rem; color: var(--muted-foreground); }
+
+  /* approach v2 */
+  .compare { margin-top: 2.5rem; overflow-x: auto; }
+  .compare-grid { display: grid; gap: 1rem; }
+  @media (min-width: 860px) { .compare-grid { grid-template-columns: repeat(3, minmax(0,1fr)); } }
+  .study { padding: 1.5rem; display: flex; flex-direction: column; }
+  .study .top { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
+  .study .num { font-family: var(--font-display); font-weight: 600; color: var(--accent); font-size: 2rem; line-height: 1; }
+  .study .kind { font-size: .68rem; text-transform: uppercase; letter-spacing: .16em; color: var(--muted-foreground); font-weight: 600; text-align: right; }
+  .study h4 { margin-top: .75rem; font-size: 1.25rem; }
+  .study .ask { font-family: var(--font-display); font-size: 1.05rem; line-height: 1.35; margin-top: .75rem; padding-left: .9rem; border-left: 2px solid var(--accent); }
+  .study dl { margin-top: 1.25rem; display: grid; gap: .8rem; font-size: .875rem; }
+  .study dl > div { padding-top: .8rem; border-top: 1px solid var(--border); }
+  .study dt { font-size: .66rem; text-transform: uppercase; letter-spacing: .16em; color: var(--muted-foreground); font-weight: 600; }
+  .study dd { margin: .2rem 0 0; }
+  .study .go { margin-top: auto; padding-top: 1.25rem; font-size: .8rem; color: var(--accent); font-weight: 600; text-decoration: none; }
+  .study .go:hover { text-decoration: underline; }
+  .goal { margin-top: 2.5rem; padding: 1.5rem 1.75rem; display: grid; gap: 1rem; }
+  @media (min-width: 860px) { .goal { grid-template-columns: 11rem 1fr; } }
+  .goal p.g { font-family: var(--font-display); font-size: 1.2rem; line-height: 1.35; }
+  .rq-all { margin-top: 1rem; padding: 1.5rem; display: grid; gap: 1.5rem; }
+  @media (min-width: 860px) { .rq-all { grid-template-columns: repeat(3, minmax(0,1fr)); padding: 1.75rem; } .rq-all > div + div { border-left: 1px solid var(--border); padding-left: 1.5rem; } }
+  .rq-all h4 { font-size: 1rem; display: flex; gap: .5rem; align-items: baseline; }
+  .rq-all h4 span { color: var(--accent); }
+  .rq-all .sub-k { margin-top: 1rem; font-size: .66rem; text-transform: uppercase; letter-spacing: .16em; color: var(--muted-foreground); font-weight: 600; }
+  .rq-all ol, .rq-all ul { padding-left: 1.1rem; display: grid; gap: .45rem; margin-top: .5rem; font-size: .9rem; }
+  .rq-all ol li::marker { font-family: var(--font-display); color: var(--accent); font-weight: 600; }
+  .rq-all ul { color: var(--muted-foreground); font-size: .85rem; }
+  .rq-all .todo { font-size: .75rem; color: var(--muted-foreground); font-style: italic; margin-top: .5rem; }
+
+  .rq-link { margin-top: 1.5rem; font-size: .85rem; } .rq-link a { color: var(--accent); text-decoration: none; font-weight: 600; }
+  .hyp-main p:not(.eyebrow) { font-family: var(--font-display); font-size: 1.15rem; line-height: 1.4; margin-top: .75rem; color: var(--foreground); }
+  .hyp-main p.verdict { font-family: var(--font-sans); font-size: .85rem; font-weight: 600; color: var(--accent); }
+  details.rqd { border-left: 2px solid var(--border); padding-left: 1.25rem; align-self: start; }
+  details.rqd summary { cursor: pointer; font-size: .8rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--muted-foreground); }
+  details.rqd summary:hover { color: var(--foreground); }
+  details.rqd ol { font-size: .9rem; }
+
+  /* museum positioning */
+  .position { display: grid; gap: 1rem; margin-top: 1.75rem; }
+  @media (min-width: 760px) { .position { grid-template-columns: repeat(3, minmax(0,1fr)); } }
+  .position .glass { padding: 1.25rem 1.35rem; }
+  .position .glass.ago { border-top: 3px solid var(--accent); }
+  .position h4 { font-size: 1.05rem; }
+  .position .logo { display: flex; align-items: center; height: 3rem; padding: 0 .8rem; margin-bottom: 1rem; background: #fff; /* logo plate: logos ship on white */ border: 1px solid var(--border); border-radius: .75rem; width: fit-content; }
+  .position .logo img { height: 1.9rem; width: auto; display: block; }
+  .position .logo img.crop { width: 3.1rem; object-fit: cover; }
+  .bar .who { display: flex; align-items: center; gap: .5rem; }
+  .bar .who img { width: 1.6rem; height: 1.1rem; object-fit: contain; background: #fff; border: 1px solid var(--border); border-radius: .3rem; padding: 1px; flex: none; }
+  .bar .who img.crop { object-fit: cover; }
+  .position .tag { font-size: .8rem; color: var(--muted-foreground); margin-top: .2rem; }
+  .position dl { margin-top: 1rem; display: grid; gap: .7rem; font-size: .85rem; }
+  .position dt { font-size: .64rem; text-transform: uppercase; letter-spacing: .16em; color: var(--muted-foreground); font-weight: 600; }
+  .position dd { margin: .15rem 0 0; }
+  .position sup { color: var(--muted-foreground); font-size: .65rem; }
+
+  /* expandable discussion guide */
+  details.guide { margin-top: 1.75rem; border: 1px solid var(--border); border-radius: var(--radius); background: var(--card); box-shadow: var(--shadow-card); }
+  details.guide > summary { list-style: none; cursor: pointer; padding: 1rem 1.25rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; font-weight: 600; }
+  details.guide > summary::-webkit-details-marker { display: none; }
+  details.guide > summary .s { display: block; font-size: .8rem; font-weight: 400; color: var(--muted-foreground); margin-top: .15rem; }
+  details.guide > summary .plus { flex: none; width: 1.9rem; height: 1.9rem; border-radius: 9999px; border: 1px solid var(--border); display: grid; place-items: center; color: var(--accent); transition: transform 200ms var(--ease-out-soft); }
+  details.guide[open] > summary .plus { transform: rotate(45deg); }
+  details.guide > summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: var(--radius); }
+  .guide-body { padding: 0 1.25rem 1.25rem; border-top: 1px solid var(--border); }
+  .guide-body .gsec { margin-top: 1.1rem; }
+  .guide-body .gsec h5 { font-family: var(--font-display); font-size: .95rem; font-weight: 600; display: flex; justify-content: space-between; gap: 1rem; }
+  .guide-body .gsec h5 small { font-family: var(--font-sans); font-weight: 400; font-size: .75rem; color: var(--muted-foreground); }
+  .guide-body ul { padding-left: 1.1rem; margin-top: .4rem; display: grid; gap: .3rem; font-size: .9rem; color: var(--muted-foreground); }
+  .guide-body ul ul { margin-top: .3rem; }
+  .guide-body .who { font-size: .72rem; text-transform: uppercase; letter-spacing: .14em; color: var(--accent); font-weight: 600; margin-top: .6rem; }
+  .guide-body .gnote { margin-top: 1rem; font-size: .8rem; color: var(--muted-foreground); }
+  @media (min-width: 860px) { .guide-cols { columns: 2; column-gap: 2rem; } .guide-cols .gsec { break-inside: avoid; } }
+
+  /* approach / method comparison */
+  .question-path { display: grid; gap: .75rem; margin-top: 2.5rem; }
+  @media (min-width: 860px) { .question-path { grid-template-columns: 1fr auto 1fr auto 1fr; align-items: stretch; } }
+  .qstep { padding: 1.25rem 1.4rem; }
+  .qstep .eyebrow { font-size: .68rem; }
+  .qstep p { font-family: var(--font-display); font-size: 1.1rem; line-height: 1.3; margin-top: .5rem; font-weight: 500; }
+  .qarrow { display: none; color: var(--accent); align-self: center; font-size: 1.25rem; }
+  @media (min-width: 860px) { .qarrow { display: block; } }
+
+  .methods { display: grid; gap: 1rem; margin-top: 2.5rem; }
+  @media (min-width: 860px) { .methods { grid-template-columns: repeat(3, minmax(0,1fr)); } }
+  .method { padding: 1.5rem; display: flex; flex-direction: column; text-decoration: none; transition: transform 200ms var(--ease-out-soft), box-shadow 200ms var(--ease-out-soft); }
+  .method:hover { transform: translateY(-.25rem); box-shadow: var(--shadow-card-hover); }
+  .method .num { font-family: var(--font-display); font-weight: 600; color: var(--accent); font-size: 1.75rem; line-height: 1; }
+  .method h4 { margin-top: .75rem; font-size: 1.2rem; }
+  .method dl { margin-top: 1rem; display: grid; gap: .75rem; font-size: .875rem; }
+  .method dt { font-size: .68rem; text-transform: uppercase; letter-spacing: .16em; color: var(--muted-foreground); }
+  .method dd { margin: .15rem 0 0; }
+  .method .go { margin-top: auto; padding-top: 1.25rem; font-size: .8rem; color: var(--accent); font-weight: 600; }
+
+  /* ---------- Part band (clear demarcation) ---------- */
+  .part-band { padding: 5rem 0 3rem; border-top: 1px solid var(--border); background: linear-gradient(180deg, var(--secondary), var(--background)); scroll-margin-top: 0; }
+  .part-band .big-num { font-family: var(--font-display); font-weight: 700; font-size: 5rem; line-height: .8; color: var(--accent); letter-spacing: -.04em; }
+  @media (min-width: 640px) { .part-band .big-num { font-size: 7.5rem; } }
+  .part-band .head { display: grid; gap: 1.5rem; }
+  @media (min-width: 860px) { .part-band .head { grid-template-columns: auto 1fr; align-items: end; gap: 2.5rem; } }
+  .part-band h2 { margin-top: .4rem; }
+  .part-meta { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1.25rem; }
+  .chip { font-size: .75rem; padding: .3rem .7rem; border-radius: 9999px; border: 1px solid var(--border); background: var(--card); color: var(--muted-foreground); }
+
+  .rq { margin-top: 2.5rem; padding: 1.75rem; display: grid; gap: 1.75rem; }
+  @media (min-width: 860px) { .rq.two { grid-template-columns: 1.3fr 1fr; } }
+  .rq ol { padding-left: 1.2rem; display: grid; gap: .5rem; margin-top: .75rem; }
+  .rq ol li { padding-left: .25rem; }
+  .rq ol li::marker { font-family: var(--font-display); color: var(--accent); font-weight: 600; }
+  .rq .hyp { border-left: 2px solid var(--border); padding-left: 1.25rem; }
+  .rq .hyp p { color: var(--muted-foreground); margin-top: .75rem; font-size: .95rem; }
+  .rq .hyp .verdict { margin-top: .9rem; font-size: .8rem; font-weight: 600; color: var(--accent); }
+
+  /* ---------- Sub-sections with sticky number that gets pushed out by the next ---------- */
+  .subs { margin-top: 1rem; }
+  .sub { display: grid; grid-template-columns: 1fr; padding: 3.5rem 0; border-top: 1px dashed var(--border); scroll-margin-top: 1rem; }
+  .sub:first-child { border-top: 0; }
+  @media (min-width: 860px) { .sub { grid-template-columns: 6rem minmax(0,1fr); gap: 2rem; } }
+  .sub-num { font-family: var(--font-display); font-weight: 600; color: var(--accent); font-size: 1.1rem; line-height: 1; margin-bottom: 1rem; }
+  .sub-num small { display: block; font-family: var(--font-sans); font-size: .62rem; letter-spacing: .16em; text-transform: uppercase; color: var(--muted-foreground); margin-bottom: .35rem; font-weight: 600; }
+  @media (min-width: 860px) {
+    .sub-num { position: sticky; top: 2rem; align-self: start; font-size: 2.75rem; letter-spacing: -.03em; margin: 0; }
+  }
+
+  /* figures */
+  .fig { margin-top: 1.75rem; }
+  .fig img, .shot { width: 100%; border-radius: var(--radius); border: 1px solid var(--border); box-shadow: var(--shadow-card); background: var(--muted); }
+  .grid-2, .grid-3, .grid-4 { display: grid; gap: 1rem; margin-top: 1.75rem; }
+  @media (min-width: 640px) { .grid-2 { grid-template-columns: repeat(2, minmax(0,1fr)); } .grid-3 { grid-template-columns: repeat(3, minmax(0,1fr)); } .grid-4 { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+  @media (min-width: 860px) { .grid-4 { grid-template-columns: repeat(4, minmax(0,1fr)); } }
+  .grid-2 img, .grid-3 img, .grid-4 img { aspect-ratio: 4/3; object-fit: cover; }
+  .grid-4 img { aspect-ratio: 1/1; }
+  .placeholder { aspect-ratio: 16/10; border-radius: var(--radius); border: 1.5px dashed var(--border); background: repeating-linear-gradient(135deg, var(--muted), var(--muted) 10px, var(--secondary) 10px, var(--secondary) 20px); display: grid; place-items: center; text-align: center; padding: 1.5rem; color: var(--muted-foreground); font-size: .875rem; }
+  .placeholder b { display: block; color: var(--foreground); font-family: var(--font-display); font-size: 1rem; margin-bottom: .25rem; }
+
+  /* takeaways, quotes, bridge */
+  .takeaway { margin-top: 2rem; padding: 1rem 1.25rem; border-left: 3px solid var(--accent); background: var(--card); border-radius: 0 var(--radius) var(--radius) 0; box-shadow: var(--shadow-card); font-weight: 500; max-width: 62ch; }
+  .takeaway .k { display: block; font-size: .68rem; text-transform: uppercase; letter-spacing: .16em; color: var(--accent); font-weight: 600; margin-bottom: .25rem; }
+  blockquote { margin-top: 1.75rem; padding-left: 1.5rem; border-left: 2px solid var(--accent); max-width: 60ch; }
+  blockquote p { font-family: var(--font-display); font-size: 1.3rem; line-height: 1.35; letter-spacing: -.01em; }
+  blockquote footer { margin-top: .6rem; font-size: .875rem; color: var(--muted-foreground); }
+  .bridge { margin-top: 1rem; padding: 2.5rem 0 4rem; display: flex; gap: 1rem; align-items: baseline; font-family: var(--font-display); font-size: 1.25rem; line-height: 1.35; max-width: 46ch; }
+  .bridge .arrow { color: var(--accent); flex: none; }
+  .bridge .k { display: block; font-family: var(--font-sans); font-size: .68rem; text-transform: uppercase; letter-spacing: .16em; color: var(--muted-foreground); font-weight: 600; margin-bottom: .4rem; }
+
+  .fig.placeholder { aspect-ratio: 21/8; }
+  /* ---------- Problem explorer (click a card, the image changes) ---------- */
+  .explorer-stage { margin-top: 2rem; padding: 1.25rem; }
+  @media (min-width: 640px) { .explorer-stage { padding: 2rem; } }
+  .explorer-stage .frame { position: relative; aspect-ratio: 16/9; border-radius: var(--radius); overflow: hidden; background: var(--card); border: 1px solid var(--border); }
+  .explorer-stage .frame img, .explorer-stage .frame .placeholder { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; border: 0; border-radius: 0; opacity: 0; transition: opacity 300ms var(--ease-out-soft); }
+  .explorer-stage .frame .on { opacity: 1; }
+  .explorer-stage .stage-cap { display: flex; justify-content: space-between; gap: 1rem; margin-top: 1rem; font-size: .875rem; color: var(--muted-foreground); }
+  .explorer-stage .stage-cap b { color: var(--foreground); }
+  .hint { text-align: right; font-size: .7rem; letter-spacing: .2em; text-transform: uppercase; color: var(--muted-foreground); margin-top: 1.25rem; }
+  .problem-cards { display: grid; gap: .75rem; margin-top: .75rem; }
+  @media (min-width: 640px) { .problem-cards { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+  @media (min-width: 1000px) { .problem-cards { grid-template-columns: repeat(3, minmax(0,1fr)); } }
+  .pcard { text-align: left; font: inherit; color: inherit; cursor: pointer; padding: 1.1rem 1.25rem; border-radius: var(--radius); border: 1.5px solid transparent; background: var(--muted); display: grid; grid-template-columns: 2rem 1fr; gap: .75rem; transition: background 200ms var(--ease-out-soft), border-color 200ms var(--ease-out-soft), transform 200ms var(--ease-out-soft); }
+  .pcard:hover { background: var(--secondary); transform: translateY(-2px); }
+  .pcard:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .pcard .n { width: 2rem; height: 2rem; border-radius: 9999px; display: grid; place-items: center; background: var(--card); font-family: var(--font-display); font-weight: 600; font-size: .875rem; color: var(--muted-foreground); }
+  .pcard h4 { font-size: 1rem; }
+  .pcard p { font-size: .85rem; color: var(--muted-foreground); margin-top: .2rem; }
+  .pcard[aria-pressed="true"] { background: var(--card); border-color: var(--accent); box-shadow: var(--shadow-card); }
+  .pcard[aria-pressed="true"] .n { background: var(--accent); color: var(--accent-foreground); }
+
+  /* ---------- Tabs (personas, before/after) ---------- */
+  .tabs { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1.75rem; }
+  .tab { font: inherit; font-size: .85rem; font-weight: 600; cursor: pointer; padding: .5rem 1rem; border-radius: 9999px; border: 1px solid var(--border); background: var(--card); color: var(--muted-foreground); transition: all 200ms var(--ease-out-soft); }
+  .tab:hover { color: var(--foreground); }
+  .tab[aria-selected="true"] { background: var(--primary); color: var(--background); border-color: transparent; }
+  .tabpanel[hidden] { display: none; }
+
+  /* before / after */
+  .ba { margin-top: 1.5rem; padding: 1.25rem; }
+  @media (min-width: 640px) { .ba { padding: 2rem; } }
+  .ba-toggle { display: inline-flex; padding: .25rem; border-radius: 9999px; background: var(--muted); border: 1px solid var(--border); }
+  .ba-toggle button { font: inherit; font-size: .8rem; font-weight: 600; cursor: pointer; padding: .35rem 1rem; border-radius: 9999px; border: 0; background: transparent; color: var(--muted-foreground); }
+  .ba-toggle button[aria-pressed="true"] { background: var(--card); color: var(--foreground); box-shadow: 0 2px 8px rgba(0,0,0,.06); }
+  .ba-grid { display: grid; gap: 1.75rem; margin-top: 1.25rem; }
+  @media (min-width: 960px) { .ba-grid { grid-template-columns: 1.6fr 1fr; } }
+  .ba-view { position: relative; aspect-ratio: 16/10; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); background: var(--card); }
+  .ba-view > * { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; border: 0; border-radius: 0; transition: opacity 300ms var(--ease-out-soft); }
+  .ba-view .after { opacity: 0; } .ba-view.show-after .after { opacity: 1; } .ba-view.show-after .before { opacity: 0; }
+  .ba-view .label { position: absolute; inset: auto auto 1rem 1rem; width: auto; height: auto; padding: .25rem .65rem; border-radius: 9999px; background: var(--card); border: 1px solid var(--border); font-size: .72rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; z-index: 2; }
+  .changes { list-style: none; padding: 0; display: grid; gap: 1rem; }
+  .changes li { display: grid; grid-template-columns: 1.75rem 1fr; gap: .6rem; }
+  .changes .n { width: 1.75rem; height: 1.75rem; border-radius: 9999px; background: var(--accent); color: var(--accent-foreground); display: grid; place-items: center; font-size: .75rem; font-weight: 700; font-family: var(--font-display); }
+  .changes b { display: block; font-weight: 600; }
+  .changes span.d { display: block; font-size: .9rem; color: var(--muted-foreground); }
+  .changes .why { display: block; font-size: .78rem; color: var(--accent); margin-top: .15rem; }
+
+  /* insights wall */
+  .insights { display: grid; gap: 1rem; margin-top: 2.5rem; }
+  @media (min-width: 860px) { .insights { grid-template-columns: repeat(2, minmax(0,1fr)); } .insights .wide { grid-column: 1 / -1; } }
+  .insight-card { padding: 1.75rem; }
+  .insight-card .n { font-family: var(--font-display); font-weight: 600; color: var(--accent); font-size: .875rem; }
+  .insight-card h4 { font-size: 1.35rem; line-height: 1.2; margin-top: .5rem; }
+  .insight-card p { color: var(--muted-foreground); margin-top: .75rem; font-size: .95rem; }
+  .insight-card .src { margin-top: 1rem; display: flex; flex-wrap: wrap; gap: .4rem; }
+
+  /* table */
+  .table-wrap { margin-top: 2rem; overflow-x: auto; border-radius: 1rem; }
+  table { width: 100%; border-collapse: collapse; font-size: .9rem; min-width: 34rem; }
+  th, td { text-align: left; padding: 1rem 1.15rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+  th { font-family: var(--font-display); font-weight: 600; background: rgba(255,255,255,.5); }
+  td { color: var(--muted-foreground); } td:first-child { color: var(--foreground); font-weight: 600; white-space: nowrap; }
+  tr:last-child td { border-bottom: 0; }
+
+  /* roadmap */
+  .roadmap { list-style: none; padding: 0; display: grid; gap: 1rem; margin-top: 2rem; }
+  @media (min-width: 860px) { .roadmap { grid-template-columns: repeat(5, minmax(0,1fr)); } }
+  .roadmap li { padding: 1.25rem; }
+  .roadmap .n { font-family: var(--font-display); font-weight: 600; color: var(--accent); }
+  .roadmap b { display: block; margin-top: .4rem; font-family: var(--font-display); font-weight: 600; }
+  .roadmap span { display: block; margin-top: .35rem; font-size: .85rem; color: var(--muted-foreground); }
+
+  /* closing */
+  .closing { display: grid; gap: 1rem; margin-top: 2rem; }
+  @media (min-width: 860px) { .closing { grid-template-columns: repeat(3, minmax(0,1fr)); } }
+  .closing .glass { padding: 1.75rem; }
+  .closing .n { font-family: var(--font-display); font-weight: 600; color: var(--accent); }
+  .closing h4 { margin-top: .5rem; font-size: 1.2rem; }
+  .closing p { margin-top: .6rem; color: var(--muted-foreground); font-size: .95rem; }
+  details.refs { margin-top: 3rem; } details.refs summary { cursor: pointer; font-size: .875rem; color: var(--muted-foreground); }
+  .next { margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border); }
+  .next a { display: inline-block; margin-top: .5rem; font-family: var(--font-display); font-weight: 600; font-size: 1.5rem; text-decoration: none; }
+  .next a:hover { color: var(--accent); }
+
+  /* ---------- Skill-notes review layer ---------- */
+  .note { display: none; margin: 1rem 0; padding: .55rem .8rem; border: 1px dashed var(--note-border); background: var(--note-bg); color: var(--note); border-radius: .5rem; font: 500 .78rem/1.45 var(--font-sans); letter-spacing: 0; text-transform: none; max-width: 62ch; }
+  .note b { font-weight: 700; }
+  body.notes .note { display: block; }
+  .toggle-notes { position: fixed; right: 1rem; bottom: 1rem; z-index: 50; font: 600 .8rem var(--font-sans); padding: .6rem .95rem; border-radius: 9999px; border: 1px solid var(--note-border); background: var(--note-bg); color: var(--note); cursor: pointer; box-shadow: 0 8px 24px rgba(0,0,0,.08); }
+  .reviewbox { display: none; margin-top: 4rem; padding: 1.5rem; border: 1px dashed var(--note-border); background: var(--note-bg); border-radius: 1rem; color: #78350f; font-size: .9rem; }
+  body.notes .reviewbox { display: block; }
+  .reviewbox h4 { color: var(--note); } .reviewbox ul { padding-left: 1.1rem; margin-top: .6rem; } .reviewbox li + li { margin-top: .3rem; }
+</style>
+</head>
+<body class="notes">
+<button class="toggle-notes" type="button" aria-pressed="true">Hide skill notes</button>
+
+<!-- ================= SIDE NAV (desktop) ================= -->
+<aside class="sidenav" aria-label="Case study sections">
+  <a class="back" href="#">← All work</a>
+  <ol>
+    <li><a href="#overview"><span class="n">—</span>Overview</a></li>
+    <li><a href="#approach"><span class="n">—</span>Approach</a></li>
+    <li><a href="#part-1"><span class="n">01</span>Competitive analysis</a></li>
+    <li><a href="#part-2"><span class="n">02</span>Interviews</a></li>
+    <li><a href="#part-3"><span class="n">03</span>Contextual inquiry</a></li>
+    <li><a href="#synthesis"><span class="n">—</span>What I found</a></li>
+    <li><a href="#redesign"><span class="n">—</span>Before &amp; after</a></li>
+    <li><a href="#takeaways"><span class="n">—</span>Takeaways</a></li>
+  </ol>
+</aside>
+
+<!-- ================= HERO ================= -->
+<header class="hero">
+  <div class="glow glow-blue" style="left:-8%;top:-30%;width:48%;height:120%"></div>
+  <div class="glow glow-purple" style="right:-5%;bottom:-40%;width:42%;height:110%"></div>
+  <div class="container with-nav inner">
+    <a class="back-mobile" href="#">← All work</a>
+    <p class="eyebrow" style="margin-top:2.5rem">Case study <span class="sep">·</span> 2025 <span class="sep">·</span> UX research</p>
+    <h1 style="margin-top:1.25rem">Designing beyond the gallery walls</h1>
+    <p class="subtitle">I set out to fix the Art Gallery of Ontario's online account. Three studies later, I found the real gap wasn't on the website. It was inside the gallery.</p>
+    <p class="note"><b>Hero</b> · the subtitle now carries a hook (a turn in the story), not a description of the method.</p>
+    <dl class="meta">
+      <div><dt>Role</dt><dd>Sole UX researcher</dd></div>
+      <div><dt>Timeline</dt><dd>Sept – Dec 2025 · 4 months</dd></div>
+      <div><dt>Team</dt><dd>Solo · advised by Prof. Jessika Tremblay</dd></div>
+      <div><dt>Methods</dt><dd>Competitive analysis · Interviews · Contextual inquiry · Netnography</dd></div>
+    </dl>
+  </div>
+</header>
+
+<div class="hero-stage" aria-hidden="false">
+  <div class="hero-pin"><img id="heroImg" src="../../../../public/AGO.png" alt="The Art Gallery of Ontario case study cover" /></div>
+</div>
+
+<!-- Everything below scrolls up over the pinned hero image -->
+<div class="sheet">
+<main>
+
+<!-- ================= OVERVIEW ================= -->
+<section class="block" id="overview">
+  <div class="container with-nav">
+    <p class="note"><b>Pinned hero image</b> · as you scroll, the page slides up over the image while it fades and shrinks (it stays still with reduced motion). <b>Side menu</b> on the left from 1180px wide; hidden on mobile.</p>
+    <p class="eyebrow">Overview</p>
+    <h2>I set out to study an account. The answer was the whole visit.</h2>
+    <div class="story">
+      <div class="glass snap">
+        <p class="lbl"><i>1</i><span class="eyebrow">The problem</span></p>
+        <p class="big">The AGO had an online account that no one had a reason to use.</p>
+        <p class="small">It lived only at checkout and offered nothing beyond a ticket.</p>
+      </div>
+      <span class="join" aria-hidden="true">→</span>
+      <div class="glass snap insight">
+        <p class="lbl"><i>2</i><span class="eyebrow">The insight</span></p>
+        <p class="big">Visitors didn't need a better account. They needed a better visit.</p>
+        <p class="small">Their biggest frustrations happened inside the gallery, not online.</p>
+      </div>
+      <span class="join" aria-hidden="true">→</span>
+      <div class="glass snap">
+        <p class="lbl"><i>3</i><span class="eyebrow">The solution</span></p>
+        <p class="big">Turn the account into a guide for the visit, after fixing the basics.</p>
+        <p class="small">Five prioritized recommendations, presented Dec 6, 2025.</p>
+      </div>
+    </div>
+    <p class="note"><b>Overview simplified</b> · just the story: three headlines and one short line each. All evidence (WCAG chart, quotes) now lives in the part where it was found.</p>
+  </div>
+</section>
+
+<!-- ================= APPROACH ================= -->
+<section class="block divider" id="approach">
+  <div class="container with-nav">
+    <p class="eyebrow">Approach</p>
+    <h2>Three studies, three kinds of evidence</h2>
+    <p class="lede">I started with what the website does, then asked people what they want, then watched what they actually do.</p>
+
+    <div class="compare">
+      <div class="compare-grid">
+        <article class="glass study">
+          <div class="top"><span class="num">01</span><span class="kind">What the sites do</span></div>
+          <h4>Competitive analysis</h4>
+          <p class="ask">How does the AGO's website compare with world-class peers?</p>
+          <dl>
+            <div><dt>Compared</dt><dd>The AGO, The Met and the British Museum</dd></div>
+            <div><dt>How</dt><dd>Business context, heuristic review, automated and manual WCAG checks, keyboard-only checkout</dd></div>
+            <div><dt>When</dt><dd>Sept 2025</dd></div>
+            <div><dt>Produced</dt><dd>7 findings and a hypothesis: visitors want a richer account</dd></div>
+          </dl>
+          <a class="go" href="#part-1">Read part 01 ↓</a>
+        </article>
+        <article class="glass study">
+          <div class="top"><span class="num">02</span><span class="kind">What people say</span></div>
+          <h4>Semi-structured interviews</h4>
+          <p class="ask">Do visitors want more from their account, and what would make them use it?</p>
+          <dl>
+            <div><dt>Who</dt><dd>5 people: 2 student account holders, 2 tourism professionals, 1 former museum member</dd></div>
+            <div><dt>How</dt><dd>60-min sessions on Microsoft Teams with a guide per audience, then thematic coding</dd></div>
+            <div><dt>When</dt><dd>Oct 24 – 29, 2025</dd></div>
+            <div><dt>Produced</dt><dd>Report, 2 personas, 2 journey maps. The hypothesis didn't hold.</dd></div>
+          </dl>
+          <a class="go" href="#part-2">Read part 02 ↓</a>
+        </article>
+        <article class="glass study">
+          <div class="top"><span class="num">03</span><span class="kind">What people do</span></div>
+          <h4>Contextual inquiry</h4>
+          <p class="ask">What actually happens during a museum visit, from the ticket to the exhibit?</p>
+          <dl>
+            <div><dt>Where</dt><dd>2 think-aloud visits at the ROM and Nielsen Park Creative Centre, an AGO walkthrough, and a Reddit netnography</dd></div>
+            <div><dt>How</dt><dd>60-min observations with a discussion and observation guide, clustered with the earlier findings</dd></div>
+            <div><dt>When</dt><dd>Nov 2025</dd></div>
+            <div><dt>Produced</dt><dd>11 findings, 5 recommendations and an account concept</dd></div>
+          </dl>
+          <a class="go" href="#part-3">Read part 03 ↓</a>
+        </article>
+      </div>
+    </div>
+
+    <p class="eyebrow" style="margin-top:3rem">Research questions</p>
+    <h3 style="margin-top:.5rem">What each study set out to answer</h3>
+    <div class="glass rq-all">
+      <div>
+        <h4><span>01</span> Competitive analysis</h4>
+        <p class="sub-k">Guiding questions</p>
+        <ol>
+          <li>What does each museum promise visitors, and how does its website support that?</li>
+          <li>How accessible and usable is each site, from browsing to checkout?</li>
+          <li>Where does the AGO fall short of its peers, and what does that cost visitors?</li>
+        </ol>
+        <p class="todo">Drafted from the analysis criteria. Confirm.</p>
+      </div>
+      <div>
+        <h4><span>02</span> Interviews</h4>
+        <p class="sub-k">Research questions</p>
+        <ol>
+          <li>What do users think of the AGO account functionality?</li>
+          <li>What features or functionalities would make the account more valuable?</li>
+          <li>What motivates users to create and maintain an account with a cultural institution?</li>
+          <li>How do users perceive data sharing, privacy and personalization in a museum context?</li>
+        </ol>
+        <p class="sub-k">Objectives</p>
+        <ul>
+          <li>Explore how users currently interact with their AGO account (if at all)</li>
+          <li>Understand what users expect an account to offer</li>
+          <li>Identify barriers and frustrations</li>
+          <li>Generate insights for a more engaging account</li>
+        </ul>
+      </div>
+      <div>
+        <h4><span>03</span> Contextual inquiry</h4>
+        <p class="sub-k">Research questions</p>
+        <ol>
+          <li>What do users think about their AGO / museum experience: frustrations, pain points, opportunities?</li>
+          <li>How do users engage with the museum digitally, in person and at home: interactivity, ticketing, maps, QR codes?</li>
+          <li>How do users engage non-digitally while visiting: asking staff, brochures, physical maps?</li>
+          <li>What, if anything, would motivate users to create and keep a museum account?</li>
+          <li>How do users perceive data sharing, privacy and personalization in a museum context?</li>
+        </ol>
+        <p class="sub-k">Objectives</p>
+        <ul>
+          <li>Identify frustrations during a visit</li>
+          <li>Understand expectations and what visitors value</li>
+          <li>Explore how people move from ticket to gallery</li>
+          <li>Uncover opportunities, digital and in person</li>
+        </ul>
+      </div>
+    </div>
+    <p class="note"><b>Approach</b> · a side-by-side comparison (what the sites do / what people say / what people do) with the scope numbers that used to sit in the overview, and <b>every research question and objective in one place</b>. The objectives are shortened from your reports, and the research questions are quoted as written. Each part below shows its hypothesis and result instead of repeating the questions.</p>
+  </div>
+</section>
+
+<!-- ================= PART 01 ================= -->
+<section class="part-band" id="part-1">
+  <div class="container with-nav">
+    <div class="head">
+      <span class="big-num">01</span>
+      <div>
+        <p class="eyebrow">Part 01 <span class="sep">·</span> Competitive analysis <span class="sep">·</span> Sept 2025</p>
+        <h2>The AGO lagged its peers on the basics</h2>
+      </div>
+    </div>
+    <div class="part-meta"><span class="chip">3 museum websites</span><span class="chip">Heuristic review</span><span class="chip">WCAG audit</span><span class="chip">Keyboard-only checkout</span></div>
+
+    <p class="rq-link"><a href="#approach">Guiding questions for this study are in Approach ↑</a></p>
+
+    <div class="subs">
+      <article class="sub" id="p1-1">
+        <div class="sub-num"><small>Part 01</small>1.1</div>
+        <div>
+          <p class="eyebrow muted">Context</p>
+          <h3>Three museums, three different promises</h3>
+          <p class="body">All three museums aim to connect people with art, culture and education, but each positions itself differently. <strong>The British Museum and The Met build for the world</strong>, with deep online collections and resources for researchers. <strong>The AGO builds for its own community</strong>, and its site is organized around visit planning, tickets and memberships.</p>
+          <div class="position">
+            <div class="glass ago">
+              <span class="logo"><img src="../../../../public/ago/logos/ago.jpg" class="crop" alt="Art Gallery of Ontario logo"></span>
+              <h4>Art Gallery of Ontario</h4>
+              <p class="tag">A local museum with a membership model</p>
+              <dl>
+                <div><dt>Serves</dt><dd>Mainly local and domestic visitors, through exhibitions, community programs, memberships and education</dd></div>
+                <div><dt>Goals</dt><dd>Visitor engagement, financial sustainability<sup>1</sup>, and more diverse collections and programs<sup>2</sup></dd></div>
+                <div><dt>Site built around</dt><dd>Planning a visit, tickets, memberships</dd></div>
+              </dl>
+            </div>
+            <div class="glass">
+              <span class="logo"><img src="../../../../public/ago/logos/british-museum.svg" alt="British Museum logo"></span>
+              <h4>British Museum</h4>
+              <p class="tag">A global public resource</p>
+              <dl>
+                <div><dt>Serves</dt><dd>A worldwide audience</dd></div>
+                <div><dt>Goals</dt><dd>Preserving its collection and sharing it with the world<sup>3</sup></dd></div>
+                <div><dt>Site built around</dt><dd>Multilingual resources and extensive digital collections<sup>4</sup></dd></div>
+              </dl>
+            </div>
+            <div class="glass">
+              <span class="logo"><img src="../../../../public/ago/logos/the-met.svg" alt="The Met logo"></span>
+              <h4>The Met</h4>
+              <p class="tag">A home for scholarship and visitors</p>
+              <dl>
+                <div><dt>Serves</dt><dd>Visitors, students, educators and researchers</dd></div>
+                <div><dt>Goals</dt><dd>Inclusivity<sup>5</sup>, advancing scholarship<sup>6</sup>, and excellent visits online and in person<sup>7</sup></dd></div>
+                <div><dt>Site built around</dt><dd>Online collections, publications, learning resources</dd></div>
+              </dl>
+            </div>
+          </div>
+          <p class="body">That positioning makes the account <em>more</em> important for the AGO, not less. A museum that depends on its local audience and on memberships needs a way to keep in touch with visitors between visits.</p>
+          <p class="takeaway"><span class="k">Key takeaway</span>The AGO's business depends on repeat local visitors, so its account should be doing more than any peer's.</p>
+          <p class="note"><b>Museum positioning</b> · restored from your current case study, with its reference numbers (they match the collapsed references list at the end).</p>
+        </div>
+      </article>
+
+      <article class="sub" id="p1-2">
+        <div class="sub-num"><small>Part 01</small>1.2</div>
+        <div>
+          <p class="eyebrow muted">What I found</p>
+          <h3>Six frictions between a visitor and a ticket</h3>
+          <p class="body">I tested each site against usability heuristics and WCAG, and completed checkout using only a keyboard. The AGO had the most issues in every area I looked at.</p>
+          <div class="glass wcag">
+            <p class="eyebrow muted">Accessibility</p>
+            <p style="margin-top:.4rem;font-weight:600">Automated WCAG errors on each museum's website</p>
+            <div class="bars" role="img" aria-label="WCAG errors: AGO 13, The Met 2, British Museum 0">
+              <div class="bar ago"><span class="who"><img src="../../../../public/ago/logos/ago.jpg" class="crop" alt="">AGO</span><span class="track"><span class="fill" style="display:block;width:100%"></span></span><b>13</b></div>
+              <div class="bar"><span class="who"><img src="../../../../public/ago/logos/the-met.svg" alt="">The Met</span><span class="track"><span class="fill" style="display:block;width:15%"></span></span><b>2</b></div>
+              <div class="bar"><span class="who"><img src="../../../../public/ago/logos/british-museum.svg" alt="">British Museum</span><span class="track"><span class="fill" style="display:block;width:0%"></span></span><b>0</b></div>
+            </div>
+            <p class="caption" style="margin-top:.8rem">The AGO also had 5 contrast errors, despite committing to full WCAG AA compliance by 2021.</p>
+          </div>
+          <p class="note"><b>Problem explorer</b> · click a card and the image above changes, like Polimeter's four problems. Every screenshot is one of your own annotated images.</p>
+        </div>
+      </article>
+    </div>
+
+    <div class="glass explorer-stage" data-explorer>
+      <div class="frame">
+        <div class="placeholder on" data-panel="0"><div><b>[TODO image] WCAG audit results</b>Screenshot of the automated WCAG report for the AGO (13 errors, 5 contrast errors)</div></div>
+        <img data-panel="1" src="../../../../public/ago/competitiveanalysis/CA1_Issues_W_Cart_Flow.png" alt="Annotated AGO cart flow with no progress indicator" loading="lazy" />
+        <img data-panel="2" src="../../../../public/ago/competitiveanalysis/CA2_Issue_W_Ticket_Types.png" alt="Annotated AGO ticket type selection" loading="lazy" />
+        <img data-panel="3" src="../../../../public/ago/competitiveanalysis/CA4_Issues_W_Form_Fields_ErrorFeedback.png" alt="Annotated AGO registration form with errors only after submit" loading="lazy" />
+        <img data-panel="4" src="../../../../public/ago/competitiveanalysis/CA5_Issue_w_Search.png" alt="Annotated AGO search bar with no autocomplete" loading="lazy" />
+        <img data-panel="5" src="../../../../public/ago/competitiveanalysis/CA6_Issue_W_Account.png" alt="AGO sign-in page shown to a user who is already logged in" loading="lazy" />
+      </div>
+      <div class="stage-cap"><span data-cap><b>Accessibility.</b> 13 WCAG errors and 5 contrast errors, against 2 for The Met and 0 for the British Museum.</span></div>
+    </div>
+    <p class="hint">Click a card to explore</p>
+    <div class="problem-cards" role="group" aria-label="AGO website problems">
+      <button class="pcard" aria-pressed="true" data-target="0" data-cap="<b>Accessibility.</b> 13 WCAG errors and 5 contrast errors, against 2 for The Met and 0 for the British Museum."><span class="n">1</span><span><h4>Accessibility gaps</h4><p>Most WCAG errors of the three, despite a 2021 AA commitment.</p></span></button>
+      <button class="pcard" aria-pressed="false" data-target="1" data-cap="<b>Checkout.</b> No progress bar, and the only way back a step is the browser's back button."><span class="n">2</span><span><h4>Trapped in checkout</h4><p>No progress bar, no way back but the browser.</p></span></button>
+      <button class="pcard" aria-pressed="false" data-target="2" data-cap="<b>Ticket types.</b> Options come with little explanation, and quantities are set with a confusing dropdown."><span class="n">3</span><span><h4>Unexplained tickets</h4><p>Visitors have to guess which ticket is theirs.</p></span></button>
+      <button class="pcard" aria-pressed="false" data-target="3" data-cap="<b>Forms.</b> No autocomplete for city, no input masks, and errors only appear after pressing Register."><span class="n">4</span><span><h4>Forms that fail late</h4><p>Errors only appear after you submit, with no fix.</p></span></button>
+      <button class="pcard" aria-pressed="false" data-target="4" data-cap="<b>Search.</b> No autocomplete, no search history and no filters on site-wide results."><span class="n">5</span><span><h4>Search without help</h4><p>No suggestions, history or filters.</p></span></button>
+      <button class="pcard" aria-pressed="false" data-target="5" data-cap="<b>Account.</b> “Sign In” stays visible after you log in, and signed-in visitors see exactly the same site."><span class="n">6</span><span><h4>An account that forgets you</h4><p>Asks you to sign in while you're signed in.</p></span></button>
+    </div>
+
+    <div class="subs">
+      <article class="sub" id="p1-3">
+        <div class="sub-num"><small>Part 01</small>1.3</div>
+        <div>
+          <p class="eyebrow muted">So what</p>
+          <h3>A hypothesis worth testing</h3>
+          <p class="body">The account was the most telling gap. It existed only inside the cart, and signing in changed nothing about the site. That led me to a hypothesis: <strong>visitors would want a richer account</strong>, with saved artworks, personalized recommendations and loyalty rewards.</p>
+          <p class="takeaway"><span class="k">Key takeaway</span>The AGO had an account, but no reason for anyone to use it.</p>
+        </div>
+      </article>
+    </div>
+    <p class="bridge"><span class="arrow">→</span><span><span class="k">Into part 02</span>I had a hypothesis about what visitors wanted. The next step was to ask them.</span></p>
+  </div>
+</section>
+
+<!-- ================= PART 02 ================= -->
+<section class="part-band" id="part-2">
+  <div class="container with-nav">
+    <div class="head">
+      <span class="big-num">02</span>
+      <div>
+        <p class="eyebrow">Part 02 <span class="sep">·</span> Interviews <span class="sep">·</span> Oct 2025</p>
+        <h2>My hypothesis was wrong, in a useful way</h2>
+      </div>
+    </div>
+    <div class="part-meta"><span class="chip">5 participants</span><span class="chip">60 min each</span><span class="chip">Semi-structured</span><span class="chip">Thematic coding</span></div>
+
+    <div class="glass rq two">
+      <div class="hyp-main">
+        <p class="eyebrow">Hypothesis going in</p>
+        <p>Users find the account limiting because it only exists in the cart. They'd value saving artworks (like Pinterest), personalized content and loyalty rewards.</p>
+        <p class="verdict">Result: partly right about the problem, wrong about the fix.</p>
+      </div>
+      <details class="rqd">
+        <summary>Research questions (4)</summary>
+        <ol>
+          <li>What do users think of the AGO account?</li>
+          <li>What features or functions would make the account more valuable?</li>
+          <li>What motivates users to create and keep an account with a cultural institution?</li>
+          <li>How do users perceive data sharing, privacy and personalization in a museum context?</li>
+        </ol>
+      </details>
+    </div>
+    <p class="note"><b>Hypothesis first</b> · the full questions live in Approach, so each part leads with the hypothesis and its result (the twist) and keeps its questions one click away.</p>
+
+    <div class="subs">
+      <article class="sub" id="p2-1">
+        <div class="sub-num"><small>Part 02</small>2.1</div>
+        <div>
+          <p class="eyebrow muted">Who I spoke with</p>
+          <h3>Recruiting showed the problem before the interviews did</h3>
+          <p class="body">I spoke with two student account holders, two tourism professionals who visit museums worldwide, and a former ROM member. My screener asked for account holders who had bought tickets in the last two years. <strong>I couldn't find enough of them.</strong></p>
+          <p class="body">I widened the criteria to anyone who'd used an account to visit. Even those participants had barely touched their accounts. That turned into a finding.</p>
+          <p class="body">I wrote a separate discussion guide for each audience. Sessions were semi-structured: the guide was a starting point, and I followed each participant's lead with follow-up probes.</p>
+          <details class="guide">
+            <summary><span>Read the discussion guide<span class="s">Sample questions · 60-minute session · 6 sections</span></span><span class="plus" aria-hidden="true">+</span></summary>
+            <div class="guide-body">
+              <div class="guide-cols">
+                <div class="gsec"><h5>1. Warm-up <small>~5 min</small></h5><ul>
+                  <li>Could you tell me a little bit about yourself?</li>
+                  <li>What do you do for fun? What does your typical week look like?</li>
+                </ul></div>
+                <div class="gsec"><h5>2. Visiting habits</h5><ul>
+                  <li>How often do you go to the AGO? What made you start visiting?</li>
+                  <li>How do you decide when you want to visit?</li>
+                  <li>Has anything changed about the way you plan your visit or engage with the AGO over time?</li>
+                </ul></div>
+                <div class="gsec"><h5>3. Planning and tickets</h5><ul>
+                  <li>Did you use the website to plan your visit? On which device?</li>
+                  <li>Can you tell me about your most recent ticket purchase for the AGO?</li>
+                  <li>How do you find out about upcoming exhibits and events? How do you prefer to get updates?</li>
+                </ul></div>
+                <div class="gsec"><h5>4. The account</h5>
+                  <p class="who">Account holders</p><ul>
+                  <li>Walk me through the last time you used your AGO account.</li>
+                  <li>Probe: What were you trying to do? How often do you use it?</li></ul>
+                  <p class="who">Non-account holders</p><ul>
+                  <li>What, if anything, would make you want to create an AGO account?</li>
+                  <li>What has made you not want to create one? Do you have any concerns?</li>
+                  <li>What is your understanding of the benefits of an AGO account?</li>
+                  <li>If you made one, what would you want to use it for, and how often?</li>
+                </ul></div>
+                <div class="gsec"><h5>5. Feelings and comparisons</h5><ul>
+                  <li>How do you feel when you visit the AGO?</li>
+                  <li>Could you tell me about your ideal online experience with the AGO?</li>
+                  <li>How do your visits to other museums around the world compare?</li>
+                </ul></div>
+                <div class="gsec"><h5>6. Wrap-up <small>~2 min</small></h5><ul>
+                  <li>Is there anything you'd like to add about your experiences?</li>
+                </ul></div>
+              </div>
+            </div>
+          </details>
+          <p class="note"><b>[Verify] Discussion guide</b> · your original interview guides weren't in the folder, so I rebuilt this from the questions you actually asked in the transcripts (no participant details used) plus the sample questions in your current case study. Swap in the original if you have it.</p>
+        </div>
+      </article>
+
+      <article class="sub" id="p2-2">
+        <div class="sub-num"><small>Part 02</small>2.2</div>
+        <div>
+          <p class="eyebrow muted">Finding</p>
+          <h3>Every participant called the pass something different</h3>
+          <p class="body">The AGO offers accounts, memberships, and a free annual pass for visitors aged 14–24. Participants couldn't tell them apart. Several didn't know which ones they had, and every participant had their own name for the pass.</p>
+          <blockquote>
+            <p>“I think that [the Free Annual Pass] is referring to the 14–24 free pass for students… I am not sure if I only get it for a year.”</p>
+            <footer>Oliver (persona), student account holder</footer>
+          </blockquote>
+          <p class="takeaway"><span class="k">Key takeaway</span>If visitors can't name what they have, they can't see why they'd want more of it.</p>
+        </div>
+      </article>
+
+      <article class="sub" id="p2-3">
+        <div class="sub-num"><small>Part 02</small>2.3</div>
+        <div>
+          <p class="eyebrow muted">Finding</p>
+          <h3>Nobody asked for saved artworks. They asked for exclusivity.</h3>
+          <p class="body">The features I'd hypothesized barely came up. What participants expected instead was <strong>early access</strong>: news about exhibits before the public, ongoing perks and discounts. And they noticed that signing in made no difference at all.</p>
+          <blockquote>
+            <p>“I don't see much of a difference between having an account and not having an account… I have the same access to everything on the website.”</p>
+            <footer>Participant 5, student account holder</footer>
+          </blockquote>
+          <figure class="fig"><img src="../../../../public/ago/interviews/I1_Coding.png" alt="Interview transcripts coded and clustered into themes" loading="lazy" /><figcaption class="caption">Coding the five transcripts into themes: motivations, global comparisons, account features and concerns</figcaption></figure>
+          <p class="takeaway"><span class="k">Key takeaway</span>The fix wasn't more features. It was a reason to sign in.</p>
+        </div>
+      </article>
+
+      <article class="sub" id="p2-4">
+        <div class="sub-num"><small>Part 02</small>2.4</div>
+        <div>
+          <p class="eyebrow muted">Finding</p>
+          <h3>Privacy has a price, and the AGO wasn't paying it</h3>
+          <p class="body">Participants didn't want another password. They saw no reason for the sign-up form to ask for their home address and phone number. One tourism professional happily downloaded an AGO app for an interactive exhibit, because it didn't make her create an account.</p>
+          <p class="body">Yet the same participants said they'd trade their details for something worth it. <strong>Even free Wi-Fi was enough.</strong></p>
+          <div class="fig placeholder"><div><b>[TODO image] The AGO sign-up form</b>Annotate the address and phone fields participants questioned</div></div>
+          <p class="takeaway"><span class="k">Key takeaway</span>Ask for less, explain why, and give something exclusive back.</p>
+        </div>
+      </article>
+
+      <article class="sub" id="p2-5">
+        <div class="sub-num"><small>Part 02</small>2.5</div>
+        <div>
+          <p class="eyebrow muted">Synthesis</p>
+          <h3>Two visitors, two very different reasons to care</h3>
+          <p class="body"><strong>Oliver</strong> is a student who uses the free pass and visits with friends. <strong>Emily</strong> visits for work with tour groups, and compares the AGO with museums in Europe and Asia. Both left their visits confused about what the account was for.</p>
+          <div class="tabs" role="tablist" aria-label="Personas and journey maps">
+            <button class="tab" role="tab" aria-selected="true" aria-controls="tp-1" id="t-1">Oliver · persona</button>
+            <button class="tab" role="tab" aria-selected="false" aria-controls="tp-2" id="t-2">Oliver · journey</button>
+            <button class="tab" role="tab" aria-selected="false" aria-controls="tp-3" id="t-3">Emily · persona</button>
+            <button class="tab" role="tab" aria-selected="false" aria-controls="tp-4" id="t-4">Emily · journey</button>
+          </div>
+          <div class="tabpanel" role="tabpanel" id="tp-1" aria-labelledby="t-1"><figure class="fig"><img src="assets/p9.jpg" alt="Persona: Oliver, student account holder" loading="lazy" /><figcaption class="caption">Oliver wants quick booking with his pass, and his account to tell him what's on</figcaption></figure></div>
+          <div class="tabpanel" role="tabpanel" id="tp-2" aria-labelledby="t-2" hidden><figure class="fig"><img src="assets/p10.jpg" alt="Journey map for Oliver" loading="lazy" /><figcaption class="caption">Excited before, uplifted during, confused after: he logs in to subscribe to news and can't find the option</figcaption></figure></div>
+          <div class="tabpanel" role="tabpanel" id="tp-3" aria-labelledby="t-3" hidden><figure class="fig"><img src="assets/p11.jpg" alt="Persona: Emily, tourism professional" loading="lazy" /><figcaption class="caption">Emily judges the AGO against the best museums in the world</figcaption></figure></div>
+          <div class="tabpanel" role="tabpanel" id="tp-4" aria-labelledby="t-4" hidden><figure class="fig"><img src="assets/p12.jpg" alt="Journey map for Emily" loading="lazy" /><figcaption class="caption">Captivated by an interactive exhibit, then unable to find any information about others online</figcaption></figure></div>
+          <p class="note"><b>Tabs</b> · personas and journey maps rendered from your report slides, behind tabs so they add depth without length.</p>
+        </div>
+      </article>
+
+      <article class="sub" id="p2-6">
+        <div class="sub-num"><small>Part 02</small>2.6</div>
+        <div>
+          <p class="eyebrow muted">The thread</p>
+          <h3>Visits are social. The account is not.</h3>
+          <p class="body">Nobody described visiting alone. Visits were family outings, trips with friends, hosting guests or work tours, and most participants bought tickets for their whole group. The AGO's tools assume one person, one ticket.</p>
+          <p class="takeaway"><span class="k">Key takeaway</span>Design the account for the group, not the individual.</p>
+        </div>
+      </article>
+    </div>
+    <p class="bridge"><span class="arrow">→</span><span><span class="k">Into part 03</span>If the account needed a reason to exist, where would that reason come from? I went into the galleries to find out.</span></p>
+  </div>
+</section>
+
+<!-- ================= PART 03 ================= -->
+<section class="part-band" id="part-3">
+  <div class="container with-nav">
+    <div class="head">
+      <span class="big-num">03</span>
+      <div>
+        <p class="eyebrow">Part 03 <span class="sep">·</span> Contextual inquiry <span class="sep">·</span> Nov 2025</p>
+        <h2>The biggest gap was standing in front of the art</h2>
+      </div>
+    </div>
+    <div class="part-meta"><span class="chip">2 think-aloud sessions</span><span class="chip">ROM · Nielsen Park</span><span class="chip">AGO walkthrough</span><span class="chip">Reddit netnography</span></div>
+
+    <div class="glass rq two">
+      <div class="hyp-main">
+        <p class="eyebrow">Hypothesis going in</p>
+        <p>Account holders rarely use their accounts beyond tickets, and non-holders find little reason to sign up on site. The environment (crowds, signage, maps, Wi-Fi, QR codes) shapes how comfortably visitors get around.</p>
+        <p class="verdict">Result: confirmed, and it pointed beyond the account.</p>
+      </div>
+      <details class="rqd">
+        <summary>Research questions (5)</summary>
+        <ol>
+          <li>What do users think about their AGO / museum experience: frustrations, pain points, opportunities?</li>
+          <li>How do users engage with the museum digitally, in person and at home: interactivity, ticketing, maps, QR codes?</li>
+          <li>How do users engage non-digitally while visiting: asking staff, brochures, physical maps?</li>
+          <li>What, if anything, would motivate users to create and keep a museum account?</li>
+          <li>How do users perceive data sharing, privacy and personalization in a museum context?</li>
+        </ol>
+      </details>
+    </div>
+    
+
+    <div class="subs">
+      <article class="sub" id="p3-1">
+        <div class="sub-num"><small>Part 03</small>3.1</div>
+        <div>
+          <p class="eyebrow muted">A detour</p>
+          <h3>Turned away on day one</h3>
+          <p class="body">My approved plan was to recruit visitors in the AGO lobby. On the first day, <strong>staff stopped the research</strong>. Within days I recruited two participants through my network, moved the sessions to the Royal Ontario Museum and Nielsen Park Creative Centre, and added a Reddit netnography to keep AGO visitors' voices in the study.</p>
+          <p class="body">The setback became a comparison: I could now see what the ROM did differently.</p>
+          <details class="guide">
+            <summary><span>Read the observation and discussion guide<span class="s">Think-aloud visit · 60 minutes · from admission to leaving</span></span><span class="plus" aria-hidden="true">+</span></summary>
+            <div class="guide-body">
+              <div class="guide-cols">
+                <div class="gsec"><h5>1. Warm-up <small>~10 min</small></h5><ul>
+                  <li>Why did you decide to visit today? Have you been before?</li>
+                  <li>How often do you visit other cultural institutions? What motivates you?</li>
+                  <li>Do you have an AGO account, or one with any other institution?</li>
+                  <li>How did you plan your visit? What do you expect from it today?</li>
+                </ul></div>
+                <div class="gsec"><h5>2. Admission</h5>
+                  <p class="who">Observe</p><ul>
+                  <li>How do they buy tickets, and how easily do they find prices?</li>
+                  <li>What format is the ticket: paper, digital wallet, screenshot?</li>
+                  <li>Any confusion between memberships and passes? Any friction?</li>
+                  <li>Do staff encourage an account or membership? Are personal details shared, for example for Wi-Fi?</li></ul>
+                  <p class="who">Ask</p><ul>
+                  <li>What do you think and feel about the admission process?</li>
+                  <li>Account holders: walk me through the last time you used your AGO account.</li>
+                  <li>Non-account holders: what has made you not want an AGO account?</li>
+                </ul></div>
+                <div class="gsec"><h5>3. Moving through the museum</h5>
+                  <p class="who">Observe</p><ul>
+                  <li>Where do they go first, and how do they know?</li>
+                  <li>Do they use a map, brochure, signage, staff or their phone?</li>
+                  <li>Do they take photos, scan QR codes or look things up?</li></ul>
+                  <p class="who">Ask</p><ul>
+                  <li>How did you decide where to go today?</li>
+                  <li>How do you feel about finding your way around?</li>
+                </ul></div>
+                <div class="gsec"><h5>4. Ending the visit</h5><ul>
+                  <li>Observe: how do they know they're done? Do they visit the gift shop or mention coming back?</li>
+                  <li>How satisfied are you with your visit today?</li>
+                  <li>Is there anything you would change about the visitor experience?</li>
+                  <li>How would you describe your visit today?</li>
+                </ul></div>
+              </div>
+              <p class="gnote">Condensed from the full guide in my research plan (Nov 13, 2025).</p>
+            </div>
+          </details>
+          <figure class="fig"><img src="../../../../public/ago/contextualinquiry/CI1.png" alt="Synthesis board with clusters for interviews, ROM, Nielsen Park, AGO, Reddit netnography and an AGO map" loading="lazy" /><figcaption class="caption">One board for every source: interviews, ROM, Nielsen Park, the AGO, Reddit and a map of the AGO</figcaption></figure>
+          <p class="takeaway"><span class="k">Key takeaway</span>Losing site access gave me a benchmark I'd never have planned.</p>
+        </div>
+      </article>
+
+      <article class="sub" id="p3-2">
+        <div class="sub-num"><small>Part 03</small>3.2</div>
+        <div>
+          <p class="eyebrow muted">Finding</p>
+          <h3>The map was there. Nobody could find it.</h3>
+          <p class="body">Interview participants told me they couldn't find a physical map at the AGO, or any information about the heART Rate Monitor, an interactive experience included with admission. When I visited, I saw why. <strong>The maps were small and tucked away, and the exhibit was hidden behind a wall.</strong></p>
+          <p class="body">At the ROM, maps and tours were everywhere, in several languages, with audio tours a QR code away.</p>
+          <div class="grid-2">
+            <figure><img class="shot" src="assets/p14.jpg" alt="A small stack of AGO maps, and a floor plan showing the heART Rate Monitor booth hidden behind a wall" loading="lazy" /><figcaption class="caption">AGO: a small stack of maps, and my floor plan showing the heART Rate Monitor booth hidden behind a wall</figcaption></figure>
+            <figure><img class="shot" src="assets/p15.jpg" alt="ROM brochure racks in many languages, mobile tour QR codes and tour schedules" loading="lazy" /><figcaption class="caption">ROM: guides in many languages, QR mobile tours and daily tour times</figcaption></figure>
+          </div>
+          <p class="note"><b>Fact check</b> · your slide is titled "at the AGO", but the photos on it are from the ROM, so the caption says ROM.</p>
+        </div>
+      </article>
+
+      <article class="sub" id="p3-3">
+        <div class="sub-num"><small>Part 03</small>3.3</div>
+        <div>
+          <p class="eyebrow muted">Finding</p>
+          <h3>Reading the back of the exhibit</h3>
+          <p class="body">In the China gallery, I asked a participant to find the name of one object. She spent a long time working down a list of text beside the case, trying to match it to what she saw. Then she realized <strong>we were standing at the back of the glass case</strong>. Nothing had told her.</p>
+          <p class="body">Nearby, a pamphlet meant to explain a case of snuff bottles was broken, in English only, and not accessible.</p>
+          <div class="grid-3">
+            <figure><img class="shot" src="assets/p16.jpg" alt="Display case of snuff bottles at the AGO" loading="lazy" /><figcaption class="caption">Dozens of objects, one hard-to-find pamphlet</figcaption></figure>
+            <figure><img class="shot" src="assets/p17.jpg" alt="Object in the China gallery" loading="lazy" /><figcaption class="caption">“How would you find out the title of this item?”</figcaption></figure>
+            <figure><img class="shot" src="assets/p18.jpg" alt="Identification list next to the display case" loading="lazy" /><figcaption class="caption">The answer was in a long list on the other side</figcaption></figure>
+          </div>
+          <p class="takeaway"><span class="k">Key takeaway</span>Visitors want to learn. The museum has to hand them the information.</p>
+        </div>
+      </article>
+
+      <article class="sub" id="p3-4">
+        <div class="sub-num"><small>Part 03</small>3.4</div>
+        <div>
+          <p class="eyebrow muted">Turning point</p>
+          <h3>When the screen matched the shelf</h3>
+          <p class="body">At the ROM, an interactive map laid out exactly like the display case changed everything. My participant tapped through the objects and <strong>learned more in minutes than she had all visit</strong>. The match between what she saw and what the screen showed did the work.</p>
+          <p class="body">But not every case had one, and several devices were broken, low-contrast, English and French only, and inaccessible.</p>
+          <div class="grid-2">
+            <figure><img class="shot" src="assets/p19.jpg" alt="Interactive map matching a display case at the ROM" loading="lazy" /><figcaption class="caption">ROM: the screen mirrors the case, so finding an object is instant</figcaption></figure>
+            <figure><img class="shot" src="assets/p20.jpg" alt="Interactive devices in disrepair" loading="lazy" /><figcaption class="caption">The same idea fails when the hardware does</figcaption></figure>
+          </div>
+          <p class="takeaway"><span class="k">Key takeaway</span>Information works best when it matches what's directly in front of you.</p>
+        </div>
+      </article>
+
+      <article class="sub" id="p3-5">
+        <div class="sub-num"><small>Part 03</small>3.5</div>
+        <div>
+          <p class="eyebrow muted">Finding</p>
+          <h3>People come to be surprised, and to reflect</h3>
+          <p class="body">The moments participants remembered were interactive, surprising or reflective: exhibits that asked them a question, or invited them to think about repatriation, reconciliation and who tells a story.</p>
+          <div class="grid-4">
+            <img class="shot" src="../../../../public/ago/contextualinquiry/4.%20Visitors%20want%20more%20information%20before%20and%20during%20their%20visit/display/ci4_1png.png" alt="Reflect and Connect visitor prompt" loading="lazy" />
+            <img class="shot" src="../../../../public/ago/contextualinquiry/4.%20Visitors%20want%20more%20information%20before%20and%20during%20their%20visit/display/ci4_2.png" alt="Reflective installation" loading="lazy" />
+            <img class="shot" src="../../../../public/ago/contextualinquiry/4.%20Visitors%20want%20more%20information%20before%20and%20during%20their%20visit/display/ci4_3.png" alt="Interactive Decisions, Decisions exhibit" loading="lazy" />
+            <img class="shot" src="../../../../public/ago/contextualinquiry/4.%20Visitors%20want%20more%20information%20before%20and%20during%20their%20visit/display/ci4_4.png" alt="Reflective visitor installation" loading="lazy" />
+            <img class="shot" src="../../../../public/ago/contextualinquiry/4.%20Visitors%20want%20more%20information%20before%20and%20during%20their%20visit/display/ci4_5.png" alt="Participatory reflection prompt" loading="lazy" />
+            <img class="shot" src="../../../../public/ago/contextualinquiry/4.%20Visitors%20want%20more%20information%20before%20and%20during%20their%20visit/display/ci4_6.png" alt="Interactive reflection station" loading="lazy" />
+            <img class="shot" src="../../../../public/ago/contextualinquiry/4.%20Visitors%20want%20more%20information%20before%20and%20during%20their%20visit/display/ci4_7.png" alt="Visitor reflection materials" loading="lazy" />
+            <img class="shot" src="../../../../public/ago/contextualinquiry/4.%20Visitors%20want%20more%20information%20before%20and%20during%20their%20visit/display/ci4_8.png" alt="Accessible digital interpretation" loading="lazy" />
+          </div>
+          <p class="caption">Prompts, stations and installations that held participants' attention longest</p>
+          <blockquote>
+            <p>“Exhibition design is a simultaneously networked dialectical process, one which develops in a dialogue between verbal-conceptual and visual-representational rhetorical techniques. The focal point of this process of reflection is the individual and his or her intellectual and physical perceptual capabilities.”</p>
+            <footer>Bertron, Schwarz &amp; Frey, <em>Designing Exhibitions</em> (2012)<sup>12</sup></footer>
+          </blockquote>
+          <p class="takeaway"><span class="k">Key takeaway</span>The best moments were interactive. The account could bring more of them.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SYNTHESIS ================= -->
+<section class="block divider" id="synthesis">
+  <div class="container with-nav">
+    <p class="eyebrow">What I found</p>
+    <h2>Five insights that change what the account is for</h2>
+    <p class="lede">Each insight is backed by at least two studies.</p>
+    <div class="insights">
+      <div class="glass insight-card wide">
+        <span class="n">01</span><h4>The account is a receipt, not a relationship.</h4>
+        <p>It only works inside checkout, forgets you're signed in, and shows you the same site as everyone else. Even account holders couldn't say what it was for.</p>
+        <div class="src"><span class="chip">Competitive analysis</span><span class="chip">Interviews</span></div>
+      </div>
+      <div class="glass insight-card">
+        <span class="n">02</span><h4>Nobody knows what they've signed up for.</h4>
+        <p>Account, membership and pass blur together. Every participant called the free pass something different.</p>
+        <div class="src"><span class="chip">Interviews</span><span class="chip">Contextual inquiry</span></div>
+      </div>
+      <div class="glass insight-card">
+        <span class="n">03</span><h4>Privacy is a price the AGO isn't paying.</h4>
+        <p>Visitors will share their details for real value, like early access, perks or even Wi-Fi. Right now they get nothing back.</p>
+        <div class="src"><span class="chip">Interviews</span><span class="chip">Contextual inquiry</span></div>
+      </div>
+      <div class="glass insight-card">
+        <span class="n">04</span><h4>Visitors want the museum to meet them at the object.</h4>
+        <p>The hardest moments were in the gallery: hidden maps, lists to decode, the back of a case. Information worked when it matched what was in front of them.</p>
+        <div class="src"><span class="chip">Interviews</span><span class="chip">Contextual inquiry</span></div>
+      </div>
+      <div class="glass insight-card">
+        <span class="n">05</span><h4>Museums are visited in groups. The account assumes you came alone.</h4>
+        <p>Visits were family outings, friends and guests, and most people bought tickets for everyone. No tool helps them plan together.</p>
+        <div class="src"><span class="chip">Interviews</span><span class="chip">Contextual inquiry</span></div>
+      </div>
+    </div>
+    <p class="note"><b>Sharper insights</b> · each one is a claim that changes direction, not a topic label ("Privacy concerns"). The tags show which studies support it.</p>
+
+    <div class="table-wrap glass">
+      <table>
+        <thead><tr><th>Study</th><th>What I believed</th><th>What I learned</th></tr></thead>
+        <tbody>
+          <tr><td>01 Competitive</td><td>The account needs more features</td><td>It barely works as an account at all</td></tr>
+          <tr><td>02 Interviews</td><td>Visitors want saved artworks and personalization</td><td>They want a reason to sign in: exclusivity and clarity</td></tr>
+          <tr><td>03 Inquiry</td><td>The opportunity is on the website</td><td>The biggest unmet needs are inside the gallery</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ================= BEFORE & AFTER ================= -->
+<section class="block divider" id="redesign">
+  <div class="container with-nav">
+    <p class="eyebrow">Before &amp; after</p>
+    <h2>From a checkout tool to a visit companion</h2>
+    <p class="lede">I turned the insights into a redesigned account and a sequence of changes, starting with the fixes that help every visitor.</p>
+
+    <ol class="roadmap">
+      <li class="glass"><span class="n">01</span><b>Fix the foundations</b><span>WCAG audit, inline form errors, checkout progress, the sign-in bug</span></li>
+      <li class="glass"><span class="n">02</span><b>Clarify the offer</b><span>One page comparing account, membership and pass</span></li>
+      <li class="glass"><span class="n">03</span><b>Give a reason to join</b><span>Exclusive perks, early access, saved exhibits</span></li>
+      <li class="glass"><span class="n">04</span><b>Bring it into the gallery</b><span>Interactive maps, QR object pages, tours</span></li>
+      <li class="glass"><span class="n">05</span><b>Design for groups</b><span>Group trips, shared plans, ticket sharing</span></li>
+    </ol>
+
+    <div class="tabs" role="tablist" aria-label="Before and after screens" data-ba-tabs>
+      <button class="tab" role="tab" aria-selected="true" aria-controls="ba-1" id="bt-1">Account</button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="ba-2" id="bt-2">Account, membership &amp; pass</button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="ba-3" id="bt-3">Checkout</button>
+      <button class="tab" role="tab" aria-selected="false" aria-controls="ba-4" id="bt-4">In-gallery map</button>
+    </div>
+
+    <div class="tabpanel glass ba" role="tabpanel" id="ba-1" aria-labelledby="bt-1">
+      <div class="ba-toggle" role="group" aria-label="Show before or after"><button aria-pressed="true" data-show="before">Before</button><button aria-pressed="false" data-show="after">After</button></div>
+      <div class="ba-grid">
+        <div class="ba-view">
+          <img class="before" src="../../../../public/ago/competitiveanalysis/CA6_Issue_W_Account.png" alt="Current AGO sign-in page shown to a logged-in user" />
+          <img class="after" src="../../../../public/ago/contextualinquiry/recommendations/CI_R2_Redesign_Account.png" alt="Redesigned AGO account concept" />
+          <span class="label" data-label>Before</span>
+        </div>
+        <ol class="changes">
+          <li><span class="n">1</span><div><b>An account that knows you</b><span class="d">The sign-in state is respected; the account becomes a home, not a form.</span><span class="why">Insight 01</span></div></li>
+          <li><span class="n">2</span><div><b>Plan a trip and group trips</b><span class="d">Pick a date, party size and interests; invite others.</span><span class="why">Insight 05</span></div></li>
+          <li><span class="n">3</span><div><b>Saved exhibits and tours</b><span class="d">Self-guided and audio tours that continue where you left off.</span><span class="why">Insight 04</span></div></li>
+          <li><span class="n">4</span><div><b>Recommended for you</b><span class="d">Interests, upcoming events and language preference.</span><span class="why">Insights 02 · 03</span></div></li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="tabpanel glass ba" role="tabpanel" id="ba-2" aria-labelledby="bt-2" hidden>
+      <div class="ba-toggle" role="group" aria-label="Show before or after"><button aria-pressed="true" data-show="before">Before</button><button aria-pressed="false" data-show="after">After</button></div>
+      <div class="ba-grid">
+        <div class="ba-view">
+          <div class="before placeholder"><div><b>[Placeholder] Before</b>Today's separate account, membership and 14–24 pass pages</div></div>
+          <div class="after placeholder"><div><b>[Placeholder] After</b>One comparison page: what each option gives you, how long it lasts, whether it renews</div></div>
+          <span class="label" data-label>Before</span>
+        </div>
+        <ol class="changes">
+          <li><span class="n">1</span><div><b>Side-by-side comparison</b><span class="d">Account vs membership vs pass on one page.</span><span class="why">Insight 02</span></div></li>
+          <li><span class="n">2</span><div><b>Plain-language pass rules</b><span class="d">Eligibility, duration and renewal spelled out.</span><span class="why">Insight 02</span></div></li>
+          <li><span class="n">3</span><div><b>Shorter sign-up</b><span class="d">Only essential fields, each with a reason.</span><span class="why">Insight 03</span></div></li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="tabpanel glass ba" role="tabpanel" id="ba-3" aria-labelledby="bt-3" hidden>
+      <div class="ba-toggle" role="group" aria-label="Show before or after"><button aria-pressed="true" data-show="before">Before</button><button aria-pressed="false" data-show="after">After</button></div>
+      <div class="ba-grid">
+        <div class="ba-view">
+          <img class="before" src="../../../../public/ago/competitiveanalysis/CA1_Issues_W_Cart_Flow.png" alt="Current AGO cart flow" />
+          <div class="after placeholder"><div><b>[Placeholder] After</b>Checkout with a step indicator, back navigation and ticket options framed as questions</div></div>
+          <span class="label" data-label>Before</span>
+        </div>
+        <ol class="changes">
+          <li><span class="n">1</span><div><b>Progress you can see</b><span class="d">A step bar you can click to go back.</span><span class="why">Part 01 · finding 2</span></div></li>
+          <li><span class="n">2</span><div><b>Tickets as questions</b><span class="d">“Are you 14–24?” so visitors self-select.</span><span class="why">Part 01 · finding 3</span></div></li>
+          <li><span class="n">3</span><div><b>Errors as you type</b><span class="d">Inline validation, masks and fixes that explain themselves.</span><span class="why">Part 01 · finding 4</span></div></li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="tabpanel glass ba" role="tabpanel" id="ba-4" aria-labelledby="bt-4" hidden>
+      <div class="ba-toggle" role="group" aria-label="Show before or after"><button aria-pressed="true" data-show="before">Before</button><button aria-pressed="false" data-show="after">After</button></div>
+      <div class="ba-grid">
+        <div class="ba-view">
+          <img class="before" src="assets/p14.jpg" alt="Current AGO map display" />
+          <img class="after" src="assets/p22.jpg" alt="Concept: a digital display case that mirrors the physical case, with object details on tap" />
+          <span class="label" data-label>Before</span>
+        </div>
+        <ol class="changes">
+          <li><span class="n">1</span><div><b>An interactive map in the account</b><span class="d">Find galleries and exhibits before and during the visit.</span><span class="why">Insight 04</span></div></li>
+          <li><span class="n">2</span><div><b>Maps that match the case</b><span class="d">Tap an object on a layout that mirrors the display.</span><span class="why">Part 03 · 3.4</span></div></li>
+          <li><span class="n">3</span><div><b>QR object pages</b><span class="d">More context per object, in more languages.</span><span class="why">Part 03 · 3.3</span></div></li>
+        </ol>
+      </div>
+    </div>
+    <p class="note"><b>Before / after</b> · tabs per screen, a Before/After toggle, and numbered changes that each point back to the insight that justifies them. Two tabs use real images; the rest are labelled placeholders for you to fill.</p>
+  </div>
+</section>
+
+<!-- ================= TAKEAWAYS ================= -->
+<section class="block divider" id="takeaways">
+  <div class="container with-nav">
+    <p class="eyebrow">Takeaways</p>
+    <h2>What I'd carry into the next study</h2>
+    <div class="closing">
+      <div class="glass"><span class="n">01</span><h4>Let each study rewrite the question</h4><p>I set out to design account features. Following the evidence led me to the whole visit, and kept me from recommending features nobody wanted.</p></div>
+      <div class="glass"><span class="n">02</span><h4>Treat site access as part of the method</h4><p>Being turned away on day one taught me to secure permission before fieldwork, not assume it.</p></div>
+      <div class="glass"><span class="n">03</span><h4>Five interviews show patterns, not proof</h4><p>Next: recruit long-term account holders, visitors with accessibility needs and families, and usability-test the redesign.</p></div>
+    </div>
+    <details class="refs read"><summary>References (12)</summary><p class="caption">Kept from the current case study, collapsed by default.</p></details>
+    <nav class="next read"><p class="eyebrow muted">Next case study</p><a href="#">'Recalculating'… Diary Study on Navigation App Inflexibility →</a></nav>
+
+    <div class="reviewbox">
+      <h4>For your review</h4>
+      <ul>
+        <li><b>New sources:</b> research questions, hypotheses, personas, journey maps, the WCAG counts and the in-gallery stories come from your reports and speaker notes in Downloads › AGO CASE STUDY.</li>
+        <li><b>Slide images</b> (personas, journeys, gallery photos, map concept) are rendered from your final presentation into a preview-only folder. For the real site they'd need exporting properly.</li>
+        <li><b>[TODO]s:</b> Part 01 guiding questions, the original interview guide, WCAG screenshot, sign-up form screenshot, and two "after" mockups (comparison page, checkout).</li>
+        <li><b>Length:</b> ~2,600 words visible, plus two guides hidden in expandable panels. Still scannable because every subsection has a headline, a takeaway and images, but tell me if it's too much.</li>
+        <li><b>Added back this round:</b> museum positioning (1.1), the interview discussion guide (2.1) and the contextual inquiry guide (3.1) as expandable panels, and the Bertron quote (3.5).</li>
+        <li><b>Still left out:</b> screener logic and next-step recruiting quotas.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+</main>
+</div>
+<div style="height:5rem"></div>
+
+<script>
+(() => {
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Skill notes toggle
+  const tn = document.querySelector('.toggle-notes');
+  tn.addEventListener('click', () => {
+    const on = document.body.classList.toggle('notes');
+    tn.textContent = on ? 'Hide skill notes' : 'Show skill notes';
+    tn.setAttribute('aria-pressed', on);
+  });
+
+  // Hero image fades + shrinks as the sheet scrolls over it
+  const hero = document.getElementById('heroImg');
+  if (!reduce && hero) {
+    let ticking = false;
+    const update = () => {
+      const p = Math.min(Math.max(window.scrollY / (window.innerHeight * 0.9), 0), 1);
+      hero.style.opacity = String(1 - p * 0.9);
+      hero.style.transform = `scale(${1 - p * 0.06})`;
+      ticking = false;
+    };
+    window.addEventListener('scroll', () => { if (!ticking) { requestAnimationFrame(update); ticking = true; } }, { passive: true });
+    update();
+  }
+
+  // Side nav: highlight the section in view
+  const links = [...document.querySelectorAll('.sidenav li a')];
+  const targets = links.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id));
+      }
+    });
+  }, { rootMargin: '-45% 0px -50% 0px' });
+  targets.forEach(t => io.observe(t));
+
+  // Problem explorer: click a card, swap the image + caption
+  const stage = document.querySelector('[data-explorer]');
+  const panels = stage ? [...stage.querySelectorAll('[data-panel]')] : [];
+  const cap = stage ? stage.querySelector('[data-cap]') : null;
+  document.querySelectorAll('.pcard').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.pcard').forEach(b => b.setAttribute('aria-pressed', b === btn));
+      panels.forEach(p => p.classList.toggle('on', p.dataset.panel === btn.dataset.target));
+      if (cap) cap.innerHTML = btn.dataset.cap;
+    });
+  });
+
+  // Tabs (personas + before/after)
+  document.querySelectorAll('[role="tablist"]').forEach(list => {
+    const tabs = [...list.querySelectorAll('[role="tab"]')];
+    tabs.forEach(tab => tab.addEventListener('click', () => {
+      tabs.forEach(t => {
+        const sel = t === tab;
+        t.setAttribute('aria-selected', sel);
+        document.getElementById(t.getAttribute('aria-controls')).hidden = !sel;
+      });
+    }));
+  });
+
+  // Before / after toggles
+  document.querySelectorAll('.ba').forEach(ba => {
+    const view = ba.querySelector('.ba-view');
+    const label = ba.querySelector('[data-label]');
+    ba.querySelectorAll('.ba-toggle button').forEach(b => b.addEventListener('click', () => {
+      const after = b.dataset.show === 'after';
+      ba.querySelectorAll('.ba-toggle button').forEach(x => x.setAttribute('aria-pressed', x === b));
+      view.classList.toggle('show-after', after);
+      label.textContent = after ? 'After' : 'Before';
+    }));
+  });
+})();
+</script>
+</body>
+</html>

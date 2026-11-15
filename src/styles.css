@@ -784,3 +784,460 @@
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }
+/* AGO case study blocks (used inside ago-case-study.md) */
+.case-study-markdown .cs-eyebrow {
+  margin-top: 6rem;
+  color: var(--color-accent);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.case-study-markdown > .cs-eyebrow:first-child {
+  margin-top: 0;
+}
+
+.case-study-markdown .cs-eyebrow + h3,
+.case-study-markdown .cs-part + h3 {
+  margin-top: 0.5rem;
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  line-height: 1.05;
+}
+
+.case-study-markdown .cs-part {
+  display: flex;
+  align-items: flex-end;
+  gap: 1rem;
+  margin-top: 7rem;
+  border-top: 1px solid var(--color-border);
+  padding-top: 2.5rem;
+  color: var(--color-accent);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.case-study-markdown .cs-part span {
+  font-family: var(--font-display);
+  font-size: clamp(3.5rem, 9vw, 5rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 0.8;
+}
+
+.case-study-markdown .cs-card {
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 1rem;
+  background: var(--glass-card);
+  box-shadow: var(--shadow-card);
+  padding: 1.25rem 1.35rem;
+  backdrop-filter: blur(24px) saturate(140%);
+}
+
+.case-study-markdown .cs-card p {
+  margin-top: 0;
+}
+
+.case-study-markdown .cs-card--accent {
+  border-top: 3px solid var(--color-accent);
+}
+
+.case-study-markdown .cs-snapshot,
+.case-study-markdown .cs-studies,
+.case-study-markdown .cs-compare,
+.case-study-markdown .cs-roadmap {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1.75rem;
+}
+
+@media (min-width: 768px) {
+  .case-study-markdown .cs-snapshot,
+  .case-study-markdown .cs-studies,
+  .case-study-markdown .cs-compare,
+  .case-study-markdown .cs-roadmap--3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .case-study-markdown .cs-roadmap:not(.cs-roadmap--3) {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+
+.case-study-markdown .cs-label {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--color-muted-foreground);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.case-study-markdown .cs-label span {
+  display: grid;
+  place-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: 9999px;
+  font-size: 0.7rem;
+  letter-spacing: 0;
+}
+
+.case-study-markdown .cs-card--accent .cs-label {
+  color: var(--color-accent);
+}
+
+.case-study-markdown .cs-card--accent .cs-label span {
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+  color: var(--color-accent-foreground);
+}
+
+.case-study-markdown .cs-big {
+  margin-top: 0.85rem !important;
+  color: var(--color-foreground);
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.case-study-markdown .cs-small,
+.case-study-markdown .cs-tag,
+.case-study-markdown .cs-caption {
+  margin-top: 0.5rem !important;
+  font-size: 0.875rem;
+  line-height: 1.55;
+}
+
+.case-study-markdown .cs-num {
+  color: var(--color-accent);
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.case-study-markdown .cs-num span {
+  margin-left: 0.5rem;
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.case-study-markdown .cs-title {
+  margin-top: 0.6rem !important;
+  color: var(--color-foreground);
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.case-study-markdown .cs-ask {
+  margin-top: 0.75rem !important;
+  border-left: 2px solid var(--color-accent);
+  padding-left: 0.75rem;
+  color: var(--color-foreground);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.case-study-markdown .cs-card dl {
+  display: grid;
+  gap: 0.65rem;
+  margin-top: 1rem;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.case-study-markdown .cs-card dl > div + div {
+  border-top: 1px solid var(--color-border);
+  padding-top: 0.65rem;
+}
+
+.case-study-markdown .cs-card dt,
+.case-study-markdown .cs-who {
+  color: var(--color-muted-foreground);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.case-study-markdown .cs-card dd {
+  margin: 0.15rem 0 0;
+  color: var(--color-foreground);
+}
+
+.case-study-markdown sup {
+  color: var(--color-muted-foreground);
+  font-size: 0.65em;
+}
+
+.case-study-markdown .cs-logo {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  height: 3rem;
+  margin-bottom: 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
+  /* logo plate: the logos are designed for white */
+  background: #ffffff;
+  padding: 0 0.8rem;
+}
+
+.case-study-markdown .cs-logo img {
+  display: block;
+  width: auto;
+  height: 1.9rem;
+}
+
+.case-study-markdown .cs-logo img.cs-logo-crop {
+  width: 3.1rem;
+  object-fit: cover;
+}
+
+.case-study-markdown .cs-takeaway {
+  margin-top: 1.75rem;
+  border: 1px solid var(--color-border);
+  border-left: 3px solid var(--color-accent);
+  border-radius: 0.75rem;
+  background: var(--glass-card);
+  padding: 1rem 1.25rem;
+  color: var(--color-foreground);
+  font-weight: 500;
+}
+
+.case-study-markdown .cs-takeaway span {
+  display: block;
+  margin-bottom: 0.25rem;
+  color: var(--color-accent);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.case-study-markdown .cs-bridge {
+  margin-top: 3rem;
+  color: var(--color-foreground);
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  line-height: 1.4;
+}
+
+.case-study-markdown .cs-bridge b {
+  margin-right: 0.6rem;
+  color: var(--color-accent);
+}
+
+.case-study-markdown .cs-hypothesis {
+  margin-top: 1.75rem;
+}
+
+.case-study-markdown .cs-verdict {
+  margin-top: 0.75rem !important;
+  color: var(--color-accent);
+  font-weight: 600;
+}
+
+.case-study-markdown .cs-bars-card {
+  margin: 1.75rem 0;
+  max-width: 40rem;
+}
+
+.case-study-markdown .cs-bars {
+  display: grid;
+  gap: 0.55rem;
+  margin-top: 0.9rem;
+}
+
+.case-study-markdown .cs-bar {
+  display: grid;
+  grid-template-columns: 9.75rem 1fr 2rem;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.85rem;
+}
+
+.case-study-markdown .cs-bar-who {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.case-study-markdown .cs-bar-who img {
+  flex: none;
+  width: 1.6rem;
+  height: 1.1rem;
+  border: 1px solid var(--color-border);
+  border-radius: 0.3rem;
+  background: #ffffff;
+  padding: 1px;
+  object-fit: contain;
+}
+
+.case-study-markdown .cs-bar-who img.cs-logo-crop {
+  object-fit: cover;
+}
+
+.case-study-markdown .cs-track {
+  height: 0.55rem;
+  overflow: hidden;
+  border-radius: 9999px;
+  background: var(--color-muted);
+}
+
+.case-study-markdown .cs-track span {
+  display: block;
+  height: 100%;
+  border-radius: 9999px;
+  background: var(--color-muted-foreground);
+  opacity: 0.45;
+}
+
+.case-study-markdown .cs-bar--accent .cs-track span {
+  background: var(--color-accent);
+  opacity: 1;
+}
+
+.case-study-markdown .cs-bar b {
+  color: var(--color-foreground);
+  font-family: var(--font-display);
+  text-align: right;
+}
+
+.case-study-markdown .cs-guide {
+  margin-top: 1.75rem;
+  border: 1px solid var(--color-border);
+  border-radius: 1rem;
+  background: var(--glass-card);
+  box-shadow: var(--shadow-card);
+}
+
+.case-study-markdown .cs-guide summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  cursor: pointer;
+  list-style: none;
+  padding: 1rem 1.25rem;
+  color: var(--color-foreground);
+  font-family: var(--font-display);
+  font-weight: 600;
+}
+
+.case-study-markdown .cs-guide summary::-webkit-details-marker {
+  display: none;
+}
+
+.case-study-markdown .cs-guide summary small {
+  display: block;
+  margin-top: 0.2rem;
+  color: var(--color-muted-foreground);
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  font-weight: 400;
+}
+
+.case-study-markdown .cs-guide summary b {
+  color: var(--color-accent);
+  font-size: 1.4rem;
+  transition: transform 200ms var(--ease-out-soft, ease-out);
+}
+
+.case-study-markdown .cs-guide[open] summary b {
+  transform: rotate(45deg);
+}
+
+.case-study-markdown .cs-guide-body {
+  border-top: 1px solid var(--color-border);
+  padding: 0.5rem 1.25rem 1.25rem;
+}
+
+.case-study-markdown .cs-guide-cols {
+  display: grid;
+  gap: 0.5rem 2rem;
+}
+
+@media (min-width: 768px) {
+  .case-study-markdown .cs-guide-cols {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.case-study-markdown .cs-guide-h {
+  margin-top: 1rem;
+  color: var(--color-foreground);
+  font-weight: 650;
+}
+
+.case-study-markdown .cs-guide-h small {
+  color: var(--color-muted-foreground);
+  font-weight: 400;
+}
+
+.case-study-markdown .cs-guide .cs-who {
+  margin-top: 0.75rem;
+  font-size: 0.65rem;
+}
+
+.case-study-markdown .cs-guide li,
+.case-study-markdown .cs-guide p:not(.cs-who) {
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.case-study-markdown .cs-guide ul,
+.case-study-markdown .cs-guide ol {
+  margin-top: 0.4rem;
+}
+
+.case-study-markdown blockquote cite {
+  display: block;
+  margin-top: 0.5rem;
+  color: var(--color-muted-foreground);
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-style: normal;
+}
+
+.case-study-markdown .cs-grid {
+  display: grid;
+  gap: 1rem;
+  margin: 1.75rem 0;
+}
+
+@media (min-width: 640px) {
+  .case-study-markdown .cs-grid--2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .case-study-markdown .cs-grid--3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.case-study-markdown .cs-grid img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
+  box-shadow: var(--shadow-card);
+}
+
+.case-study-markdown .cs-grid figcaption {
+  margin-top: 0.6rem;
+  font-size: 0.85rem;
+  line-height: 1.5;
+}

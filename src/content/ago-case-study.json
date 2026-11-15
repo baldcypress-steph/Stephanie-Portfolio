@@ -1,7 +1,7 @@
 {
   "slug": "ago",
   "title": "Designing Beyond the Gallery Walls",
-  "subtitle": "A mixed methods research project exploring the Art Gallery of Ontario's digital and physical visitor experience",
+  "subtitle": "I set out to fix the Art Gallery of Ontario's online account. Three studies later, I found the real gap wasn't on the website. It was inside the gallery.",
   "year": "2025",
   "role": "Sole UX researcher",
   "timeline": "Sept – Dec 2025",
@@ -9,7 +9,7 @@
   "tools": ["Microsoft Teams", "Slack", "Teams channels"],
   "featured": true,
   "cover": "case-2",
-  "overview": "A mixed methods research project exploring how the AGO could connect planning, exploring, learning and reflecting across the digital and in-gallery visit.",
+  "overview": "Three studies into the Art Gallery of Ontario's online account showed visitors didn't need a better account. They needed a better visit.",
   "context": "The AGO serves local visitors, tourists, educators, students and researchers. Over four months, I combined competitive analysis, five interviews, two contextual inquiries and netnography to understand what visitors needed before and during a museum visit.",
   "problem": "I began by assuming the AGO needed a richer account with features like saved collections and personalization. Research changed the question: visitors first needed a clear reason to create an account, and then a better way to stay connected to the gallery experience.",
   "problemPoints": [

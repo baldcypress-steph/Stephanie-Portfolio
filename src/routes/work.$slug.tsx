@@ -3,6 +3,7 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { TextLink } from "@/components/TextLink";
 import { marked } from "marked";
+import { useEffect, useState } from "react";
 import agoMarkdown from "@/content/ago-case-study.md?raw";
 import recalculatingDiaryStudyMarkdown from "@/content/recalculating-diary-study.md?raw";
 import {
@@ -371,13 +372,74 @@ function AgoCaseStudyPage({ study }: { study: CaseStudy }) {
           />
         </div>
 
-        <article
-          className="case-study-markdown mx-auto w-full max-w-4xl px-5 py-16 sm:px-8 sm:py-24"
-          dangerouslySetInnerHTML={{ __html: markdownHtml }}
-        />
+        <div className="mx-auto w-full max-w-4xl xl:grid xl:max-w-[76rem] xl:grid-cols-[12rem_minmax(0,56rem)] xl:gap-10 xl:px-8">
+          <AgoSideNav />
+          <article
+            className="case-study-markdown w-full px-5 py-16 sm:px-8 sm:py-24 xl:px-0"
+            dangerouslySetInnerHTML={{ __html: markdownHtml }}
+          />
+        </div>
       </main>
       <SiteFooter />
     </div>
+  );
+}
+
+const agoSections = [
+  { id: "overview", label: "Overview" },
+  { id: "approach", label: "Approach" },
+  { id: "competitive-analysis", label: "Competitive analysis", num: "01" },
+  { id: "interviews", label: "Interviews", num: "02" },
+  { id: "contextual-inquiry", label: "Contextual inquiry", num: "03" },
+  { id: "findings", label: "What I found" },
+  { id: "recommendations", label: "What I recommended" },
+  { id: "takeaways", label: "Takeaways" },
+];
+
+function AgoSideNav() {
+  const [active, setActive] = useState("overview");
+
+  useEffect(() => {
+    const update = () => {
+      const line = window.innerHeight * 0.3;
+      let current = "overview";
+      for (const { id } of agoSections) {
+        const el = document.getElementById(id);
+        if (el && el.getBoundingClientRect().top <= line) current = id;
+      }
+      setActive(current);
+    };
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    return () => {
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
+  }, []);
+
+  return (
+    <nav aria-label="On this page" className="cs-sidenav hidden xl:block">
+      <div className="sticky top-28 py-24">
+        <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+          On this page
+        </p>
+        <ol className="mt-4 border-l border-border/70">
+          {agoSections.map(({ id, label, num }) => (
+            <li key={id}>
+              <a
+                href={`#${id}`}
+                aria-current={active === id ? "location" : undefined}
+                className="cs-sidenav-link"
+              >
+                {num ? <span className="cs-sidenav-num">{num}</span> : null}
+                {label}
+              </a>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </nav>
   );
 }
 

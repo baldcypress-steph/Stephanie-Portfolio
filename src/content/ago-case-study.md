@@ -6,7 +6,7 @@
 | --- | --- | --- | --- |
 | Sole UX researcher | Sept – Dec 2025 (4 months) | Solo, advised by Prof. Jessika Tremblay | Competitive analysis, interviews, contextual inquiry, netnography |
 
-<p class="cs-eyebrow">Overview</p>
+<p class="cs-eyebrow" id="overview">Overview</p>
 
 ### I set out to study an account. The answer was the whole visit.
 
@@ -16,7 +16,7 @@
 <div class="cs-card"><p class="cs-label"><span>3</span>The solution</p><p class="cs-big">Turn the account into a guide for the visit, after fixing the basics.</p><p class="cs-small">Five prioritized recommendations, presented Dec 6, 2025.</p></div>
 </div>
 
-<p class="cs-eyebrow">Approach</p>
+<p class="cs-eyebrow" id="approach">Approach</p>
 
 ### Three studies, three kinds of evidence
 
@@ -38,7 +38,7 @@ I started with what the website does, then asked people what they want, then wat
 </div>
 </details>
 
-<p class="cs-part"><span>01</span>Competitive analysis · Sept 2025</p>
+<p class="cs-part" id="competitive-analysis"><span>01</span>Competitive analysis · Sept 2025</p>
 
 ### The AGO lagged its peers on the basics
 
@@ -88,7 +88,7 @@ The account was the most telling gap. It existed only inside the cart, and signi
 
 <p class="cs-bridge"><b>→</b>I had a hypothesis about what visitors wanted. The next step was to ask them.</p>
 
-<p class="cs-part"><span>02</span>Interviews · Oct 2025</p>
+<p class="cs-part" id="interviews"><span>02</span>Interviews · Oct 2025</p>
 
 ### My hypothesis was wrong, in a useful way
 
@@ -160,7 +160,7 @@ Nobody described visiting alone. Visits were family outings, trips with friends,
 
 <p class="cs-bridge"><b>→</b>If the account needed a reason to exist, where would that reason come from? I went into the galleries to find out.</p>
 
-<p class="cs-part"><span>03</span>Contextual inquiry · Nov 2025</p>
+<p class="cs-part" id="contextual-inquiry"><span>03</span>Contextual inquiry · Nov 2025</p>
 
 ### The biggest gap was standing in front of the art
 
@@ -229,7 +229,7 @@ The moments participants remembered were interactive, surprising or reflective: 
 
 <p class="cs-takeaway"><span>Key takeaway</span>The best moments were interactive. The account could bring more of them.</p>
 
-<p class="cs-eyebrow">What I found</p>
+<p class="cs-eyebrow" id="findings">What I found</p>
 
 ### Five insights that change what the account is for
 
@@ -261,7 +261,7 @@ Each insight is backed by at least two studies.
 | 02 Interviews | Visitors want saved artworks and personalization | They want a reason to sign in: exclusivity and clarity |
 | 03 Contextual inquiry | The opportunity is on the website | The biggest unmet needs are inside the gallery |
 
-<p class="cs-eyebrow">What I recommended</p>
+<p class="cs-eyebrow" id="recommendations">What I recommended</p>
 
 ### From a checkout tool to a visit companion
 
@@ -292,7 +292,7 @@ I turned the insights into a redesigned account and a sequence of changes, start
 2. **Maps that match the case.** Tap an object on a layout that mirrors the display. *(Finding 3.4)*
 3. **QR object pages.** More context per object, in more languages. *(Finding 3.3)*
 
-<p class="cs-eyebrow">Takeaways</p>
+<p class="cs-eyebrow" id="takeaways">Takeaways</p>
 
 ### What I'd carry into the next study
 

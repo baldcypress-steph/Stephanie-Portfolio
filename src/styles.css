@@ -1241,3 +1241,42 @@
   font-size: 0.85rem;
   line-height: 1.5;
 }
+
+/* AGO side nav ("On this page") */
+.case-study-markdown [id] {
+  scroll-margin-top: 6.5rem;
+}
+
+.cs-sidenav-link {
+  display: flex;
+  gap: 0.5rem;
+  margin-left: -1px;
+  border-left: 2px solid transparent;
+  padding: 0.4rem 0 0.4rem 0.9rem;
+  font-size: 0.85rem;
+  line-height: 1.3;
+  color: var(--color-muted-foreground);
+  transition: color 160ms var(--ease-out-soft), border-color 160ms var(--ease-out-soft);
+}
+
+.cs-sidenav-link:hover {
+  color: var(--color-foreground);
+}
+
+.cs-sidenav-link[aria-current="location"] {
+  border-left-color: var(--accent);
+  color: var(--color-foreground);
+  font-weight: 600;
+}
+
+.cs-sidenav-num {
+  font-variant-numeric: tabular-nums;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html:has(.cs-sidenav) {
+    scroll-behavior: smooth;
+  }
+}

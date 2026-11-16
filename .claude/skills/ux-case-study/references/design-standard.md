@@ -40,7 +40,7 @@ Case studies share **one structure and one set of conventions**, not one rigid t
 | Element | Standard |
 |---|---|
 | Page container | `mx-auto w-full max-w-6xl px-5 sm:px-8` |
-| Side nav offset | From ~1180px, content gets `pl-48` so the fixed side nav never overlaps it |
+| Side nav column | From 1280px (`xl`), the nav and article sit in a grid: `xl:max-w-[76rem] xl:grid-cols-[12rem_minmax(0,56rem)] xl:gap-10`; below that the article is the usual `max-w-4xl` column |
 | Reading column | Text never wider than ~62ch |
 | Wide blocks (hero image, snapshot, explorers, image grids, insight cards) | Full `max-w-6xl` container |
 | Section rhythm | `py-16 sm:py-24` between top-level sections; part bands `pt-20`; `py-14` per sub-section with a dashed divider |
@@ -71,7 +71,7 @@ Every case study is built from these blocks. Not every page uses every block, bu
 | Block | Look | Content |
 |---|---|---|
 | **Hero** | Eyebrow → title → subtitle; meta row (3–4 items: Role, Timeline, Team + Methods or Tools) beneath with a top hairline `border-t border-border` | `year`, `title`, `subtitle`, `role`, `timeline`, `team`, `tools` / `methods` |
-| **Side nav** | Fixed, vertically centred on the left from ~1180px; back link + section list with `01`-style numbers; active item gets an accent left rule; hidden below 1180px | derived from sections |
+| **Side nav** (built: `AgoSideNav`) | Sticky (`top-28`) left column from 1280px; "On this page" label + section list with accent `01`-style numbers; active item (`aria-current="location"`) gets a bold label and an accent left rule; smooth scroll unless reduced motion; anchors use `scroll-margin-top` to clear the sticky header; hidden below 1280px | section `id`s on the Markdown markers |
 | **Pinned hero image** | Sticky behind the page; the content sheet (rounded top, soft shadow) slides over it while the image fades to ~10% and scales to 94%; static with reduced motion | `cover` |
 | **Snapshot** | 3 `glass-card` cards joined by accent `→` on desktop; numbered label (`1 The problem`), display-font headline sentence, one short muted line; Insight card has an accent number and top border | `snapshot.problem/insight/solution` |
 | **Stat row** | 2–4 stats above a hairline; number in Stat style, label in caption style. **Outcomes or comparisons only**, never project scope | `results[]` |
@@ -109,6 +109,6 @@ These inconsistencies exist today. The skill **flags** them when touching a case
 4. **Inline glass styles** (`style={{ backdropFilter: … }}`) instead of the `glass-card` utility.
 5. **Content outside JSON.** The AGO image mapping and its Methods text live in the route file, breaking the rule that content lives in `src/content/` and is read through `src/lib/content.ts`.
 6. **Doc drift.** `docs/design-system.md` names `pastel-glow-brand`, but `styles.css` defines `pastel-glow-blue`, `pastel-glow-slate` and `pastel-glow-purple`.
-7. **Most standard blocks don't exist yet.** The side nav, pinned hero, snapshot, part band, research questions card, sticky sub-sections, problem explorer, tabs, insight cards and before/after viewer all need building as shared components. `examples/ago-example.html` in this skill folder is the visual reference for them.
+7. **Most standard blocks don't exist yet.** The side nav exists on the AGO page only (`AgoSideNav`, with its sections hardcoded). The pinned hero, snapshot, part band, research questions card, sticky sub-sections, problem explorer, tabs, insight cards and before/after viewer all need building as shared components. `examples/ago-example.html` in this skill folder is the visual reference for them.
 
 **Recommended path** (needs approval): shared block components (Hero, Snapshot, Chapter, Takeaway, Part header, etc.) that every case study page is assembled from. A single-story page and a multi-part page can then differ in arrangement while sharing every block. The content moves into JSON (shortened to the story budget at the same time), the hardcoded colors are replaced with tokens and utilities, and `docs/design-system.md` is updated to match.

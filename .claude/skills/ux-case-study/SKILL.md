@@ -51,7 +51,9 @@ Research projects (either shape) also follow the *Research projects* rules below
 ## Page structure
 
 ### 0. Side navigation (desktop only)
-A fixed table of contents on the left from ~1180px wide: back link, then every top-level section, with numbered parts (`01`, `02`, `03`). The section in view is highlighted. It's hidden on mobile, where the page reads top to bottom.
+An "On this page" list in a left column from 1280px (`xl`) wide: every top-level section, with numbered parts (`01`, `02`, `03`). It sticks while the page scrolls, the section in view is highlighted, and links scroll smoothly. It's hidden below 1280px, where the page reads top to bottom.
+
+**Already built:** reuse `AgoSideNav` in `src/routes/work.$slug.tsx` (styles: `.cs-sidenav-*` in `src/styles.css`). For a new page, give each section marker in the Markdown an `id` (e.g. `<p class="cs-eyebrow" id="overview">`), list the same ids in the nav's sections array, and wrap the article in the `xl:grid xl:grid-cols-[12rem_minmax(0,56rem)]` layout. Generalise it into a shared component that takes the sections as a prop when the second page needs it.
 
 ### 1. Hero
 - **Eyebrow:** `Case study · {year} · {discipline}`
@@ -190,7 +192,7 @@ If content exceeds the budget, **cut or move behind a tab or caption, don't comp
 5. **Write** within the budgets.
 6. **Place images.** Use existing assets in `public/`. Export new ones from source files only with Stephanie's OK. Where none exists, add a labelled placeholder.
 7. **Check** against the checklist and the design standard. Report `[TODO]`s, the cut list, and any caption you couldn't verify.
-8. **Preview** at 360px, 768px and 1280px: side nav hidden on mobile, sticky numbers working, no horizontal scroll.
+8. **Preview** at 360px, 768px and 1280px: side nav hidden below 1280px and highlighting the right section, sticky numbers working, no horizontal scroll.
 
 Never change site code (components, styles, routes) without showing Stephanie the plan first. Writing content is the default job. Code changes are a separate, approved step.
 

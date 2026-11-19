@@ -12,7 +12,7 @@
 
 <div class="cs-snapshot">
 <div class="cs-card"><p class="cs-label"><span>1</span>The problem</p><p class="cs-big">The AGO had an online account that no one had a reason to use.</p><p class="cs-small">It lived only at checkout and offered nothing beyond a ticket.</p></div>
-<div class="cs-card cs-card--accent"><p class="cs-label"><span>2</span>The insight</p><p class="cs-big">Visitors didn't need a better account. They needed a better visit.</p><p class="cs-small">Their biggest frustrations happened inside the gallery, not online.</p></div>
+<div class="cs-card"><p class="cs-label"><span>2</span>The insight</p><p class="cs-big">Visitors didn't need a better account. They needed a better visit.</p><p class="cs-small">Their biggest frustrations happened inside the gallery, not online.</p></div>
 <div class="cs-card"><p class="cs-label"><span>3</span>The solution</p><p class="cs-big">Turn the account into a guide for the visit, after fixing the basics.</p><p class="cs-small">Five prioritized recommendations, presented Dec 6, 2025.</p></div>
 </div>
 

@@ -41,6 +41,8 @@
 /* --- 2. Root Variables (Light Mode) --- */
 :root {
   --radius: 0.75rem;
+  /* One card shape for the whole site: 20px, same as rounded-2xl */
+  --radius-card: calc(var(--radius) + 8px);
 
   --background: #fafafa;
   --foreground: #333333;
@@ -53,7 +55,7 @@
   --secondary: #f4f4f6;
   --secondary-foreground: #333333;
   --muted: #f1f1f4;
-  --muted-foreground: #838896;
+  --muted-foreground: #6b7080;
   --accent: #421bcf;
   --accent-foreground: #ffffff;
   --destructive: #d32f2f;
@@ -296,10 +298,12 @@
 
 .case-study-markdown h1,
 .case-study-markdown h2,
-.case-study-markdown h3 {
+.case-study-markdown h3,
+.case-study-markdown h4 {
   color: var(--color-foreground);
   font-family: var(--font-display);
-  letter-spacing: -0.02em;
+  font-weight: 600;
+  letter-spacing: -0.025em;
 }
 
 .case-study-markdown h1 {
@@ -309,7 +313,7 @@
 .case-study-markdown h2 {
   margin-top: 6rem;
   margin-bottom: 1.25rem;
-  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-size: 1.5rem;
   line-height: 1;
 }
 
@@ -326,8 +330,7 @@
   color: var(--color-foreground);
   font-family: var(--font-display);
   font-size: 1.25rem;
-  line-height: 1.15;
-  letter-spacing: -0.015em;
+  line-height: 1.2;
 }
 
 .case-study-markdown h4 + blockquote {
@@ -345,7 +348,7 @@
   display: block;
   margin-bottom: 0.65rem;
   font-family: var(--font-display);
-  font-size: 1.05rem;
+  font-size: 1rem;
   line-height: 1.35;
 }
 
@@ -375,8 +378,8 @@
   display: block;
   width: 100%;
   height: auto;
-  border: 1px solid rgba(226, 228, 233, 0.9);
-  border-radius: 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
   box-shadow: var(--shadow-card);
 }
 
@@ -404,7 +407,7 @@
 
 .case-study-markdown strong {
   color: var(--color-foreground);
-  font-weight: 650;
+  font-weight: 600;
 }
 
 .case-study-markdown ul,
@@ -437,12 +440,12 @@
 
 .case-study-markdown ol li::marker {
   color: inherit;
-  font-weight: 650;
+  font-weight: 600;
 }
 
 .case-study-markdown h3 + ol {
   margin-top: 1.5rem;
-  font-size: 0.9rem;
+  font-size: 0.875rem;
   line-height: 1.65;
 }
 
@@ -468,9 +471,9 @@
   border-collapse: separate;
   border-spacing: 0;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.78);
-  border-radius: 1rem;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.78), rgba(250, 250, 252, 0.46));
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: var(--radius-card);
+  background: var(--glass-card);
   font-size: 0.875rem;
   box-shadow: var(--shadow-card);
   backdrop-filter: blur(24px) saturate(140%);
@@ -479,7 +482,7 @@
 .case-study-markdown th,
 .case-study-markdown td {
   min-width: 0;
-  border-bottom: 1px solid rgba(226, 228, 233, 0.7);
+  border-bottom: 1px solid var(--color-border);
   padding: 1rem;
   text-align: left;
   vertical-align: top;
@@ -489,8 +492,8 @@
 .case-study-markdown th {
   color: var(--color-foreground);
   font-family: var(--font-display);
-  font-size: 0.95rem;
-  font-weight: 650;
+  font-size: 1rem;
+  font-weight: 600;
   background: rgba(255, 255, 255, 0.42);
 }
 
@@ -505,7 +508,7 @@
 
 .case-study-markdown table td:first-child {
   color: var(--color-foreground);
-  font-weight: 650;
+  font-weight: 600;
 }
 
 .case-study-markdown table.case-study-timeline {
@@ -534,7 +537,7 @@
   .case-study-markdown table {
     display: block;
     border: 0;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.78), rgba(250, 250, 252, 0.46));
+    background: var(--glass-card);
     box-shadow: var(--shadow-card);
   }
 
@@ -550,7 +553,7 @@
 
   .case-study-markdown table tr {
     margin-top: 0.75rem;
-    border-top: 1px solid rgba(226, 228, 233, 0.7);
+    border-top: 1px solid var(--color-border);
     padding-top: 0.75rem;
     overflow: hidden;
   }
@@ -581,8 +584,8 @@
 .case-study-placeholder {
   margin: 2.5rem 0;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.78);
-  border-radius: 1.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: var(--radius-card);
   background: linear-gradient(135deg, rgba(238, 242, 255, 0.9), rgba(243, 232, 255, 0.72));
   box-shadow: var(--shadow-card);
 }
@@ -614,14 +617,14 @@
   margin-bottom: 1.25rem;
   padding: 0;
   color: var(--color-muted-foreground);
-  font-size: 0.8rem;
+  font-size: 0.875rem;
   line-height: 1.5;
 }
 
 .case-study-gallery-caption strong {
   color: var(--color-foreground);
-  font-size: 0.7rem;
-  letter-spacing: 0.14em;
+  font-size: 0.75rem;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
 }
 
@@ -774,14 +777,14 @@
   flex-wrap: wrap;
   gap: 0.5rem 1rem;
   padding: 1rem 1.25rem 1.15rem;
-  font-size: 0.8rem;
+  font-size: 0.875rem;
   line-height: 1.5;
 }
 
 .case-study-placeholder figcaption strong {
   color: var(--color-foreground);
-  font-size: 0.7rem;
-  letter-spacing: 0.14em;
+  font-size: 0.75rem;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
 }
 /* AGO case study blocks (used inside ago-case-study.md) */
@@ -801,8 +804,16 @@
 .case-study-markdown .cs-eyebrow + h3,
 .case-study-markdown .cs-part + h3 {
   margin-top: 0.5rem;
-  font-size: clamp(1.75rem, 4vw, 2.5rem);
-  line-height: 1.05;
+  font-size: 1.5rem;
+  line-height: 1.15;
+}
+
+@media (min-width: 768px) {
+  .case-study-markdown h2,
+  .case-study-markdown .cs-eyebrow + h3,
+  .case-study-markdown .cs-part + h3 {
+    font-size: 1.875rem;
+  }
 }
 
 .case-study-markdown .cs-part {
@@ -821,15 +832,21 @@
 
 .case-study-markdown .cs-part span {
   font-family: var(--font-display);
-  font-size: clamp(3.5rem, 9vw, 5rem);
-  font-weight: 700;
+  font-size: 3rem;
+  font-weight: 600;
   letter-spacing: -0.02em;
   line-height: 0.8;
 }
 
+@media (min-width: 768px) {
+  .case-study-markdown .cs-part span {
+    font-size: 3.75rem;
+  }
+}
+
 .case-study-markdown .cs-card {
   border: 1px solid rgba(255, 255, 255, 0.6);
-  border-radius: 1rem;
+  border-radius: var(--radius-card);
   background: var(--glass-card);
   box-shadow: var(--shadow-card);
   padding: 1.25rem 1.35rem;
@@ -871,7 +888,7 @@
   align-items: center;
   gap: 0.6rem;
   color: var(--color-muted-foreground);
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -884,7 +901,8 @@
   height: 1.5rem;
   border: 1px solid var(--color-border);
   border-radius: 9999px;
-  font-size: 0.7rem;
+  font-family: var(--font-display);
+  font-size: 0.75rem;
   letter-spacing: 0;
 }
 
@@ -902,7 +920,7 @@
   margin-top: 0.85rem !important;
   color: var(--color-foreground);
   font-family: var(--font-display);
-  font-size: 1.15rem;
+  font-size: 1.125rem;
   font-weight: 600;
   line-height: 1.3;
 }
@@ -918,7 +936,7 @@
 .case-study-markdown .cs-num {
   color: var(--color-accent);
   font-family: var(--font-display);
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 600;
   line-height: 1;
 }
@@ -926,7 +944,7 @@
 .case-study-markdown .cs-num span {
   margin-left: 0.5rem;
   font-family: var(--font-sans);
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
 }
@@ -935,7 +953,7 @@
   margin-top: 0.6rem !important;
   color: var(--color-foreground);
   font-family: var(--font-display);
-  font-size: 1.05rem;
+  font-size: 1rem;
   font-weight: 600;
   line-height: 1.25;
 }
@@ -945,7 +963,7 @@
   border-left: 2px solid var(--color-accent);
   padding-left: 0.75rem;
   color: var(--color-foreground);
-  font-size: 0.9rem;
+  font-size: 0.875rem;
   line-height: 1.5;
 }
 
@@ -953,7 +971,7 @@
   display: grid;
   gap: 0.65rem;
   margin-top: 1rem;
-  font-size: 0.85rem;
+  font-size: 0.875rem;
   line-height: 1.5;
 }
 
@@ -965,7 +983,7 @@
 .case-study-markdown .cs-card dt,
 .case-study-markdown .cs-who {
   color: var(--color-muted-foreground);
-  font-size: 0.65rem;
+  font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -990,7 +1008,7 @@
   border: 1px solid var(--color-border);
   border-radius: 0.75rem;
   /* logo plate: the logos are designed for white */
-  background: #ffffff;
+  background: var(--color-card);
   padding: 0 0.8rem;
 }
 
@@ -1007,11 +1025,11 @@
 
 .case-study-markdown .cs-takeaway {
   margin-top: 1.75rem;
-  border: 1px solid var(--color-border);
-  border-left: 3px solid var(--color-accent);
-  border-radius: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: var(--radius-card);
   background: var(--glass-card);
-  padding: 1rem 1.25rem;
+  box-shadow: var(--shadow-card);
+  padding: 1.25rem 1.35rem;
   color: var(--color-foreground);
   font-weight: 500;
 }
@@ -1020,7 +1038,7 @@
   display: block;
   margin-bottom: 0.25rem;
   color: var(--color-accent);
-  font-size: 0.65rem;
+  font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -1030,7 +1048,7 @@
   margin-top: 3rem;
   color: var(--color-foreground);
   font-family: var(--font-display);
-  font-size: 1.2rem;
+  font-size: 1.125rem;
   line-height: 1.4;
 }
 
@@ -1065,7 +1083,7 @@
   grid-template-columns: 9.75rem 1fr 2rem;
   align-items: center;
   gap: 0.75rem;
-  font-size: 0.85rem;
+  font-size: 0.875rem;
 }
 
 .case-study-markdown .cs-bar-who {
@@ -1080,7 +1098,7 @@
   height: 1.1rem;
   border: 1px solid var(--color-border);
   border-radius: 0.3rem;
-  background: #ffffff;
+  background: var(--color-card);
   padding: 1px;
   object-fit: contain;
 }
@@ -1117,8 +1135,8 @@
 
 .case-study-markdown .cs-guide {
   margin-top: 1.75rem;
-  border: 1px solid var(--color-border);
-  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: var(--radius-card);
   background: var(--glass-card);
   box-shadow: var(--shadow-card);
 }
@@ -1145,18 +1163,41 @@
   margin-top: 0.2rem;
   color: var(--color-muted-foreground);
   font-family: var(--font-sans);
-  font-size: 0.8rem;
+  font-size: 0.875rem;
   font-weight: 400;
 }
 
+/* Expand icon: one chevron (drawn from an SVG so it is exactly centred) that flips when open */
 .case-study-markdown .cs-guide summary b {
-  color: var(--color-accent);
-  font-size: 1.4rem;
-  transition: transform 200ms var(--ease-out-soft, ease-out);
+  flex: none;
+  width: 1.25rem;
+  height: 1.25rem;
+  background-color: var(--color-foreground);
+  font-size: 0;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") center / contain no-repeat;
+  opacity: 0.55;
+  transition: transform 200ms var(--ease-out-soft, ease-out), opacity 150ms ease;
+}
+
+.case-study-markdown .cs-guide summary:hover b {
+  opacity: 1;
 }
 
 .case-study-markdown .cs-guide[open] summary b {
-  transform: rotate(45deg);
+  transform: rotate(180deg);
+}
+
+.case-study-markdown .cs-guide summary:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: -2px;
+  border-radius: var(--radius-card);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .case-study-markdown .cs-guide summary b {
+    transition: none;
+  }
 }
 
 .case-study-markdown .cs-guide-body {
@@ -1178,22 +1219,23 @@
 .case-study-markdown .cs-guide-h {
   margin-top: 1rem;
   color: var(--color-foreground);
-  font-weight: 650;
+  font-weight: 600;
 }
 
 .case-study-markdown .cs-guide-h small {
   color: var(--color-muted-foreground);
+  font-size: 0.75rem;
   font-weight: 400;
 }
 
 .case-study-markdown .cs-guide .cs-who {
   margin-top: 0.75rem;
-  font-size: 0.65rem;
+  font-size: 0.75rem;
 }
 
 .case-study-markdown .cs-guide li,
 .case-study-markdown .cs-guide p:not(.cs-who) {
-  font-size: 0.9rem;
+  font-size: 0.875rem;
   line-height: 1.6;
 }
 
@@ -1207,7 +1249,7 @@
   margin-top: 0.5rem;
   color: var(--color-muted-foreground);
   font-family: var(--font-sans);
-  font-size: 0.85rem;
+  font-size: 0.875rem;
   font-style: normal;
 }
 
@@ -1238,7 +1280,7 @@
 
 .case-study-markdown .cs-grid figcaption {
   margin-top: 0.6rem;
-  font-size: 0.85rem;
+  font-size: 0.875rem;
   line-height: 1.5;
 }
 
@@ -1253,7 +1295,7 @@
   margin-left: -1px;
   border-left: 2px solid transparent;
   padding: 0.4rem 0 0.4rem 0.9rem;
-  font-size: 0.85rem;
+  font-size: 0.875rem;
   line-height: 1.3;
   color: var(--color-muted-foreground);
   transition: color 160ms var(--ease-out-soft), border-color 160ms var(--ease-out-soft);
@@ -1278,5 +1320,585 @@
 @media (prefers-reduced-motion: no-preference) {
   html:has(.cs-sidenav) {
     scroll-behavior: smooth;
+  }
+}
+
+/* Screenshot placeholder (a "before" image still to be added) */
+.case-study-markdown .cs-shot-placeholder > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  aspect-ratio: 9 / 16;
+  max-height: 22rem;
+  width: 100%;
+  border: 1px dashed var(--color-border);
+  border-radius: 0.75rem;
+  background: var(--color-muted);
+  color: var(--color-muted-foreground);
+  font-size: 0.875rem;
+}
+
+.case-study-markdown .cs-shot-placeholder > div span {
+  color: var(--color-accent);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+/* Persona tabs, persona card and journey map */
+.case-study-markdown .cs-tabs {
+  margin-top: 1.75rem;
+}
+.case-study-markdown .cs-tabs > input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.case-study-markdown .cs-tablist {
+  display: inline-flex;
+  gap: 0.25rem;
+  padding: 0.25rem;
+  border: 1px solid var(--color-border);
+  border-radius: 9999px;
+  background: var(--color-muted);
+}
+.case-study-markdown .cs-tablist label {
+  display: flex;
+  align-items: baseline;
+  gap: 0.45rem;
+  padding: 0.45rem 1rem;
+  border-radius: 9999px;
+  color: var(--color-muted-foreground);
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: background-color 180ms var(--ease-out-soft), color 180ms var(--ease-out-soft);
+}
+.case-study-markdown .cs-tablist label span {
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+.case-study-markdown .cs-tabs:has(> input:nth-of-type(1):checked) .cs-tablist label:nth-of-type(1),
+.case-study-markdown .cs-tabs:has(> input:nth-of-type(2):checked) .cs-tablist label:nth-of-type(2),
+.case-study-markdown .cs-tabs:has(> input:nth-of-type(3):checked) .cs-tablist label:nth-of-type(3) {
+  background: var(--color-card);
+  box-shadow: var(--shadow-card);
+  color: var(--color-foreground);
+}
+.case-study-markdown .cs-tabs:has(> input:nth-of-type(1):focus-visible) .cs-tablist label:nth-of-type(1),
+.case-study-markdown .cs-tabs:has(> input:nth-of-type(2):focus-visible) .cs-tablist label:nth-of-type(2),
+.case-study-markdown .cs-tabs:has(> input:nth-of-type(3):focus-visible) .cs-tablist label:nth-of-type(3) {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+.case-study-markdown .cs-tab-panel {
+  display: none;
+  margin-top: 1rem;
+}
+.case-study-markdown .cs-tabs:has(> input:nth-of-type(1):checked) > .cs-tab-panel--1,
+.case-study-markdown .cs-tabs:has(> input:nth-of-type(2):checked) > .cs-tab-panel--2,
+.case-study-markdown .cs-tabs:has(> input:nth-of-type(3):checked) > .cs-tab-panel--3 {
+  display: block;
+}
+
+.case-study-markdown .cs-persona {
+  display: grid;
+  gap: 1.5rem;
+}
+@media (min-width: 768px) {
+  .case-study-markdown .cs-persona {
+    grid-template-columns: 14rem minmax(0, 1fr);
+    gap: 2rem;
+  }
+}
+.case-study-markdown .cs-avatar {
+  width: 5.5rem;
+  height: 5.5rem;
+  margin: 0 0 1rem;
+  border-radius: 9999px;
+  object-fit: cover;
+  box-shadow: 0 0 0 4px var(--color-card), var(--shadow-card);
+}
+.case-study-markdown .cs-persona-side dl {
+  margin-top: 1rem;
+}
+.case-study-markdown .cs-persona-desc {
+  color: var(--color-foreground);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+.case-study-markdown .cs-persona-cols {
+  display: grid;
+  gap: 1.25rem;
+  margin-top: 1.25rem;
+}
+@media (min-width: 768px) {
+  .case-study-markdown .cs-persona-cols {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+.case-study-markdown .cs-persona-cols ul {
+  margin: 0.5rem 0 0;
+  padding-left: 1rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+.case-study-markdown .cs-persona-cols li {
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+.case-study-markdown .cs-persona-cols li + li {
+  margin-top: 0.35rem;
+}
+.case-study-markdown .cs-persona-quotes {
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--color-border);
+}
+.case-study-markdown .cs-persona-quote {
+  margin-top: 0.6rem !important;
+  padding-left: 0.9rem;
+  border-left: 2px solid var(--color-accent);
+  color: var(--color-foreground);
+  font-size: 0.875rem;
+  font-style: italic;
+  line-height: 1.55;
+}
+
+@media (max-width: 767px) {
+  .case-study-markdown .cs-tablist label span {
+    display: none;
+  }
+}
+
+/* Journey map: feeling curve, transit line, rows */
+.case-study-markdown .cs-journey {
+  margin-top: 1rem;
+}
+.case-study-markdown .cs-journey-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+.case-study-markdown .cs-journey-hint {
+  margin: 0;
+  color: var(--color-muted-foreground);
+  font-size: 0.75rem;
+}
+@media (min-width: 1024px) {
+  .case-study-markdown .cs-journey-hint {
+    display: none;
+  }
+}
+.case-study-markdown .cs-jm-scroll {
+  margin-top: 0.75rem;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: var(--radius-card);
+  background: var(--glass-card);
+  box-shadow: var(--shadow-card);
+}
+.case-study-markdown .cs-jm-scroll:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+.case-study-markdown .cs-jm {
+  --jm-label: 8rem;
+  display: grid;
+  grid-template-columns: var(--jm-label) repeat(7, minmax(6.75rem, 1fr));
+  min-width: 55rem;
+  font-size: 0.75rem;
+  font-size: 0.75rem;
+  line-height: 1.4;
+}
+.case-study-markdown .cs-jm-label {
+  position: sticky;
+  left: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0.75rem 0.9rem;
+  border-top: 1px solid var(--color-border);
+  border-right: 1px solid var(--color-border);
+  background: var(--color-card);
+  color: var(--color-muted-foreground);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.case-study-markdown .cs-jm-label--feel {
+  justify-content: space-between;
+  border-top: 0;
+  border-top-left-radius: var(--radius-card);
+}
+.case-study-markdown .cs-jm-label--feel small {
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+}
+.case-study-markdown .cs-jm-label--feel small:first-of-type {
+  order: -1;
+}
+.case-study-markdown .cs-jm-feel {
+  position: relative;
+  grid-column: span 7;
+  height: 8.5rem;
+  margin: 0.5rem 0 1.25rem;
+}
+.case-study-markdown .cs-jm-feel::before {
+  content: "";
+  position: absolute;
+  inset: 50% 0 auto;
+  border-top: 1px dashed var(--color-border);
+}
+.case-study-markdown .cs-jm-feel svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.case-study-markdown .cs-jm-feel path {
+  fill: none;
+  stroke: var(--color-muted-foreground);
+  stroke-opacity: 0.5;
+  stroke-width: 2;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+.case-study-markdown .cs-jm-dot {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 6.5rem;
+  transform: translate(-50%, -0.4rem);
+}
+.case-study-markdown .cs-jm-dot i {
+  width: 0.8rem;
+  height: 0.8rem;
+  border: 2px solid var(--color-muted-foreground);
+  border-radius: 9999px;
+  background: var(--color-card);
+}
+.case-study-markdown .cs-jm-dot--low i {
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+}
+.case-study-markdown .cs-jm-dot em {
+  margin-top: 0.3rem;
+  color: var(--color-foreground);
+  font-size: 0.75rem;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: center;
+}
+.case-study-markdown .cs-jm-dot--low em {
+  color: var(--color-accent);
+}
+.case-study-markdown .cs-jm-line {
+  position: relative;
+  display: grid;
+  grid-column: span 7;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  margin: 0;
+  padding: 0.9rem 0 0.75rem;
+  border-top: 1px solid var(--color-border);
+  list-style: none;
+}
+.case-study-markdown .cs-jm-line::before {
+  content: "";
+  position: absolute;
+  top: 1.25rem;
+  left: calc(100% / 14);
+  right: calc(100% / 14);
+  height: 4px;
+  border-radius: 9999px;
+  background: var(--color-accent);
+}
+.case-study-markdown .cs-jm-line li {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+  padding: 0 0.35rem;
+  color: var(--color-foreground);
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1.3;
+  text-align: center;
+}
+.case-study-markdown .cs-jm-line li i {
+  width: 0.85rem;
+  height: 0.85rem;
+  margin-bottom: 0.4rem;
+  border: 3px solid var(--color-accent);
+  border-radius: 9999px;
+  background: var(--color-card);
+}
+.case-study-markdown .cs-jm-line li.is-low i {
+  background: var(--color-accent);
+}
+.case-study-markdown .cs-jm-line li b {
+  color: var(--color-accent);
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.case-study-markdown .cs-jm-cell {
+  padding: 0.75rem 0.6rem;
+  border-top: 1px solid var(--color-border);
+  color: var(--color-foreground);
+}
+.case-study-markdown .cs-jm-cell + .cs-jm-cell {
+  border-left: 1px dashed var(--color-border);
+}
+.case-study-markdown .cs-jm-pain {
+  color: var(--color-foreground);
+}
+.case-study-markdown .cs-jm-opp {
+  color: var(--color-accent);
+  font-weight: 600;
+}
+.case-study-markdown .cs-jm-empty {
+  color: var(--color-muted-foreground);
+  opacity: 0.6;
+}
+@media (max-width: 767px) {
+  .case-study-markdown .cs-jm {
+    --jm-label: 7rem;
+  }
+  .case-study-markdown .cs-jm-label {
+    padding: 0.75rem 0.6rem;
+  }
+}
+
+/* Before and after: a screenshot and a screen recording side by side */
+.case-study-markdown .cs-shot-pair > div {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+.case-study-markdown .cs-shot-pair img,
+.case-study-markdown .cs-shot-pair video {
+  display: block;
+  width: calc(50% - 0.25rem);
+  max-width: 10rem;
+  height: auto;
+  aspect-ratio: 828 / 1792;
+  object-fit: cover;
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
+  background: var(--color-foreground);
+  box-shadow: var(--shadow-card);
+}
+.case-study-markdown .cs-shot-placeholder > div {
+  max-width: 12.5rem;
+  margin: 0 auto;
+}
+.case-study-markdown .cs-shot-placeholder figcaption {
+  text-align: center;
+}
+
+/* Larger phone shots when a before pair sits in its own tab */
+.case-study-markdown .cs-tab-panel .cs-shot-pair img,
+.case-study-markdown .cs-tab-panel .cs-shot-pair video {
+  max-width: 13rem;
+}
+.case-study-markdown .cs-tab-panel .cs-shot-pair figcaption {
+  max-width: 34rem;
+  margin-inline: auto;
+  text-align: center;
+}
+
+/* Redesigned screens: one card per change - why, before -> after, what changes */
+.case-study-markdown .cs-change {
+  margin-top: 1.5rem;
+  padding: 1.5rem;
+}
+.case-study-markdown .cs-change-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+.case-study-markdown .cs-change-head .cs-title {
+  margin-top: 0 !important;
+  font-size: 1.25rem;
+}
+.case-study-markdown .cs-change-why {
+  margin-top: 0.5rem !important;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+.case-study-markdown .cs-change-why span {
+  margin-right: 0.5rem;
+  color: var(--color-accent);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.case-study-markdown .cs-change-quote {
+  margin-top: 0.75rem !important;
+  border-left: 2px solid var(--color-accent);
+  padding-left: 0.75rem;
+  color: var(--color-foreground);
+  font-size: 0.875rem;
+  font-style: italic;
+  line-height: 1.6;
+}
+.case-study-markdown .cs-change-quote cite {
+  color: var(--color-muted-foreground);
+  font-style: normal;
+}
+.case-study-markdown .cs-change-compare {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+@media (min-width: 768px) {
+  .case-study-markdown .cs-change-compare {
+    grid-template-columns: minmax(0, 1fr) 2rem minmax(0, 1fr);
+    align-items: stretch;
+  }
+  /* wider "before" side when it holds the app tabs (two phones) */
+  .case-study-markdown .cs-change-compare:has(.cs-tabs) {
+    grid-template-columns: minmax(0, 1.7fr) 2rem minmax(0, 1fr);
+  }
+}
+.case-study-markdown .cs-change-pane {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  border-radius: var(--radius);
+  background: var(--color-muted);
+  padding: 1rem;
+}
+.case-study-markdown .cs-change-pane > .cs-who {
+  align-self: flex-start;
+}
+.case-study-markdown .cs-change-pane--after > .cs-who {
+  color: var(--color-accent);
+}
+.case-study-markdown .cs-change-pane .cs-tabs {
+  margin-top: 0;
+  text-align: center;
+}
+.case-study-markdown .cs-change-pane .cs-tablist {
+  background: var(--color-card);
+}
+.case-study-markdown .cs-change-pane .cs-tablist label {
+  padding: 0.35rem 0.8rem;
+  font-size: 0.75rem;
+}
+.case-study-markdown .cs-change-pane .cs-shot-pair img,
+.case-study-markdown .cs-change-pane .cs-shot-pair video {
+  max-width: 11rem;
+}
+.case-study-markdown .cs-change-pane .cs-shot-pair figcaption,
+.case-study-markdown .cs-change-cap {
+  margin: 0.75rem auto 0 !important;
+  max-width: 24rem;
+  color: var(--color-muted-foreground);
+  font-size: 0.75rem;
+  line-height: 1.5;
+  text-align: center;
+}
+.case-study-markdown .cs-change-ph {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  width: 100%;
+  max-width: 11rem;
+  aspect-ratio: 828 / 1792;
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-card);
+  color: var(--color-muted-foreground);
+  font-size: 0.75rem;
+}
+.case-study-markdown .cs-change-ph span {
+  color: var(--color-accent);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.case-study-markdown .cs-change-arrow {
+  display: grid;
+  place-items: center;
+  justify-self: center;
+  align-self: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 9999px;
+  background: var(--color-card);
+  box-shadow: var(--shadow-card);
+}
+.case-study-markdown .cs-change-arrow::before {
+  content: "";
+  width: 1rem;
+  height: 1rem;
+  background-color: var(--color-foreground);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+@media (max-width: 767px) {
+  .case-study-markdown .cs-change-arrow::before {
+    transform: rotate(90deg);
+  }
+}
+.case-study-markdown .cs-change-what {
+  margin-top: 1.5rem;
+  border-top: 1px solid var(--color-border);
+  padding-top: 1.25rem;
+}
+.case-study-markdown .cs-change-what ol {
+  display: grid;
+  gap: 0.6rem;
+  margin-top: 0.75rem;
+  padding-left: 1.25rem;
+}
+.case-study-markdown .cs-change-what li {
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+.case-study-markdown .cs-change-what li + li {
+  margin-top: 0;
+}
+.case-study-markdown .cs-change-what li b {
+  color: var(--color-foreground);
+  font-weight: 600;
+}
+@media (min-width: 768px) {
+  .case-study-markdown .cs-change-what ol {
+    grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+    gap: 1rem 1.5rem;
+  }
+}
+.case-study-markdown .cs-tablist label {
+  white-space: nowrap;
+}
+@media (max-width: 767px) {
+  .case-study-markdown .cs-change {
+    padding: 1.25rem 1rem;
+  }
+  .case-study-markdown .cs-change-pane {
+    padding: 0.75rem;
+  }
+  .case-study-markdown .cs-change-pane .cs-tablist label {
+    padding: 0.35rem 0.6rem;
   }
 }

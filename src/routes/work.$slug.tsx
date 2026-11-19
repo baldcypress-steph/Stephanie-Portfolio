@@ -343,10 +343,10 @@ function AgoCaseStudyPage({ study }: { study: CaseStudy }) {
             </TextLink>
             <div className="mt-12 grid gap-10 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-end">
               <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">
+                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">
                   Case study · {study.year}
                 </p>
-                <h1 className="mt-5 max-w-4xl font-display text-5xl font-semibold leading-[0.92] tracking-[-0.04em] text-foreground sm:text-7xl">
+                <h1 className="mt-5 max-w-4xl font-display text-4xl font-bold leading-[0.95] tracking-tight text-foreground sm:text-6xl lg:text-7xl">
                   {study.title}
                 </h1>
                 <p className="mt-7 max-w-[58ch] text-lg leading-relaxed text-muted-foreground sm:text-xl">
@@ -368,12 +368,12 @@ function AgoCaseStudyPage({ study }: { study: CaseStudy }) {
             alt={`Placeholder cover artwork for ${study.title}`}
             width={1200}
             height={900}
-            className="case-study-cover aspect-[16/9] w-full rounded-[1.5rem] border border-white/70 object-cover shadow-card"
+            className="case-study-cover aspect-[16/9] w-full rounded-2xl border border-white/60 object-cover shadow-card"
           />
         </div>
 
         <div className="mx-auto w-full max-w-4xl xl:grid xl:max-w-[76rem] xl:grid-cols-[12rem_minmax(0,56rem)] xl:gap-10 xl:px-8">
-          <AgoSideNav />
+          <CaseStudySideNav sections={agoSections} />
           <article
             className="case-study-markdown w-full px-5 py-16 sm:px-8 sm:py-24 xl:px-0"
             dangerouslySetInnerHTML={{ __html: markdownHtml }}
@@ -385,7 +385,9 @@ function AgoCaseStudyPage({ study }: { study: CaseStudy }) {
   );
 }
 
-const agoSections = [
+type SideNavSection = { id: string; label: string; num?: string };
+
+const agoSections: SideNavSection[] = [
   { id: "overview", label: "Overview" },
   { id: "approach", label: "Approach" },
   { id: "competitive-analysis", label: "Competitive analysis", num: "01" },
@@ -396,14 +398,27 @@ const agoSections = [
   { id: "takeaways", label: "Takeaways" },
 ];
 
-function AgoSideNav() {
-  const [active, setActive] = useState("overview");
+const diarySections: SideNavSection[] = [
+  { id: "overview", label: "Overview" },
+  { id: "role", label: "My role" },
+  { id: "approach", label: "Approach" },
+  { id: "framing", label: "Background research", num: "01" },
+  { id: "diaries", label: "Diary entries", num: "02" },
+  { id: "hypotheses", label: "Synthesis", num: "03" },
+  { id: "findings", label: "What I found" },
+  { id: "recommendations", label: "What I recommended" },
+  { id: "redesign", label: "Redesigned screens" },
+  { id: "takeaways", label: "Takeaways" },
+];
+
+function CaseStudySideNav({ sections }: { sections: SideNavSection[] }) {
+  const [active, setActive] = useState(sections[0]?.id ?? "");
 
   useEffect(() => {
     const update = () => {
       const line = window.innerHeight * 0.3;
-      let current = "overview";
-      for (const { id } of agoSections) {
+      let current = sections[0]?.id ?? "";
+      for (const { id } of sections) {
         const el = document.getElementById(id);
         if (el && el.getBoundingClientRect().top <= line) current = id;
       }
@@ -416,16 +431,16 @@ function AgoSideNav() {
       window.removeEventListener("scroll", update);
       window.removeEventListener("resize", update);
     };
-  }, []);
+  }, [sections]);
 
   return (
     <nav aria-label="On this page" className="cs-sidenav hidden xl:block">
       <div className="sticky top-28 py-24">
-        <p className="text-[0.65rem] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+        <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
           On this page
         </p>
         <ol className="mt-4 border-l border-border/70">
-          {agoSections.map(({ id, label, num }) => (
+          {sections.map(({ id, label, num }) => (
             <li key={id}>
               <a
                 href={`#${id}`}
@@ -443,8 +458,22 @@ function AgoSideNav() {
   );
 }
 
+// Autoplaying clips in case study content stop for people who prefer reduced motion,
+// and get play controls instead.
+function useReducedMotionVideos() {
+  useEffect(() => {
+    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    document.querySelectorAll<HTMLVideoElement>(".case-study-markdown video[autoplay]").forEach((video) => {
+      video.autoplay = false;
+      video.pause();
+      video.controls = true;
+    });
+  }, []);
+}
+
 function RecalculatingDiaryStudyPage({ study }: { study: CaseStudy }) {
   const markdownHtml = renderRecalculatingDiaryStudyMarkdown();
+  useReducedMotionVideos();
 
   return (
     <div className="min-h-screen bg-background">
@@ -459,10 +488,10 @@ function RecalculatingDiaryStudyPage({ study }: { study: CaseStudy }) {
             </TextLink>
             <div className="mt-12 grid gap-10 lg:grid-cols-[minmax(0,1fr)_18rem] lg:items-end">
               <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">
+                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">
                   Case study · {study.year}
                 </p>
-                <h1 className="mt-5 max-w-4xl font-display text-5xl font-semibold leading-[0.92] tracking-[-0.04em] text-foreground sm:text-7xl">
+                <h1 className="mt-5 max-w-4xl font-display text-4xl font-bold leading-[0.95] tracking-tight text-foreground sm:text-6xl lg:text-7xl">
                   {study.title}
                 </h1>
                 <p className="mt-7 max-w-[58ch] text-lg leading-relaxed text-muted-foreground sm:text-xl">
@@ -473,6 +502,7 @@ function RecalculatingDiaryStudyPage({ study }: { study: CaseStudy }) {
                 <Meta label="Role" value={study.role} />
                 <Meta label="Timeline" value={study.timeline} />
                 <Meta label="Team" value={study.team} />
+                <Meta label="Methods" value="Diary study, pre- and post-study interviews" />
               </dl>
             </div>
           </div>
@@ -484,26 +514,33 @@ function RecalculatingDiaryStudyPage({ study }: { study: CaseStudy }) {
             alt={`Cover artwork for ${study.title}`}
             width={1200}
             height={900}
-            className="case-study-cover aspect-[16/9] w-full rounded-[1.5rem] border border-white/70 object-cover shadow-card"
+            className="case-study-cover aspect-[16/9] w-full rounded-2xl border border-white/60 object-cover shadow-card"
           />
         </div>
 
-        <article
-          className="case-study-markdown mx-auto w-full max-w-4xl px-5 py-16 sm:px-8 sm:py-24"
-          dangerouslySetInnerHTML={{ __html: markdownHtml }}
-        />
+        <div className="mx-auto w-full max-w-4xl xl:grid xl:max-w-[76rem] xl:grid-cols-[12rem_minmax(0,56rem)] xl:gap-10 xl:px-8">
+          <CaseStudySideNav sections={diarySections} />
+          <article
+            className="case-study-markdown w-full px-5 py-16 sm:px-8 sm:py-24 xl:px-0"
+            dangerouslySetInnerHTML={{ __html: markdownHtml }}
+          />
+        </div>
       </main>
       <SiteFooter />
     </div>
   );
 }
 
-function renderAgoMarkdown() {
-  const html = marked.parse(agoMarkdown) as string;
-  const withoutDuplicateIntro = html.replace(
+// The hero already shows the title, hook and meta, so drop their Markdown copies.
+function stripDuplicateIntro(html: string) {
+  return html.replace(
     /^<h[12]>[\s\S]*?<\/h[12]>\s*<p><em>[\s\S]*?<\/em><\/p>\s*<table>[\s\S]*?<\/table>\s*/,
     "",
   );
+}
+
+function renderAgoMarkdown() {
+  const withoutDuplicateIntro = stripDuplicateIntro(marked.parse(agoMarkdown) as string);
 
   return withoutDuplicateIntro.replace(
     /<p>(?:&#91;|\[)(.*?)(?:&#93;|\])<\/p>/g,
@@ -627,6 +664,5 @@ function renderAgoMarkdown() {
 }
 
 function renderRecalculatingDiaryStudyMarkdown() {
-  const html = marked.parse(recalculatingDiaryStudyMarkdown) as string;
-  return html.replace("<table>", '<table class="case-study-timeline">');
+  return stripDuplicateIntro(marked.parse(recalculatingDiaryStudyMarkdown) as string);
 }

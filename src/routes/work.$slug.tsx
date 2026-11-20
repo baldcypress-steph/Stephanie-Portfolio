@@ -395,6 +395,7 @@ const agoSections: SideNavSection[] = [
   { id: "contextual-inquiry", label: "Contextual inquiry", num: "03" },
   { id: "findings", label: "What I found" },
   { id: "recommendations", label: "What I recommended" },
+  { id: "redesign", label: "Redesigned screens" },
   { id: "takeaways", label: "Takeaways" },
 ];
 

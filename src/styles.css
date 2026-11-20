@@ -1509,8 +1509,8 @@
 .case-study-markdown .cs-jm {
   --jm-label: 8rem;
   display: grid;
-  grid-template-columns: var(--jm-label) repeat(7, minmax(6.75rem, 1fr));
-  min-width: 55rem;
+  grid-template-columns: var(--jm-label) repeat(var(--jm-n, 7), minmax(6.75rem, 1fr));
+  min-width: calc(var(--jm-label) + var(--jm-n, 7) * 6.75rem);
   font-size: 0.75rem;
   font-size: 0.75rem;
   line-height: 1.4;
@@ -1548,7 +1548,7 @@
 }
 .case-study-markdown .cs-jm-feel {
   position: relative;
-  grid-column: span 7;
+  grid-column: span var(--jm-n, 7);
   height: 8.5rem;
   margin: 0.5rem 0 1.25rem;
 }
@@ -1607,8 +1607,8 @@
 .case-study-markdown .cs-jm-line {
   position: relative;
   display: grid;
-  grid-column: span 7;
-  grid-template-columns: repeat(7, minmax(0, 1fr));
+  grid-column: span var(--jm-n, 7);
+  grid-template-columns: repeat(var(--jm-n, 7), minmax(0, 1fr));
   margin: 0;
   padding: 0.9rem 0 0.75rem;
   border-top: 1px solid var(--color-border);
@@ -1618,8 +1618,8 @@
   content: "";
   position: absolute;
   top: 1.25rem;
-  left: calc(100% / 14);
-  right: calc(100% / 14);
+  left: calc(100% / (2 * var(--jm-n, 7)));
+  right: calc(100% / (2 * var(--jm-n, 7)));
   height: 4px;
   border-radius: 9999px;
   background: var(--color-accent);
@@ -1901,4 +1901,265 @@
   .case-study-markdown .cs-change-pane .cs-tablist label {
     padding: 0.35rem 0.6rem;
   }
+}
+
+/* Before/after panes that show a full screenshot (web pages, photos) instead of a phone */
+.case-study-markdown .cs-change-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-card);
+}
+
+/* Problem explorer: numbered problem cards; the selected one shows its screenshot on the stage */
+.case-study-markdown .cs-explorer {
+  margin-top: 1.75rem;
+}
+.case-study-markdown .cs-explorer > input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.case-study-markdown .cs-explorer-stage {
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: var(--radius-card);
+  background: var(--glass-card);
+  box-shadow: var(--shadow-card);
+  padding: 1rem;
+}
+.case-study-markdown .cs-explorer-shot {
+  display: none;
+  margin: 0;
+}
+.case-study-markdown .cs-explorer-shot img {
+  display: block;
+  width: 100%;
+  height: clamp(14rem, 42vw, 26rem);
+  border-radius: var(--radius);
+  background: var(--color-card);
+  object-fit: contain;
+}
+.case-study-markdown .cs-explorer-shot figcaption {
+  margin-top: 0.75rem;
+  color: var(--color-muted-foreground);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+.case-study-markdown .cs-explorer-shot figcaption b {
+  margin-right: 0.35rem;
+  color: var(--color-accent);
+  font-family: var(--font-display);
+  font-weight: 600;
+}
+.case-study-markdown .cs-explorer-cards {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+}
+@media (min-width: 640px) {
+  .case-study-markdown .cs-explorer-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (min-width: 1024px) {
+  .case-study-markdown .cs-explorer-cards {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+.case-study-markdown .cs-explorer-cards label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: var(--radius-card);
+  background: var(--glass-card);
+  box-shadow: var(--shadow-card);
+  padding: 1rem;
+  cursor: pointer;
+  transition: border-color 150ms ease, box-shadow 150ms ease;
+}
+.case-study-markdown .cs-explorer-cards label:hover {
+  border-color: var(--color-border);
+}
+.case-study-markdown .cs-explorer-num {
+  color: var(--color-accent);
+  font-family: var(--font-display);
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+.case-study-markdown .cs-explorer-title {
+  color: var(--color-foreground);
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.25;
+}
+.case-study-markdown .cs-explorer-desc {
+  color: var(--color-muted-foreground);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+.case-study-markdown .cs-explorer-hint {
+  margin-top: 0.75rem !important;
+  color: var(--color-muted-foreground);
+  font-size: 0.75rem;
+}
+/* selected card + its screenshot (up to 6 problems) */
+.case-study-markdown .cs-explorer:has(> input:nth-of-type(1):checked) .cs-explorer-shot:nth-of-type(1),
+.case-study-markdown .cs-explorer:has(> input:nth-of-type(2):checked) .cs-explorer-shot:nth-of-type(2),
+.case-study-markdown .cs-explorer:has(> input:nth-of-type(3):checked) .cs-explorer-shot:nth-of-type(3),
+.case-study-markdown .cs-explorer:has(> input:nth-of-type(4):checked) .cs-explorer-shot:nth-of-type(4),
+.case-study-markdown .cs-explorer:has(> input:nth-of-type(5):checked) .cs-explorer-shot:nth-of-type(5),
+.case-study-markdown .cs-explorer:has(> input:nth-of-type(6):checked) .cs-explorer-shot:nth-of-type(6) {
+  display: block;
+}
+.case-study-markdown .cs-explorer:has(> input:nth-of-type(1):checked) .cs-explorer-cards label:nth-of-type(1),
+.case-study-markdown .cs-explorer:has(> input:nth-of-type(2):checked) .cs-explorer-cards label:nth-of-type(2),
+.case-study-markdown .cs-explorer:has(> input:nth-of-type(3):checked) .cs-explorer-cards label:nth-of-type(3),
+.case-study-markdown .cs-explorer:has(> input:nth-of-type(4):checked) .cs-explorer-cards label:nth-of-type(4),
+.case-study-markdown .cs-explorer:has(> input:nth-of-type(5):checked) .cs-explorer-cards label:nth-of-type(5),
+.case-study-markdown .cs-explorer:has(> input:nth-of-type(6):checked) .cs-explorer-cards label:nth-of-type(6) {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 1px var(--color-accent), var(--shadow-card);
+}
+.case-study-markdown .cs-explorer:has(> input:nth-of-type(1):focus-visible) .cs-explorer-cards label:nth-of-type(1),
+.case-study-markdown .cs-explorer:has(> input:nth-of-type(2):focus-visible) .cs-explorer-cards label:nth-of-type(2),
+.case-study-markdown .cs-explorer:has(> input:nth-of-type(3):focus-visible) .cs-explorer-cards label:nth-of-type(3),
+.case-study-markdown .cs-explorer:has(> input:nth-of-type(4):focus-visible) .cs-explorer-cards label:nth-of-type(4),
+.case-study-markdown .cs-explorer:has(> input:nth-of-type(5):focus-visible) .cs-explorer-cards label:nth-of-type(5),
+.case-study-markdown .cs-explorer:has(> input:nth-of-type(6):focus-visible) .cs-explorer-cards label:nth-of-type(6) {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+@media (max-width: 639px) {
+  .case-study-markdown .cs-explorer-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.5rem;
+  }
+  .case-study-markdown .cs-explorer-cards label {
+    padding: 0.75rem;
+  }
+  .case-study-markdown .cs-explorer-desc {
+    display: none;
+  }
+  .case-study-markdown .cs-explorer-title {
+    font-size: 0.875rem;
+  }
+}
+
+/* Photo grids: every image in a row shares one shape */
+.case-study-markdown .cs-grid img {
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+.case-study-markdown .cs-grid--portrait img {
+  aspect-ratio: 3 / 4;
+}
+
+/* Floor plan / site diagram (SVG drawn in the site's style) */
+.case-study-markdown .cs-floorplan {
+  margin: 1.75rem 0;
+}
+.case-study-markdown .cs-floorplan-scroll {
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: var(--radius-card);
+  background: var(--glass-card);
+  box-shadow: var(--shadow-card);
+  padding: 1rem;
+}
+.case-study-markdown .cs-floorplan svg {
+  display: block;
+  width: 100%;
+  min-width: 46rem;
+  height: auto;
+}
+.case-study-markdown .cs-floorplan .fp-room {
+  fill: var(--color-card);
+  stroke: var(--color-border);
+  stroke-width: 1.5;
+}
+.case-study-markdown .cs-floorplan .fp-booth {
+  fill: var(--color-card);
+  stroke: var(--color-accent);
+  stroke-width: 1.5;
+  stroke-dasharray: 4 3;
+}
+.case-study-markdown .cs-floorplan .fp-wall {
+  stroke: var(--color-foreground);
+  stroke-width: 4;
+  stroke-linecap: round;
+}
+.case-study-markdown .cs-floorplan .fp-staff {
+  fill: var(--color-muted);
+  stroke: var(--color-border);
+}
+.case-study-markdown .cs-floorplan .fp-map {
+  fill: var(--color-accent);
+}
+.case-study-markdown .cs-floorplan .fp-label {
+  fill: var(--color-foreground);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 600;
+}
+.case-study-markdown .cs-floorplan .fp-small {
+  fill: var(--color-muted-foreground);
+  font-size: 12px;
+  font-weight: 400;
+}
+.case-study-markdown .cs-floorplan .fp-accent {
+  fill: var(--color-accent);
+  font-weight: 600;
+}
+.case-study-markdown .cs-floorplan .fp-path {
+  fill: none;
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+.case-study-markdown .cs-floorplan .fp-path--public {
+  stroke: var(--color-accent);
+}
+.case-study-markdown .cs-floorplan .fp-path--pass {
+  stroke: var(--color-muted-foreground);
+  stroke-dasharray: 6 5;
+}
+.case-study-markdown .cs-floorplan-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.25rem;
+  margin-top: 0.75rem;
+  color: var(--color-muted-foreground);
+  font-size: 0.75rem;
+}
+.case-study-markdown .cs-floorplan-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.case-study-markdown .fp-key {
+  display: inline-block;
+  width: 1.25rem;
+  height: 0;
+  border-top: 3px solid var(--color-accent);
+}
+.case-study-markdown .fp-key--pass {
+  border-top: 3px dashed var(--color-muted-foreground);
+}
+.case-study-markdown .fp-key--booth {
+  height: 0.75rem;
+  border: 1.5px dashed var(--color-accent);
+  border-radius: 3px;
+}
+.case-study-markdown .cs-floorplan figcaption {
+  margin-top: 0.5rem;
+  color: var(--color-muted-foreground);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+.case-study-markdown .cs-grid--2.cs-grid--portrait {
+  max-width: 36rem;
 }

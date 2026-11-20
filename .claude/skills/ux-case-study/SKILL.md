@@ -7,6 +7,8 @@ description: Write, rewrite, or review case studies for Stephanie's portfolio si
 
 Turn a project into a **story a reader can grasp in 10 seconds, and explore for 10 minutes if they want to**. The top tells the whole story. Everything below goes deeper, one clearly marked section at a time.
 
+**Components are fixed.** Personas, journey maps, before/after change cards, the problem explorer, tabs, charts, takeaways and references are built exactly as described in [references/design-standard.md](references/design-standard.md), the same way on every case study. Reuse them; never restyle one for a single page.
+
 Before writing, read:
 - [references/design-standard.md](references/design-standard.md): the shared conventions and blocks every case study uses, and what may vary between projects
 - [references/content-schema.md](references/content-schema.md): where case study content lives and how each story part maps to it
@@ -53,7 +55,7 @@ Research projects (either shape) also follow the *Research projects* rules below
 ### 0. Side navigation (desktop only)
 An "On this page" list in a left column from 1280px (`xl`) wide: every top-level section, with numbered parts (`01`, `02`, `03`). It sticks while the page scrolls, the section in view is highlighted, and links scroll smoothly. It's hidden below 1280px, where the page reads top to bottom.
 
-**Already built:** reuse `AgoSideNav` in `src/routes/work.$slug.tsx` (styles: `.cs-sidenav-*` in `src/styles.css`). For a new page, give each section marker in the Markdown an `id` (e.g. `<p class="cs-eyebrow" id="overview">`), list the same ids in the nav's sections array, and wrap the article in the `xl:grid xl:grid-cols-[12rem_minmax(0,56rem)]` layout. Generalise it into a shared component that takes the sections as a prop when the second page needs it.
+**Already built:** `CaseStudySideNav` in `src/routes/work.$slug.tsx` takes a `SideNavSection[]` (styles: `.cs-sidenav-*` in `src/styles.css`). For a new page, give each section marker in the Markdown an `id` (e.g. `<p class="cs-eyebrow" id="overview">`), list the same ids in a new sections array, and wrap the article in the `xl:grid xl:grid-cols-[12rem_minmax(0,56rem)]` layout.
 
 ### 1. Hero
 - **Eyebrow:** `Case study · {year} · {discipline}`
@@ -70,7 +72,7 @@ Problem → Insight → Solution as three numbered cards joined by arrows (stack
 | Card | Contains |
 |---|---|
 | **Problem** | One plain sentence (≤ 15 words) as the headline, plus one short line (≤ 15 words) |
-| **Insight** | Same format. The turning point; it must reframe, not restate ("Visitors didn't need a better account. They needed a better visit."). Accent number and top border |
+| **Insight** | Same format. The turning point; it must reframe, not restate ("Visitors didn't need a better account. They needed a better visit."). Same styling as the other two cards (no highlight) |
 | **Solution** | Same format. Must clearly follow from the Insight. Its short line can say where it landed (presented, shipped, tested) |
 
 Read the three headlines alone: they must form one cause → effect sentence.
@@ -113,7 +115,7 @@ After the parts, a section that pulls everything together:
 ### 8. Before & after
 Show what changes, even for research projects:
 - A **roadmap** of the recommendations in priority order (5 at most)
-- **Tabs per screen or touchpoint**, each with a **Before / After toggle** on one image frame, next to **numbered changes**. Each change has a title, one line of explanation, and a **link back to the insight or finding that justifies it**.
+- A **Redesigned screens** section with one **change card** per redesign: the change, *why* (finding + insight number, optional quote), **Before → After** side by side, then numbered **what changes**, each linked back to its insight. Exact markup and rules: the *Redesigned screens* component in [references/design-standard.md](references/design-standard.md).
 - Where no design exists yet, use labelled placeholders (`[Placeholder] After: …`) and list them as TODOs.
 
 ### 9. Key takeaways

@@ -81,8 +81,6 @@ The account was the most telling gap. It existed only inside the cart, and signi
 
 <p class="cs-takeaway"><span>Key takeaway</span>The AGO had an account, but no reason for anyone to use it.</p>
 
-<p class="cs-bridge"><b>→</b>I had a hypothesis about what visitors wanted. The next step was to ask them.</p>
-
 <p class="cs-part" id="interviews"><span>02</span>Interviews · Oct 2025</p>
 
 ### My hypothesis was wrong, in a useful way
@@ -198,7 +196,7 @@ At the ROM, maps and tours were everywhere, in several languages, with audio tou
 
 In the China gallery, I asked a participant to find the name of one object. She spent a long time working down a list of text beside the case, trying to match it to what she saw. Then she realized **we were standing at the back of the glass case**. Nothing had told her.
 
-<div class="cs-grid cs-grid--2 cs-grid--portrait"><figure><img src="/ago/photos/rom-china-object.jpg" alt="Bronze object in a ROM China gallery case, circled" loading="lazy" /><figcaption>&ldquo;How would you find out the title of this item?&rdquo;</figcaption></figure><figure><img src="/ago/photos/rom-china-list.jpg" alt="Long numbered list of object names beside the case, outlined" loading="lazy" /><figcaption>The answer was in a long list, on the other side of the case</figcaption></figure></div>
+<div class="cs-grid cs-grid--2 cs-grid--portrait"><figure><img src="/ago/photos/rom-china-object.jpg" alt="Bronze object in a ROM China gallery case, circled" loading="lazy" /><figcaption>&ldquo;How would you find out the title of this item?&rdquo;</figcaption></figure><figure><img src="/ago/photos/rom-china-front.jpg" alt="Two ceramic vessels in a ROM China gallery case, each with a printed label in front" loading="lazy" /><figcaption>From the other side of the case, each object had its own label</figcaption></figure></div>
 
 At the AGO, a pamphlet meant to explain a case of snuff bottles was broken, in English only, and not accessible.
 
@@ -210,7 +208,7 @@ At the AGO, a pamphlet meant to explain a case of snuff bottles was broken, in E
 
 #### 3.4 When the screen matched the shelf
 
-At the ROM, an interactive map laid out exactly like the display case changed everything. My participant tapped through the objects and **learned more in minutes than she had all visit**. The match between what she saw and what the screen showed did the work.
+At the ROM, an interactive map laid out exactly like the display case changed everything. My participant tapped through the objects and learned more in minutes than she had all visit. The match between what she saw and what the screen showed did the work.
 
 <div class="cs-grid cs-grid--3"><figure><img src="/ago/photos/rom-screen-1.jpg" alt="ROM touchscreen showing the minerals in the case beside it" loading="lazy" /><figcaption>The screen lays out the case it sits beside</figcaption></figure><figure><img src="/ago/photos/rom-screen-2.jpg" alt="Participant tapping a mineral on the touchscreen" loading="lazy" /><figcaption>Tap the object you can see</figcaption></figure><figure><img src="/ago/photos/rom-screen-3.jpg" alt="Touchscreen showing details for crocoite" loading="lazy" /><figcaption>Name, origin and details appear</figcaption></figure></div>
 
@@ -232,13 +230,11 @@ The moments participants remembered were interactive, surprising or reflective: 
 >
 > <cite>Bertron, Schwarz &amp; Frey, <em>Designing Exhibitions</em> (2012)<sup>4</sup></cite>
 
-<p class="cs-takeaway"><span>Key takeaway</span>The best moments were interactive. The account could bring more of them.</p>
+<p class="cs-takeaway"><span>Key takeaway</span>The best moments were interactive.</p>
 
 <p class="cs-eyebrow" id="findings">What I found</p>
 
 ### Five insights that change what the account is for
-
-Each insight is backed by at least two studies.
 
 #### 01 The account is a receipt, not a relationship.
 
@@ -286,7 +282,7 @@ I turned the insights into a redesigned account and a sequence of changes, start
 
 I presented these concepts with the final report. Each change below starts with what I found, shows the AGO today, and then how the redesign would handle it.
 
-<article class="cs-card cs-change"><header class="cs-change-head"><p class="cs-num">01</p><div><p class="cs-title">Turn the account into a guide for the visit</p><p class="cs-change-why"><span>Why</span>The account only worked at checkout, and signing in changed nothing. Visitors also plan in groups, but the account assumes one person. <em>(Insights 01 and 05)</em></p><p class="cs-change-quote">&ldquo;I don&rsquo;t see much of a difference between having an account and not having an account.&rdquo; <cite>Participant 5</cite></p></div></header><div class="cs-change-compare"><div class="cs-change-pane"><p class="cs-who">Before</p><img class="cs-change-img" src="/ago/competitiveanalysis/CA6_Issue_W_Account.png" alt="Current AGO sign-in page shown to a logged-in user" loading="lazy" /><p class="cs-change-cap">A sign-in page, even when you&rsquo;re signed in</p></div><span class="cs-change-arrow" aria-hidden="true"></span><div class="cs-change-pane cs-change-pane--after"><p class="cs-who">After</p><img class="cs-change-img" src="/ago/contextualinquiry/recommendations/CI_R2_Redesign_Account.png" alt="Redesigned AGO account concept" loading="lazy" /><p class="cs-change-cap">An account that plans the visit</p></div></div><div class="cs-change-what"><p class="cs-who">What changes</p><ol><li><b>An account that knows you.</b> The sign-in state is respected, and the account becomes a home instead of a form. <em>(Insight 01)</em></li><li><b>Plan a trip and group trips.</b> Pick a date, party size and interests, and invite others. <em>(Insight 05)</em></li><li><b>Saved exhibits and tours.</b> Self-guided and audio tours that continue where you left off. <em>(Insight 04)</em></li><li><b>Recommended for you.</b> Interests, upcoming events and language preference. <em>(Insights 02 and 03)</em></li></ol></div></article>
+<article class="cs-card cs-change"><header class="cs-change-head"><p class="cs-num">01</p><div><p class="cs-title">Turn the account into a guide for the visit</p><p class="cs-change-why"><span>Why</span>The account only worked at checkout, and signing in changed nothing. Visitors also plan in groups, but the account assumes one person. <em>(Insights 01 and 05)</em></p><p class="cs-change-quote">&ldquo;I don&rsquo;t see much of a difference between having an account and not having an account.&rdquo; <cite>Participant 5</cite></p></div></header><div class="cs-change-compare"><div class="cs-change-pane"><p class="cs-who">Before</p><img class="cs-change-img" src="/ago/competitiveanalysis/CA6_Issue_W_Account.png" alt="Current AGO sign-in page shown to a logged-in user" loading="lazy" /><p class="cs-change-cap">A sign-in page, even when you&rsquo;re signed in</p></div><span class="cs-change-arrow" aria-hidden="true"></span><div class="cs-change-pane cs-change-pane--after"><p class="cs-who">After</p><div class="cs-change-scroll" tabindex="0" role="region" aria-label="Full redesigned account page, scrollable"><img src="/ago/photos/mockup-account.jpg" alt="Redesigned AGO account page, Oliver&rsquo;s AGO: plan your trip, member offers, group trips, saved exhibits, self-guided and audio tours, learning content, the collection, an interactive gallery map, recommendations and a feedback form" loading="lazy" /></div><p class="cs-change-cap">Oliver&rsquo;s AGO: an account that plans the visit. Scroll to see the full page</p></div></div><div class="cs-change-what"><p class="cs-who">What changes</p><ol><li><b>An account that knows you.</b> The sign-in state is respected, and the account becomes a home instead of a form. <em>(Insight 01)</em></li><li><b>Plan a trip and group trips.</b> Pick a date, party size and interests, and invite others. <em>(Insight 05)</em></li><li><b>Saved exhibits and tours.</b> Self-guided and audio tours that continue where you left off. <em>(Insight 04)</em></li><li><b>Recommended for you.</b> Interests, upcoming events and language preference. <em>(Insights 02 and 03)</em></li></ol></div></article>
 
 <article class="cs-card cs-change"><header class="cs-change-head"><p class="cs-num">02</p><div><p class="cs-title">Bring the account into the gallery</p><p class="cs-change-why"><span>Why</span>The hardest moments happened in front of the art: hidden maps, and lists to decode at the back of a case. Information worked when it matched what visitors could see. <em>(Insight 04)</em></p></div></header><div class="cs-change-compare"><div class="cs-change-pane"><p class="cs-who">Before</p><img class="cs-change-img" src="/ago/photos/ago-map-stack.jpg" alt="A small stack of AGO paper maps on the ticket counter" loading="lazy" /><p class="cs-change-cap">A small stack of paper maps</p></div><span class="cs-change-arrow" aria-hidden="true"></span><div class="cs-change-pane cs-change-pane--after"><p class="cs-who">After</p><img class="cs-change-img" src="/ago/photos/concept-display-case.png" alt="Concept: a digital display case that mirrors the physical case, with object details on tap" loading="lazy" /><p class="cs-change-cap">A display map that mirrors the case, with object details on tap</p></div></div><div class="cs-change-what"><p class="cs-who">What changes</p><ol><li><b>An interactive map in the account.</b> Find galleries and exhibits before and during the visit. <em>(Insight 04)</em></li><li><b>Maps that match the case.</b> Tap an object on a layout that mirrors the display. <em>(Finding 3.4)</em></li><li><b>QR object pages.</b> More context for each object, in more languages. <em>(Finding 3.3)</em></li></ol></div></article>
 

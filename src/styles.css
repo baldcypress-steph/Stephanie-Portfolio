@@ -1775,6 +1775,10 @@
   .case-study-markdown .cs-change-compare:has(.cs-tabs) {
     grid-template-columns: minmax(0, 1.7fr) 2rem minmax(0, 1fr);
   }
+  /* once the "after" side has its own phone pair, split evenly so both pairs are the same size */
+  .case-study-markdown .cs-change-compare:has(.cs-tabs):has(.cs-change-pane--after .cs-shot-pair) {
+    grid-template-columns: minmax(0, 1fr) 2rem minmax(0, 1fr);
+  }
 }
 .case-study-markdown .cs-change-pane {
   display: flex;

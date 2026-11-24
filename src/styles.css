@@ -1892,6 +1892,40 @@
     gap: 1rem 1.5rem;
   }
 }
+/* Update: a dated note at the end of a change card, e.g. when a real app later ships the change */
+.case-study-markdown .cs-change-update {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  border-top: 1px solid var(--color-border);
+  padding-top: 1.25rem;
+}
+.case-study-markdown .cs-change-update > div > .cs-who {
+  color: var(--color-accent);
+}
+.case-study-markdown .cs-change-update > div > p:not(.cs-who) {
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+.case-study-markdown .cs-change-update .cs-shot-pair img,
+.case-study-markdown .cs-change-update .cs-shot-pair video {
+  max-width: 11rem;
+}
+.case-study-markdown .cs-change-update .cs-shot-pair figcaption {
+  margin: 0.75rem auto 0;
+  color: var(--color-muted-foreground);
+  font-size: 0.75rem;
+  line-height: 1.5;
+  text-align: center;
+}
+@media (min-width: 768px) {
+  .case-study-markdown .cs-change-update {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: center;
+    gap: 1.5rem;
+  }
+}
 .case-study-markdown .cs-tablist label {
   white-space: nowrap;
 }

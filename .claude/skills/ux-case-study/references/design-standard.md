@@ -124,6 +124,7 @@ then one **change card** per redesign (2–4):
 Media inside a pane, one of:
 - Phone screenshot + screen recording: `<figure class="cs-shot-pair"><div><img/><video/></div><figcaption>…</figcaption></figure>`. **Screenshot always first, video second.** Captions name the app: "Before, in Google Maps: …" plus a reference superscript.
 - Several apps for the same problem: put the shot pairs in app tabs inside the Before pane (the compare grid widens the Before side automatically). When the After pane also holds a shot pair, the grid splits evenly so both sides' phones are the same size. Crop recordings to the phone screen only, with no mockup bezel or background.
+- Optional **Update** block (`.cs-change-update`) after What changes, when something changed after the study (e.g. a real app later shipped the change). Label it `Update · Month Year` in a `cs-who`, one or two plain sentences, then a shot pair with a caption naming the app and date.
 - Web page or photo: `<img class="cs-change-img" …/>`.
 - Not ready yet: `<div class="cs-change-ph"><span>Placeholder</span>Screenshot coming</div>` (Before) or `<span>Redesign</span>Screen coming` (After).
 
